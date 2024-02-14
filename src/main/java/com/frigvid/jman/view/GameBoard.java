@@ -6,6 +6,34 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ * A class representing the game board view state.
+ * <br/><br/>
+ * This class is part of the Strategy pattern.
+ * <br/><br/>
+ * <b>Pattern: </b>Strategy
+ * <br/><br/>
+ * <b>Role: </b>Concrete Strategy
+ * <br/><br/>
+ * <b>Collaborators: </b>ViewStateManager, SceneBuilder
+ * <br/><br/>
+ * <b>Responsibility: </b>To provide the view state for the game board,
+ * and to allow for a more flexible way of managing the different states
+ * of the application.
+ * <br/><br/>
+ * <b>Reasons for use: </b>To provide a more flexible way of managing
+ * the different states of the application, and to avoid having to send
+ * around the stage directly.
+ * <br/><br/>
+ * @see com.frigvid.jman.view.MainMenu
+ * @see com.frigvid.jman.view.SceneBuilder
+ * @see com.frigvid.jman.view.state.ViewStateManager
+ * @see com.frigvid.jman.view.state.ViewState
+ * @author frigvid
+ * @created 2024-02-14
+ * @since 0.1
+ * @version 0.1
+ */
 public class GameBoard
 	implements ViewState
 {
