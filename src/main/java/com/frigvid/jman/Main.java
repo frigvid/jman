@@ -22,7 +22,8 @@ import javafx.stage.Stage;
  * @created 2024-02-14
  * @since 0.1
  */
-public class Main extends Application
+public class Main
+	extends Application
 {
 	public static void main(String[] args)
 	{
