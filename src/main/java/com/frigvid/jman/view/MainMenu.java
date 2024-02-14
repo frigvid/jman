@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+import static java.lang.System.exit;
+
 /**
  * The main menu.
  *
@@ -107,6 +109,10 @@ public class MainMenu
 		Button quitButton = new Button("Quit");
 		quitButton.setStyle("-fx-background-color: yellow; -fx-font-weight: bold; -fx-font-family: 'Arial'; -fx-font-size: 14px; -fx-min-width: 100px; -fx-min-height: 20px;");
 		quitButton.setCursor(Cursor.HAND);
+		
+		quitButton.setOnAction(event -> {
+			exit(0); // Normal exit.
+		});
 		
 		buttonsVBox.getChildren().addAll(startGameButton, highScoresButton, mapEditorButton, settingsButton, quitButton);
 		
