@@ -1,6 +1,6 @@
 package com.frigvid.jman;
 
-import com.frigvid.jman.view.ViewStateManager;
+import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

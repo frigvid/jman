@@ -7,4 +7,6 @@ module com.frigvid.jman {
     
     exports com.frigvid.jman.view;
     opens com.frigvid.jman.view;
+	exports com.frigvid.jman.view.state;
+	opens com.frigvid.jman.view.state;
 }

@@ -1,5 +1,6 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.view.state.ViewState;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;

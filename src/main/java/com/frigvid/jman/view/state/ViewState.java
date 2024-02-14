@@ -1,4 +1,4 @@
-package com.frigvid.jman.view;
+package com.frigvid.jman.view.state;
 
 import javafx.stage.Stage;
 

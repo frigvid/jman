@@ -1,5 +1,6 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.view.state.ViewState;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
