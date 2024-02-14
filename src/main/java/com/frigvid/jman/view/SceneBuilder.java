@@ -8,8 +8,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
+ * A builder class for creating JavaFX scenes,
+ * following the Builder pattern.
+ * <br/><br/>
+ * This allows for a less cumbersome way of switching
+ * between different menues and the like, without
+ * sending the stage around directly.
+ *
  * @author frigvid
- * @version 0.1
+ * @version 0.5
  * @created 2024-02-14
  * @since 0.1
  */
@@ -58,6 +65,7 @@ public class SceneBuilder
 		return this;
 	}
 	
+	// TODO: If setWidth and setHeight are not called, don't set the width and height.
 	public void build()
 	{
 		// Catch generic errors first.
