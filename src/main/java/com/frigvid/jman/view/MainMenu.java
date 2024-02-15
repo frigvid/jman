@@ -1,6 +1,6 @@
 package com.frigvid.jman.view;
 
-import com.frigvid.jman.view.state.ViewState;
+import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -25,7 +25,7 @@ import static java.lang.System.exit;
  * @since 0.1
  */
 public class MainMenu
-	implements ViewState
+	implements IViewState
 {
 	private static final int DEFAULT_WIDTH = 800;
 	private static final int DEFAULT_HEIGHT = 500;
@@ -121,7 +121,7 @@ public class MainMenu
 		
 		buttonStartGame.setOnAction(event ->
 		{
-			ViewState view = new GameBoard();
+			IViewState view = new GameBoard();
 			view.start(stage);
 		});
 		

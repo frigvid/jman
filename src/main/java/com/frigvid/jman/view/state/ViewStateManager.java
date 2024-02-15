@@ -22,11 +22,11 @@ import javafx.stage.Stage;
  * the different states of the application, and to avoid having to send
  * around the stage directly.
  * <br/><br/>
- * @see ViewState
+ * @see IViewState
  * @see MainMenu
  * @see com.frigvid.jman.view.MainMenu
  * @see com.frigvid.jman.view.GameBoard
- * @see com.frigvid.jman.view.state.ViewState
+ * @see IViewState
  * @see com.frigvid.jman.view.state.ViewStateManager
  * @author frigvid
  * @created 2024-02-14
@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  */
 public class ViewStateManager
 {
-	private ViewState currentState;
+	private IViewState currentState;
 	
 	public void startMainMenu(Stage stage)
 	{

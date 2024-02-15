@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  * and to avoid having to send around the stage directly.
  * <br/><br/>
  * @see ViewStateManager
- * @see ViewState
+ * @see IViewState
  * @see com.frigvid.jman.view.MainMenu
  * @see com.frigvid.jman.view.GameBoard
  * @author frigvid
@@ -45,7 +45,7 @@ import javafx.stage.Stage;
  * @since 0.1
  * @version 1.0
  */
-public interface ViewState
+public interface IViewState
 {
 	void start(Stage stage);
 }

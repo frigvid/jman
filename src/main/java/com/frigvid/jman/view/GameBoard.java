@@ -1,6 +1,6 @@
 package com.frigvid.jman.view;
 
-import com.frigvid.jman.view.state.ViewState;
+import com.frigvid.jman.view.state.IViewState;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,14 +28,14 @@ import javafx.stage.Stage;
  * @see com.frigvid.jman.view.MainMenu
  * @see com.frigvid.jman.view.SceneBuilder
  * @see com.frigvid.jman.view.state.ViewStateManager
- * @see com.frigvid.jman.view.state.ViewState
  * @author frigvid
  * @created 2024-02-14
+ * @see com.frigvid.jman.view.state.IViewState
  * @since 0.1
  * @version 0.1
  */
 public class GameBoard
-	implements ViewState
+	implements IViewState
 {
 	@Override
 	public void start(Stage stage)
