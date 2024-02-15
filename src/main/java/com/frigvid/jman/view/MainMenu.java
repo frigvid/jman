@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 import static java.lang.System.exit;
-import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
+import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 
 /**
  * The main menu.
@@ -41,7 +41,7 @@ public class MainMenu
 	public void start(Stage stage)
 	{
 		StackPane root = new StackPane();
-		root.setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		//root.setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		VBox mainVBox = new VBox();
