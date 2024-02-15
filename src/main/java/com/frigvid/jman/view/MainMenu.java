@@ -34,7 +34,15 @@ public class MainMenu
 	private static final double GHOST_FIT_HEIGHT = 69.0;
 	private static final double GHOST_FIT_WIDTH = 43.0;
 	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource("/com/frigvid/jman/entity/ghost/")).toExternalForm();
-	private static final String MENU_BUTTON_STYLE = "-fx-background-color: yellow; -fx-font-weight: bold; -fx-font-family: 'Arial'; -fx-font-size: 14px; -fx-min-width: 100px; -fx-min-height: 20px;";
+	// This is perhaps a bit of an uncommon convention, but I find it easier to read and modify this way.
+	private static final String MENU_BUTTON_STYLE = """
+			-fx-background-color: yellow;
+			-fx-font-weight: bold;
+			-fx-font-family: 'Arial';
+			-fx-font-size: 14px;
+			-fx-min-width: 100px;
+			-fx-min-height: 20px;
+		""";
 	
 	@Override
 	public void start(Stage stage)
@@ -93,12 +101,12 @@ public class MainMenu
 		// Menu title.
 		Label titleLabel = new Label(MENU_TITLE);
 		titleLabel.setStyle("""
-					-fx-text-fill: yellow;
-					-fx-font-weight: bold;
-					-fx-font-family: 'Arial';
-					-fx-font-size: 24px;
-					-fx-padding-down: 200px;
-				""");
+				-fx-text-fill: yellow;
+				-fx-font-weight: bold;
+				-fx-font-family: 'Arial';
+				-fx-font-size: 24px;
+				-fx-padding-down: 200px;
+			""");
 		VBox.setMargin(titleLabel, new Insets(5.0, 0, 10.0, 0));
 		
 		VBox buttonVBox = new VBox();
