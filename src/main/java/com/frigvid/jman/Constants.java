@@ -16,6 +16,9 @@ public final class Constants
 		// Restricted instantiation.
 	}
 	
+	public final static int WINDOW_WIDTH = 800;
+	public final static int WINDOW_HEIGHT = 600;
+	
 	public static final String WINDOW_BACKGROUND_COLOR = "-fx-background-color: black;";
 	
 	// This is perhaps a bit of an uncommon convention, but I find it easier to read and modify this way.

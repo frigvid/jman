@@ -4,6 +4,9 @@ import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import static com.frigvid.jman.Constants.WINDOW_WIDTH;
+import static com.frigvid.jman.Constants.WINDOW_HEIGHT;
+
 /**
  * The main class for the application.
  * <br/><br/>
@@ -35,6 +38,27 @@ public class Main
 	{
 		ViewStateManager viewStateManager = new ViewStateManager();
 		viewStateManager.startMainMenu(stage);
-		stage.setMaximized(true);
+		
+		/* Okay, listen, this is going to sound a bit stupid, but hear me out.
+		 *
+		 * As you can see, I'm setting the width and height manually. But since
+		 * the builder class lets you skip defining the width and height, since
+		 * it grabs the width and height from the stage, this shouldn't be
+		 * necessary . . . right?
+		 *
+		 * Wrong. Apparently, due to how JavaFX handles resizing, even if you
+		 * grab the scene's width and height, it'll be a bit bigger each time.
+		 *
+		 * And, apparently, just manually defining it, will fix the issue.
+		 * Regardless of if you resize the window afterward, or if you
+		 * maximize it.
+		 *
+		 * It's probably just a problem with my code, but seriously, if not,
+		 * this is kind of figuratively giving me an aneurysm because the fix
+		 * is just so stupid. I hate it. And love it for being so easy.
+		 */
+		stage.setWidth(WINDOW_WIDTH);
+		stage.setHeight(WINDOW_HEIGHT);
+		stage.centerOnScreen();
 	}
 }
