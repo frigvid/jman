@@ -174,8 +174,6 @@ public class MainMenu
 			.setStage(stage)
 			.setRoot(root)
 			.setTitle(WINDOW_TITLE)
-			.setWidth(DEFAULT_WIDTH)
-			.setHeight(DEFAULT_HEIGHT)
 			.build();
 		
 		stage.setMaximized(true);
