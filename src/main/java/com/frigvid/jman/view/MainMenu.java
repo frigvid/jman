@@ -29,8 +29,6 @@ import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 public class MainMenu
 	implements IViewState
 {
-	private static final int DEFAULT_WIDTH = 800;
-	private static final int DEFAULT_HEIGHT = 500;
 	private static final String MENU_TITLE = "J-Man!";
 	private static final String WINDOW_TITLE = MENU_TITLE + " Main Menu";
 	private static final double GHOST_FIT_HEIGHT = 69.0;
@@ -41,7 +39,6 @@ public class MainMenu
 	public void start(Stage stage)
 	{
 		StackPane root = new StackPane();
-		//root.setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		VBox mainVBox = new VBox();
