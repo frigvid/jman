@@ -2,6 +2,7 @@ package com.frigvid.jman.view;
 
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,7 +43,7 @@ public class MainMenu
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		VBox mainVBox = new VBox();
-		mainVBox.setAlignment(javafx.geometry.Pos.CENTER);
+		mainVBox.setAlignment(Pos.CENTER);
 		mainVBox.setLayoutY(20);
 		mainVBox.setSpacing(10);
 		
@@ -54,7 +55,7 @@ public class MainMenu
 		 * in a method), but eh, whatever. I prefer it like this.
 		 */
 		HBox ImageHBox = new HBox();
-		ImageHBox.setAlignment(javafx.geometry.Pos.CENTER);
+		ImageHBox.setAlignment(Pos.CENTER);
 		ImageHBox.setSpacing(15.0);
 		
 		ImageView blinkyIV = new ImageView(new Image(GHOST_PATH_PREFIX + "blinky/blinky.png"));
@@ -101,7 +102,7 @@ public class MainMenu
 		VBox.setMargin(labelTitle, new Insets(5.0, 0, 10.0, 0));
 		
 		VBox buttonVBox = new VBox();
-		buttonVBox.setAlignment(javafx.geometry.Pos.CENTER);
+		buttonVBox.setAlignment(Pos.CENTER);
 		buttonVBox.setSpacing(20);
 		
 		// Menu buttons.
