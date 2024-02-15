@@ -5,11 +5,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import static com.frigvid.jman.Constants.GAME_TITLE;
 import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
 import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 
@@ -45,7 +45,7 @@ import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 public class GameBoard
 	implements IViewState
 {
-	private static final String WINDOW_TITLE = "J-Man! Game Stage";
+	private static final String WINDOW_TITLE = GAME_TITLE + " Game Stage";
 	private static int highScore = 0;
 	
 	@Override

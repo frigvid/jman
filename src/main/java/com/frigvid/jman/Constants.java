@@ -16,6 +16,8 @@ public final class Constants
 		// Restricted instantiation.
 	}
 	
+	public final static String GAME_TITLE = "J-Man!";
+	
 	public final static int WINDOW_WIDTH = 800;
 	public final static int WINDOW_HEIGHT = 600;
 	

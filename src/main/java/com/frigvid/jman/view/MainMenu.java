@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 import static java.lang.System.exit;
+import static com.frigvid.jman.Constants.GAME_TITLE;
 import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
 import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 
@@ -29,8 +30,7 @@ import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 public class MainMenu
 	implements IViewState
 {
-	private static final String MENU_TITLE = "J-Man!";
-	private static final String WINDOW_TITLE = MENU_TITLE + " Main Menu";
+	private static final String WINDOW_TITLE = GAME_TITLE + " Main Menu";
 	private static final double GHOST_FIT_HEIGHT = 69.0;
 	private static final double GHOST_FIT_WIDTH = 43.0;
 	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource("/com/frigvid/jman/entity/ghost/")).toExternalForm();
@@ -89,7 +89,7 @@ public class MainMenu
 		);
 		
 		// Menu title.
-		Label labelTitle = new Label(MENU_TITLE);
+		Label labelTitle = new Label(GAME_TITLE);
 		labelTitle.setStyle("""
 				-fx-text-fill: yellow;
 				-fx-font-weight: bold;

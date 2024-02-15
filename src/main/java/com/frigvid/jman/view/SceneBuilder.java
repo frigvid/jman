@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.frigvid.jman.Constants.GAME_TITLE;
+
 /**
  * A builder class for creating JavaFX scenes,
  * following the Builder pattern.
@@ -24,7 +26,7 @@ public class SceneBuilder
 {
 	private Stage stage;
 	private Parent root;
-	private String title = "J-Man!";
+	private String title = GAME_TITLE;
 	private int width;
 	private int height;
 	private String fxmlPath;
