@@ -176,7 +176,6 @@ public class MainMenu
 			.setTitle(WINDOW_TITLE)
 			.build();
 		
-		stage.setMaximized(true);
 		stage.show();
 	}
 }

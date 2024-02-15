@@ -35,5 +35,6 @@ public class Main
 	{
 		ViewStateManager viewStateManager = new ViewStateManager();
 		viewStateManager.startMainMenu(stage);
+		stage.setMaximized(true);
 	}
 }
