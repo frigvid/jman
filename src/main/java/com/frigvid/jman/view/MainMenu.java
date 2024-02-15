@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 import static java.lang.System.exit;
+import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 
 /**
  * The main menu.
@@ -34,15 +35,6 @@ public class MainMenu
 	private static final double GHOST_FIT_HEIGHT = 69.0;
 	private static final double GHOST_FIT_WIDTH = 43.0;
 	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource("/com/frigvid/jman/entity/ghost/")).toExternalForm();
-	// This is perhaps a bit of an uncommon convention, but I find it easier to read and modify this way.
-	private static final String MENU_BUTTON_STYLE = """
-			-fx-background-color: yellow;
-			-fx-font-weight: bold;
-			-fx-font-family: 'Arial';
-			-fx-font-size: 14px;
-			-fx-min-width: 100px;
-			-fx-min-height: 20px;
-		""";
 	
 	@Override
 	public void start(Stage stage)
