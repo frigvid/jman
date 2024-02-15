@@ -99,15 +99,16 @@ public class MainMenu
 		);
 		
 		// Menu title.
-		Label titleLabel = new Label(MENU_TITLE);
-		titleLabel.setStyle("""
+		Label labelTitle = new Label(MENU_TITLE);
+		labelTitle.setStyle("""
 				-fx-text-fill: yellow;
 				-fx-font-weight: bold;
 				-fx-font-family: 'Arial';
 				-fx-font-size: 24px;
 				-fx-padding-down: 200px;
 			""");
-		VBox.setMargin(titleLabel, new Insets(5.0, 0, 10.0, 0));
+		// Add some padding between the images and buttons.
+		VBox.setMargin(labelTitle, new Insets(5.0, 0, 10.0, 0));
 		
 		VBox buttonVBox = new VBox();
 		buttonVBox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -161,7 +162,7 @@ public class MainMenu
 		mainVBox.getChildren()
 			.addAll(
 				ImageHBox,
-				titleLabel,
+				labelTitle,
 				buttonVBox
 			);
 		
