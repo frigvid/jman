@@ -16,6 +16,8 @@ public final class Constants
 		// Restricted instantiation.
 	}
 	
+	public static final String WINDOW_BACKGROUND_COLOR = "-fx-background-color: black;";
+	
 	// This is perhaps a bit of an uncommon convention, but I find it easier to read and modify this way.
 	public static final String MENU_BUTTON_STYLE = """
 			-fx-background-color: yellow;

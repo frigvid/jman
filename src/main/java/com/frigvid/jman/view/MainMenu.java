@@ -16,6 +16,7 @@ import java.util.Objects;
 
 import static java.lang.System.exit;
 import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
+import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
 
 /**
  * The main menu.
@@ -41,7 +42,7 @@ public class MainMenu
 	{
 		StackPane root = new StackPane();
 		root.setPrefSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-		root.setStyle("-fx-background-color: black;");
+		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		VBox mainVBox = new VBox();
 		mainVBox.setAlignment(javafx.geometry.Pos.CENTER);
