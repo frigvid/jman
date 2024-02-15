@@ -95,65 +95,66 @@ public class MainMenu
 				""");
 		VBox.setMargin(titleLabel, new Insets(5.0, 0, 10.0, 0));
 		
-		VBox buttonsVBox = new VBox();
-		buttonsVBox.setAlignment(javafx.geometry.Pos.CENTER);
-		buttonsVBox.setSpacing(20);
+		VBox buttonVBox = new VBox();
+		buttonVBox.setAlignment(javafx.geometry.Pos.CENTER);
+		buttonVBox.setSpacing(20);
 		
 		// Menu buttons.
-		Button startGameButton = new Button("Start Game");
-		startGameButton.setStyle(MENU_BUTTON_STYLE);
-		startGameButton.setCursor(Cursor.HAND);
+		Button buttonStartGame = new Button("Start Game");
+		buttonStartGame.setStyle(MENU_BUTTON_STYLE);
+		buttonStartGame.setCursor(Cursor.HAND);
 		
-		startGameButton.setOnAction(event ->
+		buttonStartGame.setOnAction(event ->
 		{
 			ViewState view = new GameBoard();
 			view.start(stage);
 		});
 		
-		Button highScoresButton = new Button("High Scores");
-		highScoresButton.setStyle(MENU_BUTTON_STYLE);
-		highScoresButton.setDisable(true);
-		highScoresButton.setCursor(Cursor.HAND);
+		Button buttonHighScores = new Button("High Scores");
+		buttonHighScores.setStyle(MENU_BUTTON_STYLE);
+		buttonHighScores.setDisable(true);
+		buttonHighScores.setCursor(Cursor.HAND);
 		
-		Button mapEditorButton = new Button("Map Editor");
-		mapEditorButton.setStyle(MENU_BUTTON_STYLE);
-		mapEditorButton.setDisable(true);
-		mapEditorButton.setCursor(Cursor.HAND);
+		Button buttonMapEditor = new Button("Map Editor");
+		buttonMapEditor.setStyle(MENU_BUTTON_STYLE);
+		buttonMapEditor.setDisable(true);
+		buttonMapEditor.setCursor(Cursor.HAND);
 		
-		Button settingsButton = new Button("Settings");
-		settingsButton.setStyle(MENU_BUTTON_STYLE);
-		settingsButton.setDisable(true);
-		settingsButton.setCursor(Cursor.HAND);
+		Button buttonSettings = new Button("Settings");
+		buttonSettings.setStyle(MENU_BUTTON_STYLE);
+		buttonSettings.setDisable(true);
+		buttonSettings.setCursor(Cursor.HAND);
 		
-		Button quitButton = new Button("Quit");
-		quitButton.setStyle(MENU_BUTTON_STYLE);
-		quitButton.setCursor(Cursor.HAND);
+		Button buttonQuit = new Button("Quit");
+		buttonQuit.setStyle(MENU_BUTTON_STYLE);
+		buttonQuit.setCursor(Cursor.HAND);
 		
 		// Graceful exit.
-		quitButton.setOnAction(event ->
+		buttonQuit.setOnAction(event ->
 		{
 			exit(0); // Normal exit.
 		});
 		
-		buttonsVBox.getChildren()
+		buttonVBox.getChildren()
 			.addAll(
-				startGameButton,
-				highScoresButton,
-				mapEditorButton,
-				settingsButton,
-				quitButton
+				buttonStartGame,
+				buttonHighScores,
+				buttonMapEditor,
+				buttonSettings,
+				buttonQuit
 			);
 		
 		mainVBox.getChildren()
 			.addAll(
 				ImageHBox,
 				titleLabel,
-				buttonsVBox
+				buttonVBox
 			);
 		
 		root.getChildren()
 			.add(mainVBox);
 		
+		// Create the scene.
 		new SceneBuilder()
 			.setStage(stage)
 			.setRoot(root)
