@@ -1,11 +1,12 @@
 package com.frigvid.jman.view;
 
 import com.frigvid.jman.view.state.IViewState;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -55,8 +56,16 @@ public class GameBoard
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		// Header bar, for score and such.
-		HBox headerHBox = new HBox();
-		headerHBox.setAlignment(javafx.geometry.Pos.CENTER);
+		StackPane header = new StackPane();
+		header.setPadding(new Insets(10));
+		
+		// For the button.
+		HBox headerLeft = new HBox();
+		headerLeft.setAlignment(Pos.CENTER_LEFT);
+		
+		// For the label.
+		HBox headerCenter = new HBox();
+		headerCenter.setAlignment(Pos.CENTER);
 		
 		// Game board, where the actual level will be drawn.
 		// NOTE: Consider using SubScene for the actual game?
@@ -83,14 +92,30 @@ public class GameBoard
 			view.start(stage);
 		});
 		
-		headerHBox.getChildren()
+		headerLeft.getChildren()
+			.add(buttonQuitToMainMenu);
+		
+		headerCenter.getChildren()
+			.add(labelHighScore);
+		
+		/* If you're wondering why they're added in reverse order, it has to do with how StackPane works.
+		 * I'm using it as a kind of pretty ugly workaround to get the elements to align properly. However,
+		 * since it actually stacks them on top of each other, you'll be clicking the HBox instead of the
+		 * button in the normal order.
+		 *
+		 * In a reverse order, the button's HBox is first, and the button is thusly reachable.
+		 *
+		 * I hate it, and there's likely a much cleaner way of doing this, but I don't know of it at this
+		 * moment, so this is what it'll be for the foreseeable future.
+		 */
+		header.getChildren()
 			.addAll(
-				buttonQuitToMainMenu,
-				labelHighScore
+				headerCenter,
+				headerLeft
 			);
 		
 		// Add elements to root.
-		root.setTop(headerHBox);
+		root.setTop(header);
 		root.setCenter(gameBoard);
 		
 		new SceneBuilder()
@@ -102,6 +127,7 @@ public class GameBoard
 		stage.show();
 	}
 	
+	/* Setters & Getters. */
 	/**
 	 * Set the high score.
 	 *
