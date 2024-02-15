@@ -48,7 +48,13 @@ public class MainMenu
 		mainVBox.setLayoutY(20);
 		mainVBox.setSpacing(10);
 		
-		// Row of ghosts above the menu title.
+		/* Row of ghosts above the menu title.
+		 *
+		 * Building the images uses the same pattern, so it could be extracted into a method.
+		 * However, since there's only four, I don't really see a reason to do so. Hard-coding
+		 * it for each allows for modifications to each (which, mind you, would still be possible
+		 * in a method), but eh, whatever. I prefer it like this.
+		 */
 		HBox ImageHBox = new HBox();
 		ImageHBox.setAlignment(javafx.geometry.Pos.CENTER);
 		ImageHBox.setSpacing(15.0);
