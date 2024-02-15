@@ -25,8 +25,8 @@ public class SceneBuilder
 	private Stage stage;
 	private Parent root;
 	private String title = "J-Man!";
-	private int width = 250;
-	private int height = 250;
+	private int width;
+	private int height;
 	private String fxmlPath;
 	
 	public SceneBuilder setStage(Stage stage)
@@ -65,7 +65,6 @@ public class SceneBuilder
 		return this;
 	}
 	
-	// TODO: If setWidth and setHeight are not called, don't set the width and height.
 	public void build()
 	{
 		// Catch generic errors first.
@@ -95,6 +94,13 @@ public class SceneBuilder
 				System.err.println("Failed to load FXML file: " + fxmlPath);
 				return; // Guarantee exit.
 			}
+		}
+		
+		// Check if the width and height are set, and use the stage size if not.
+		if (width == 0 || height == 0)
+		{
+			width = (int) stage.getWidth();
+			height = (int) stage.getHeight();
 		}
 		
 		Scene scene = new Scene(root, width, height);
