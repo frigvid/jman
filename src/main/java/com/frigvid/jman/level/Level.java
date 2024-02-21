@@ -37,12 +37,6 @@ public class Level
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
 			
-			//List<char[]> lines = bufferedReader.lines()
-			//	// Remove spaces and convert each line into a char array.
-			//	.map(line -> line.replace(" ", "").toCharArray())
-			//	// Collect into a list.
-			//	.toList();
-			
 			char[][] lines = bufferedReader.lines()
 				// Remove spaces and convert each line into a char array.
 				.map(line -> line.replace(" ", "").toCharArray())
