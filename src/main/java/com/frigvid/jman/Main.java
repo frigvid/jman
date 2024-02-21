@@ -40,6 +40,8 @@ public class Main
 	@Override
 	public void start(Stage stage)
 	{
+		if (Constants.DEBUG_ENABLED) {logConstants();};
+
 		ViewStateManager viewStateManager = new ViewStateManager();
 		viewStateManager.startMainMenu(stage);
 		
@@ -70,5 +72,21 @@ public class Main
 
 		TileMap tileMap = new TileMap(level);
 		tileMap.renderMeDaddy();
+	private void logConstants()
+	{
+		System.out.println("Values of constants:"
+			+ "\nDEBUG_ENABLED: " + Constants.DEBUG_ENABLED
+			+ "\nDEBUG_LEVEL: " + Constants.DEBUG_LEVEL
+			+ "\nGAME_TITLE: " + Constants.GAME_TITLE
+			+ "\nSCREEN_WIDTH: " + Constants.SCREEN_WIDTH
+			+ "\nSCREEN_HEIGHT: " + Constants.SCREEN_HEIGHT
+			+ "\nWINDOW_WIDTH: "  + WINDOW_WIDTH
+			+ "\nWINDOW_HEIGHT: "  + WINDOW_HEIGHT
+			+ "\nSCALE_FACTOR_WIDTH: "  + Constants.SCALE_FACTOR_WIDTH
+			+ "\nSCALE_FACTOR_HEIGHT: " + Constants.SCALE_FACTOR_HEIGHT
+			+ "\nSCALE_FACTOR: " + Constants.SCALE_FACTOR
+			+ "\nWINDOW_BACKGROUND_COLOR: " + Constants.WINDOW_BACKGROUND_COLOR
+			+ "\nMENU_BUTTON_STYLE: " + Constants.MENU_BUTTON_STYLE
+		);
 	}
 }

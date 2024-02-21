@@ -1,5 +1,6 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.Constants;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -77,7 +78,7 @@ public class GameBoard
 		// Header score counter.
 		// TODO: Implement a way to update the score dynamically.
 		Label labelHighScore = new Label("High Score: " + getHighScore());
-		labelHighScore.setFont(new Font(20.0));
+		labelHighScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
 		labelHighScore.setStyle("""
 				-fx-text-fill: white;
 				-fx-font-weight: bold;

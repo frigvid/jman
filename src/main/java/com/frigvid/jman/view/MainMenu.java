@@ -1,5 +1,6 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.Constants;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,9 +17,6 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 import static java.lang.System.exit;
-import static com.frigvid.jman.Constants.GAME_TITLE;
-import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
-import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 
 /**
  * The main menu.
@@ -31,16 +29,16 @@ import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
 public class MainMenu
 	implements IViewState
 {
-	private static final String WINDOW_TITLE = GAME_TITLE + " Main Menu";
-	private static final double GHOST_FIT_HEIGHT = 69.0;
-	private static final double GHOST_FIT_WIDTH = 43.0;
+	private static final String WINDOW_TITLE = Constants.GAME_TITLE + " Main Menu";
+	private static final double GHOST_FIT_WIDTH = 43.0 * Constants.SCALE_FACTOR_WIDTH;
+	private static final double GHOST_FIT_HEIGHT = 69.0 * Constants.SCALE_FACTOR_HEIGHT;
 	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource("/com/frigvid/jman/entity/ghost/")).toExternalForm();
 	
 	@Override
 	public void start(Stage stage)
 	{
 		StackPane root = new StackPane();
-		root.setStyle(WINDOW_BACKGROUND_COLOR);
+		root.setStyle(Constants.WINDOW_BACKGROUND_COLOR);
 		
 		VBox mainVBox = new VBox();
 		mainVBox.setAlignment(Pos.CENTER);
@@ -90,14 +88,14 @@ public class MainMenu
 		);
 		
 		// Menu title.
-		Label labelTitle = new Label(GAME_TITLE);
-		labelTitle.setStyle("""
-				-fx-text-fill: yellow;
-				-fx-font-weight: bold;
-				-fx-font-family: 'Arial';
-				-fx-font-size: 24px;
-				-fx-padding-down: 200px;
-			""");
+		Label labelTitle = new Label(Constants.GAME_TITLE);
+		labelTitle.setStyle(
+			  "-fx-text-fill: yellow;"
+			+ "-fx-font-weight: bold;"
+			+ "-fx-font-family: 'Arial';"
+			+ "-fx-font-size: " + 24 * Constants.SCALE_FACTOR + "px;"
+			+ "-fx-padding-down: " + 200 * Constants.SCALE_FACTOR + "px;"
+		);
 		// Add some padding between the images and buttons.
 		VBox.setMargin(labelTitle, new Insets(5.0, 0, 10.0, 0));
 		
@@ -107,7 +105,7 @@ public class MainMenu
 		
 		// Menu buttons.
 		Button buttonStartGame = new Button("Start Game");
-		buttonStartGame.setStyle(MENU_BUTTON_STYLE);
+		buttonStartGame.setStyle(Constants.MENU_BUTTON_STYLE);
 		buttonStartGame.setCursor(Cursor.HAND);
 		
 		buttonStartGame.setOnAction(event ->
@@ -117,22 +115,22 @@ public class MainMenu
 		});
 		
 		Button buttonHighScores = new Button("High Scores");
-		buttonHighScores.setStyle(MENU_BUTTON_STYLE);
+		buttonHighScores.setStyle(Constants.MENU_BUTTON_STYLE);
 		buttonHighScores.setDisable(true);
 		buttonHighScores.setCursor(Cursor.HAND);
 		
 		Button buttonMapEditor = new Button("Map Editor");
-		buttonMapEditor.setStyle(MENU_BUTTON_STYLE);
+		buttonMapEditor.setStyle(Constants.MENU_BUTTON_STYLE);
 		buttonMapEditor.setDisable(true);
 		buttonMapEditor.setCursor(Cursor.HAND);
 		
 		Button buttonSettings = new Button("Settings");
-		buttonSettings.setStyle(MENU_BUTTON_STYLE);
+		buttonSettings.setStyle(Constants.MENU_BUTTON_STYLE);
 		buttonSettings.setDisable(true);
 		buttonSettings.setCursor(Cursor.HAND);
 		
 		Button buttonQuit = new Button("Quit");
-		buttonQuit.setStyle(MENU_BUTTON_STYLE);
+		buttonQuit.setStyle(Constants.MENU_BUTTON_STYLE);
 		buttonQuit.setCursor(Cursor.HAND);
 		
 		// Graceful exit.
