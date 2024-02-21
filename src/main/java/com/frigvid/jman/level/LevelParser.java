@@ -1,7 +1,5 @@
 package com.frigvid.jman.level;
 
-import com.frigvid.jman.level.LevelData;
-
 /**
  * Parses level save data, ?into a level object?.
  *

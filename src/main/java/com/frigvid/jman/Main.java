@@ -1,9 +1,12 @@
 package com.frigvid.jman;
 
 import com.frigvid.jman.level.Level;
+import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
 
 import static com.frigvid.jman.Constants.WINDOW_WIDTH;
 import static com.frigvid.jman.Constants.WINDOW_HEIGHT;
@@ -64,8 +67,8 @@ public class Main
 
 		// testing.
 		Level level = new Level("map1");
-		System.out.println("Height: " + level.getLevelHeight());
-		System.out.println("Width: " + level.getLevelWidth());
-		System.out.println("Element at id: " + level.getLevelElement(0, 1));
+
+		TileMap tileMap = new TileMap(level);
+		tileMap.renderMeDaddy();
 	}
 }
