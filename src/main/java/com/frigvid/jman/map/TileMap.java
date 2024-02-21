@@ -67,16 +67,16 @@ public class TileMap
 				//System.out.println(tileType);
 				switch (level.getLevelElement(col, row)) {
 					case WALL:
-						tile.setFill(Color.GREY);
+						tile.setFill(Color.BLUE);
 						break;
 					case OPEN_SPACE:
-						tile.setFill(Color.BLUE);
+						tile.setFill(Color.GRAY);
 						break;
 					case SMALL_DOT:
 						tile.setFill(Color.YELLOW);
 						break;
 					case BIG_DOT:
-						tile.setFill(Color.PURPLE);
+						tile.setFill(Color.ORANGE);
 						break;
 					case SPAWN_GHOST_1:
 					case SPAWN_GHOST_2:
@@ -85,8 +85,9 @@ public class TileMap
 					case SPAWN_PLAYER:
 						tile.setFill(Color.GREEN);
 						break;
+					case EXIT:
 					case TELEPORT:
-						tile.setFill(Color.ORANGE);
+						tile.setFill(Color.PURPLE);
 						break;
 					default:
 						tile.setFill(Color.BLACK);
