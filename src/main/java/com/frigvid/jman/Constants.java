@@ -15,7 +15,10 @@ public final class Constants
 	{
 		// Restricted instantiation.
 	}
-	
+
+	// Switch to true to enable debug logging.
+	public final static boolean DEBUG_ENABLED = false;
+
 	public final static String GAME_TITLE = "J-Man!";
 	
 	public final static int WINDOW_WIDTH = 800;
