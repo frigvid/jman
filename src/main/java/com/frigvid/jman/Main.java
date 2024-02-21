@@ -61,7 +61,11 @@ public class Main
 		stage.setWidth(WINDOW_WIDTH);
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
-		
+
+		// testing.
 		Level level = new Level("map1");
+		System.out.println("Height: " + level.getLevelHeight());
+		System.out.println("Width: " + level.getLevelWidth());
+		System.out.println("Element at id: " + level.getLevelElement(0, 1));
 	}
 }
