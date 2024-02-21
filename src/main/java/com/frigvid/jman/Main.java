@@ -1,5 +1,6 @@
 package com.frigvid.jman;
 
+import com.frigvid.jman.level.Level;
 import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -60,5 +61,7 @@ public class Main
 		stage.setWidth(WINDOW_WIDTH);
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
+		
+		Level level = new Level("map1");
 	}
 }
