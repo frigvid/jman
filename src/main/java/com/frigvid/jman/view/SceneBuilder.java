@@ -27,8 +27,8 @@ public class SceneBuilder
 	private Stage stage;
 	private Parent root;
 	private String title = GAME_TITLE;
-	private int width;
-	private int height;
+	private double width;
+	private double height;
 	private String fxmlPath;
 	
 	public SceneBuilder setStage(Stage stage)
@@ -49,13 +49,13 @@ public class SceneBuilder
 		return this;
 	}
 	
-	public SceneBuilder setWidth(int width)
+	public SceneBuilder setWidth(double width)
 	{
 		this.width = width;
 		return this;
 	}
 	
-	public SceneBuilder setHeight(int height)
+	public SceneBuilder setHeight(double height)
 	{
 		this.height = height;
 		return this;
@@ -100,14 +100,16 @@ public class SceneBuilder
 		
 		// Check if the width and height are set, and use the stage size if not.
 		// Also, see my insane ramblings regarding this in Main.java.
-		if (width == 0 || height == 0)
+		if (width <= 0 || height <= 0)
 		{
-			width = (int) stage.getWidth();
-			height = (int) stage.getHeight();
+			width = stage.getWidth();
+			height = stage.getHeight();
 		}
 		
 		Scene scene = new Scene(root, width, height);
 		stage.setTitle(title);
+		stage.setWidth(width);
+		stage.setHeight(height);
 		stage.setScene(scene);
 	}
 }
