@@ -1,6 +1,7 @@
 package com.frigvid.jman.level;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.map.TileType;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -19,7 +20,7 @@ public class Level
 	private final String BASE_PATH = "/com/frigvid/jman/levels/";
 	private String filePath;
 	private String title;
-	private char[][] level;
+	private TileType[][] level;
 	
 	public Level(String fileName)
 	{
@@ -37,11 +38,19 @@ public class Level
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
 			
-			char[][] lines = bufferedReader.lines()
-				// Remove spaces and convert each line into a char array.
-				.map(line -> line.replace(" ", "").toCharArray())
+			//char[][] lines = bufferedReader.lines()
+			//	// Remove spaces and convert each line into a char array.
+			//	.map(line -> line.replace(" ", "").toCharArray())
+			//	// Collect into a list.
+			//	.toArray(char[][]::new);
+
+			TileType[][] lines = bufferedReader.lines()
+				// Remove spaces and convert each line into a TileType array.
+				.map(line -> line.replace(" ", "").chars()
+					.mapToObj(c -> mapCharToTileType((char) c))
+					.toArray(TileType[]::new))
 				// Collect into a list.
-				.toArray(char[][]::new);
+				.toArray(TileType[][]::new);
 
 			// Store the level.
 			setLevel(lines);
@@ -49,11 +58,15 @@ public class Level
 			if (Constants.DEBUG_ENABLED)
 			{
 				System.out.println("Title: " + this.title);
-				System.out.println("Level data:");
+				System.out.println(
+					"Level columns: " + getLevelHeight() +
+					"\nLevel rows: " + getLevelWidth() +
+					"\nLevel data:"
+				);
 				System.out.println("Test: " + lines[0][1]);
-				for (char[] chars : lines)
+				for (TileType[] type : lines)
 				{
-					System.out.println(Arrays.toString(chars));
+					System.out.println(Arrays.toString(type));
 				}
 			}
 		}
@@ -70,6 +83,41 @@ public class Level
 			System.out.println("Something went wrong! " + e);
 		}
 	}
+
+	/* Utilities. */
+
+	/**
+	 * Used to "convert" a character-based level into a
+	 * TileType based one.
+	 *
+	 * @param character The char to change to a TileType.
+	 * @return The TileType corresponding to the character.
+	 * @see com.frigvid.jman.map.TileType
+	 */
+	private TileType mapCharToTileType(char character) {
+		switch (character) {
+			case 'W':
+				return TileType.WALL;
+			case 'S':
+				return TileType.SMALL_DOT;
+			case 'B':
+				return TileType.BIG_DOT;
+			case 'O':
+				return TileType.OPEN_SPACE;
+			case 'E':
+				return TileType.EXIT;
+			case 'T':
+				return TileType.TELEPORT;
+			case 'P':
+				return TileType.SPAWN_PLAYER;
+			case '1':
+				return TileType.SPAWN_GHOST_1;
+			case '2':
+				return TileType.SPAWN_GHOST_2;
+			default:
+				throw new IllegalArgumentException("Invalid character: " + character);
+		}
+	}
 	
 	/* Setters. */
 	private void setTitle(String title)
@@ -77,7 +125,7 @@ public class Level
 		this.title = title;
 	}
 	
-	private void setLevel(char[][] level)
+	private void setLevel(TileType[][] level)
 	{
 		this.level = level;
 	}
@@ -98,7 +146,7 @@ public class Level
 	 *
 	 * @return The 2-dimensional array representing the level's tile placement.
 	 */
-	public char[][] getLevel()
+	public TileType[][] getLevel()
 	{
 		return this.level;
 	}
@@ -137,9 +185,9 @@ public class Level
 	 *
 	 * @param row The index id for the first array.
 	 * @param col The index id for the second array.
-	 * @return The element (char) in that position.
+	 * @return The element in that position.
 	 */
-	public char getLevelElement(int row, int col)
+	public TileType getLevelElement(int col, int row)
 	{
 		int levelWidth = getLevelWidth();
 		int levelHeight = getLevelHeight();
@@ -153,6 +201,8 @@ public class Level
 		{
 			throw new ArrayIndexOutOfBoundsException("Your col exceeds the possible range. The level is only " + levelWidth + " wide.");
 		}
+
+		if (Constants.DEBUG_ENABLED) {System.out.println("getLevelElement: " + this.level[row][col]);}
 
 		return this.level[row][col];
 	}
