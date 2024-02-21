@@ -83,7 +83,6 @@ public class Level
 	}
 
 	/* Getters. */
-
 	/**
 	 * Gets the level's title.
 	 *
@@ -157,36 +156,4 @@ public class Level
 
 		return this.level[row][col];
 	}
-	
-	
-	//public Level(String title, String[][] levelData)
-	//{
-	//	this.title = title;
-	//	this.levelData = levelData;
-	//}
-	//
-	//public String getTitle()
-	//{
-	//	return this.title;
-	//}
-	//
-	//public String[][] getLevelData()
-	//{
-	//	return this.levelData;
-	//}
-	//
-	//public void setTitle(String title)
-	//{
-	//	this.title = title;
-	//}
-	//
-	//public void setLevelData(String[][] levelData)
-	//{
-	//	this.levelData = levelData;
-	//}
-	//
-	//public String toString()
-	//{
-	//	return this.title;
-	//}
 }
