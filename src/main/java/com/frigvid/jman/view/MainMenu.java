@@ -22,7 +22,6 @@ import static java.lang.System.exit;
  * The main menu.
  *
  * @author frigvid
- * @version 0.5
  * @created 2024-02-14
  * @since 0.1
  */
@@ -157,7 +156,7 @@ public class MainMenu
 		
 		root.getChildren()
 			.add(mainVBox);
-		
+
 		// Create the scene.
 		new SceneBuilder()
 			.setStage(stage)

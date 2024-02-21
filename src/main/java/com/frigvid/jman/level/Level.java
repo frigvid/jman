@@ -6,8 +6,9 @@ import com.frigvid.jman.map.TileType;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
+
+import static java.lang.System.out;
 
 /**
  * Level object.
@@ -33,8 +34,8 @@ public class Level
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 		)
 		{
-			System.out.println("Reading level data from " + filePath);
-			
+			if (Constants.DEBUG_ENABLED) {out.println("Reading level data from " + filePath);}
+
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
 			
@@ -57,30 +58,33 @@ public class Level
 
 			if (Constants.DEBUG_ENABLED)
 			{
-				System.out.println("Title: " + this.title);
-				System.out.println(
+				out.println("Level title: " + this.title);
+				out.println(
 					"Level columns: " + getLevelHeight() +
-					"\nLevel rows: " + getLevelWidth() +
-					"\nLevel data:"
+					"\nLevel rows: " + getLevelWidth()
 				);
-				System.out.println("Test: " + lines[0][1]);
-				for (TileType[] type : lines)
+				if (Constants.DEBUG_LEVEL == 1)
 				{
-					System.out.println(Arrays.toString(type));
+					out.println("Level data:");
+
+					for (TileType[] type : lines)
+					{
+						out.println(Arrays.toString(type));
+					}
 				}
 			}
 		}
 		catch (FileNotFoundException e)
 		{
-			System.out.println("File not found! " + e);
+			out.println("File not found! " + e);
 		}
 		catch (IOException e)
 		{
-			System.out.println("An I/O exception occurred! " + e);
+			out.println("An I/O exception occurred! " + e);
 		}
 		catch (Exception e)
 		{
-			System.out.println("Something went wrong! " + e);
+			out.println("Something went wrong! " + e);
 		}
 	}
 
@@ -202,7 +206,7 @@ public class Level
 			throw new ArrayIndexOutOfBoundsException("Your col exceeds the possible range. The level is only " + levelWidth + " wide.");
 		}
 
-		if (Constants.DEBUG_ENABLED) {System.out.println("getLevelElement: " + this.level[row][col]);}
+		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1) {out.println("getLevelElement: " + this.level[row][col]);}
 
 		return this.level[row][col];
 	}

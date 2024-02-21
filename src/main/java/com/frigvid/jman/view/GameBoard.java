@@ -52,6 +52,8 @@ public class GameBoard
 	@Override
 	public void start(Stage stage)
 	{
+		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: `start` class called.");};
+
 		// Root layout.
 		BorderPane root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
@@ -92,7 +94,7 @@ public class GameBoard
 			IViewState view = new MainMenu();
 			view.start(stage);
 		});
-		
+
 		headerLeft.getChildren()
 			.add(buttonQuitToMainMenu);
 		
@@ -124,7 +126,9 @@ public class GameBoard
 			.setRoot(root)
 			.setTitle(WINDOW_TITLE)
 			.build();
-		
+
+		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: Showing stage.");}
+
 		stage.show();
 	}
 	

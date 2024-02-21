@@ -1,5 +1,6 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.frigvid.jman.Constants.DEBUG_ENABLED;
 import static com.frigvid.jman.Constants.GAME_TITLE;
 
 /**
@@ -97,6 +99,10 @@ public class SceneBuilder
 				return; // Guarantee exit.
 			}
 		}
+
+		if (DEBUG_ENABLED) {
+			System.out.println("SceneBuilder:\nWidth: " + width + "\nHeight: " + height);
+		}
 		
 		// Check if the width and height are set, and use the stage size if not.
 		// Also, see my insane ramblings regarding this in Main.java.
@@ -105,7 +111,7 @@ public class SceneBuilder
 			width = stage.getWidth();
 			height = stage.getHeight();
 		}
-		
+
 		Scene scene = new Scene(root, width, height);
 		stage.setTitle(title);
 		stage.setWidth(width);

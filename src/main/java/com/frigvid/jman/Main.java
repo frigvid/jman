@@ -1,12 +1,9 @@
 package com.frigvid.jman;
 
 import com.frigvid.jman.level.Level;
-import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 
 import static com.frigvid.jman.Constants.WINDOW_WIDTH;
 import static com.frigvid.jman.Constants.WINDOW_HEIGHT;
@@ -25,7 +22,6 @@ import static com.frigvid.jman.Constants.WINDOW_HEIGHT;
  * <br/><br/>
  * @see com.frigvid.jman.view.MainMenu
  * @author frigvid
- * @version 0.1
  * @created 2024-02-14
  * @since 0.1
  */
@@ -69,9 +65,10 @@ public class Main
 
 		// testing.
 		Level level = new Level("map1");
+		//TileMap tileMap = new TileMap(level);
+		//tileMap.renderMeDaddy();
+	}
 
-		TileMap tileMap = new TileMap(level);
-		tileMap.renderMeDaddy();
 	private void logConstants()
 	{
 		System.out.println("Values of constants:"
