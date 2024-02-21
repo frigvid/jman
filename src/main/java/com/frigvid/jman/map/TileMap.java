@@ -1,5 +1,6 @@
 package com.frigvid.jman.map;
 
+import com.frigvid.jman.Constants;
 import com.frigvid.jman.level.Level;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -50,7 +51,7 @@ public class TileMap
 	}
 
 	public void renderMeDaddy() {
-		int tileSize = 25;
+		int tileSize = 25 * (int) Constants.SCALE_FACTOR;
 
 		Stage primaryStage = new Stage();
 		primaryStage.setTitle("TileMap Renderer");
@@ -99,7 +100,7 @@ public class TileMap
 		}
 
 		// Create a scene and set it to the stage
-		Scene scene = new Scene(root, level.getLevelWidth() * 25, level.getLevelHeight() * 25); // Adjust size as needed
+		Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize); // Adjust size as needed
 		primaryStage.setScene(scene);
 
 		// Show the window
