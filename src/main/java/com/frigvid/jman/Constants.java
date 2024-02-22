@@ -18,13 +18,13 @@ public final class Constants
 		// Restricted instantiation.
 	}
 
+	/* DEBUGGING. */
 	// Switch to true to enable debug logging.
 	public final static boolean DEBUG_ENABLED = false;
 	// 0 = default. 1 = full logging.
 	public final static int DEBUG_LEVEL = 0;
 
-	public final static String GAME_TITLE = "J-Man!";
-
+	/* SCALING. */
 	// Save screen size, for scaling.
 	// NOTE: Should probably check that this gets the primary screen, and not secondaries.
 	public final static double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
@@ -40,9 +40,9 @@ public final class Constants
 	// Use this for things like font size.
 	public final static double SCALE_FACTOR = Math.min(SCALE_FACTOR_HEIGHT, SCALE_FACTOR_WIDTH);
 
+	/* GAME/UI RELATED. */
+	public final static String GAME_TITLE = "J-Man!";
 	public static final String WINDOW_BACKGROUND_COLOR = "-fx-background-color: black;";
-	
-	// This is perhaps a bit of an uncommon convention, but I find it easier to read and modify this way.
 	public static final String MENU_BUTTON_STYLE = "-fx-background-color: yellow;"
 																+ "-fx-font-weight: bold;"
 																+ "-fx-font-family: 'Arial';"
