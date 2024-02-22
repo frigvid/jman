@@ -49,4 +49,5 @@ public final class Constants
 																+ "-fx-font-size: " + 14 * SCALE_FACTOR + "px;"
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
+	public static final double TILE_SIZE = 25.0;
 }

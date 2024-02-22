@@ -5,6 +5,7 @@ import com.frigvid.jman.level.Level;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -24,7 +25,8 @@ import javafx.stage.Stage;
  */
 public class TileMap
 {
-	private final Level level;
+	private double tileSize = Constants.TILE_SIZE * Constants.SCALE_FACTOR;
+	private Level level;
 
 	public TileMap(Level level)
 	{
@@ -32,78 +34,79 @@ public class TileMap
 	}
 
 	/* Utilities. */
-
 	/**
 	 * Renders the tilemap.
 	 */
-	public void render()
-	{
-		for (int col = 0; col < level.getLevelHeight(); col++)
-		{
-			for (int row = 0; row < level.getLevelWidth(); row++)
-			{
-				String title = level.getTitle();
-				int x = col * 25; // Tile size.
-				int y = row * 25; // Tile size.
-				System.out.println("Title: " + title + " X: " + x + " Y: " + y);
-			};
-		};
-	}
-
-	public void renderMeDaddy() {
-		int tileSize = 25 * (int) Constants.SCALE_FACTOR;
-
+	public void render() {
 		Stage primaryStage = new Stage();
 		primaryStage.setTitle("TileMap Renderer");
-
 		Pane root = new Pane();
 
 		for (int row = 0; row < level.getLevelHeight(); row++) {
 			for (int col = 0; col < level.getLevelWidth(); col++) {
-				int x = col * tileSize;
-				int y = row * tileSize;
+				double x = col * tileSize;
+				double y = row * tileSize;
 
 				Rectangle tile = new Rectangle(x, y, tileSize, tileSize);
+				tile.setFill(Color.BLACK);
+				if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1)
+				{
+					// Set border to tiles.
+					tile.setStyle("-fx-stroke: gray; -fx-stroke-width: 5;");
+				}
+				root.getChildren().add(tile);
 
-				//System.out.println(tileType);
 				switch (level.getLevelElement(col, row)) {
 					case WALL:
-						tile.setFill(Color.BLUE);
-						break;
-					case OPEN_SPACE:
-						tile.setFill(Color.GRAY);
+						tile.setFill(
+							Color.valueOf("#0000bf")
+						);
 						break;
 					case SMALL_DOT:
-						tile.setFill(Color.YELLOW);
+						Circle point = new Circle(x + Constants.TILE_SIZE, y + Constants.TILE_SIZE, 5);
+						point.setFill(Color.GOLD);
+						root.getChildren().add(point);
 						break;
 					case BIG_DOT:
-						tile.setFill(Color.ORANGE);
+						Circle powerUp = new Circle(x + Constants.TILE_SIZE, y + Constants.TILE_SIZE, 10);
+						powerUp.setFill(Color.ORANGE);
+						root.getChildren().add(powerUp);
 						break;
 					case SPAWN_GHOST_1:
 					case SPAWN_GHOST_2:
-						tile.setFill(Color.RED);
+						if (Constants.DEBUG_ENABLED)
+						{
+							Rectangle spawn = new Rectangle(x, y, tileSize, tileSize);
+							spawn.setFill(Color.RED);
+							root.getChildren().add(spawn);
+						}
 						break;
 					case SPAWN_PLAYER:
-						tile.setFill(Color.GREEN);
+						if (Constants.DEBUG_ENABLED)
+						{
+							Rectangle spawn = new Rectangle(x, y, tileSize, tileSize);
+							spawn.setFill(Color.GREEN);
+							root.getChildren().add(spawn);
+						}
 						break;
 					case EXIT:
 					case TELEPORT:
-						tile.setFill(Color.PURPLE);
+						if (Constants.DEBUG_ENABLED)
+						{
+							Rectangle teleport = new Rectangle(x, y, tileSize, tileSize);
+							teleport.setFill(Color.PURPLE);
+							root.getChildren().add(teleport);
+						}
 						break;
+					case OPEN_SPACE:
 					default:
-						tile.setFill(Color.BLACK);
 						break;
 				}
-
-				root.getChildren().add(tile);
 			}
 		}
 
-		// Create a scene and set it to the stage
-		Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize); // Adjust size as needed
+		Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
 		primaryStage.setScene(scene);
-
-		// Show the window
 		primaryStage.show();
 	}
 
