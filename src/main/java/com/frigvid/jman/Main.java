@@ -44,11 +44,12 @@ public class Main
 		stage.setWidth(WINDOW_WIDTH);
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
+		stage.setMaximized(true);
 
 		// testing.
-		Level level = new Level("map1");
-		TileMap tileMap = new TileMap(level);
-		tileMap.renderMeDaddy();
+		//Level level = new Level("map1");
+		//TileMap tileMap = new TileMap(level);
+		//tileMap.render();
 	}
 
 	private void logConstants()

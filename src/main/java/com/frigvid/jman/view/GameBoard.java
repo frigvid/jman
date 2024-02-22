@@ -1,9 +1,12 @@
 package com.frigvid.jman.view;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.level.Level;
+import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -72,7 +75,11 @@ public class GameBoard
 		
 		// Game board, where the actual level will be drawn.
 		// NOTE: Consider using SubScene for the actual game?
-		Pane gameBoard = new Pane();
+		Group gameBoard = new Group();
+		// Testing, this works:
+		//Level level = new Level("map1");
+		//TileMap tileMap = new TileMap(level);
+		//gameBoard.getChildren().add(tileMap.render());
 		
 		// FIXME: This is a temporary high score value.
 		setHighScore(69420);

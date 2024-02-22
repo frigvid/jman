@@ -3,6 +3,7 @@ package com.frigvid.jman.map;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.level.Level;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 public class TileMap
 {
 	private double tileSize = Constants.TILE_SIZE * Constants.SCALE_FACTOR;
+	private Pane root;
 	private Level level;
 
 	public TileMap(Level level)
@@ -36,11 +38,13 @@ public class TileMap
 	/* Utilities. */
 	/**
 	 * Renders the tilemap.
+	 *
+	 * NOTE: This should probably use Canvas instead.
 	 */
-	public void render() {
-		Stage primaryStage = new Stage();
-		primaryStage.setTitle("TileMap Renderer");
-		Pane root = new Pane();
+	public Pane render() {
+		//Stage primaryStage = new Stage();
+		//primaryStage.setTitle("TileMap Renderer");
+		root = new Pane();
 
 		for (int row = 0; row < level.getLevelHeight(); row++) {
 			for (int col = 0; col < level.getLevelWidth(); col++) {
@@ -105,9 +109,13 @@ public class TileMap
 			}
 		}
 
-		Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		//Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
+		//primaryStage.setScene(scene);
+		//primaryStage.show();
+
+		root.setPrefSize(level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
+
+		return root;
 	}
 
 	/* Setters. */
