@@ -105,7 +105,6 @@ public class SceneBuilder
 		}
 		
 		// Check if the width and height are set, and use the stage size if not.
-		// Also, see my insane ramblings regarding this in Main.java.
 		if (width <= 0 || height <= 0)
 		{
 			width = stage.getWidth();
