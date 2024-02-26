@@ -1,8 +1,12 @@
 package com.frigvid.jman.view;
 
+import com.frigvid.jman.Constants;
+import com.frigvid.jman.level.Level;
+import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -51,6 +55,8 @@ public class GameBoard
 	@Override
 	public void start(Stage stage)
 	{
+		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: `start` class called.");};
+
 		// Root layout.
 		BorderPane root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
@@ -69,7 +75,11 @@ public class GameBoard
 		
 		// Game board, where the actual level will be drawn.
 		// NOTE: Consider using SubScene for the actual game?
-		Pane gameBoard = new Pane();
+		Group gameBoard = new Group();
+		// Testing, this works:
+		//Level level = new Level("map1");
+		//TileMap tileMap = new TileMap(level);
+		//gameBoard.getChildren().add(tileMap.render());
 		
 		// FIXME: This is a temporary high score value.
 		setHighScore(69420);
@@ -77,7 +87,7 @@ public class GameBoard
 		// Header score counter.
 		// TODO: Implement a way to update the score dynamically.
 		Label labelHighScore = new Label("High Score: " + getHighScore());
-		labelHighScore.setFont(new Font(20.0));
+		labelHighScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
 		labelHighScore.setStyle("""
 				-fx-text-fill: white;
 				-fx-font-weight: bold;
@@ -91,7 +101,7 @@ public class GameBoard
 			IViewState view = new MainMenu();
 			view.start(stage);
 		});
-		
+
 		headerLeft.getChildren()
 			.add(buttonQuitToMainMenu);
 		
@@ -123,7 +133,9 @@ public class GameBoard
 			.setRoot(root)
 			.setTitle(WINDOW_TITLE)
 			.build();
-		
+
+		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: Showing stage.");}
+
 		stage.show();
 	}
 	

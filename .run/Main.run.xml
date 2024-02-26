@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="LIBGL_ALWAYS_SOFTWARE" value="true" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.frigvid.jman.Main" />
     <module name="jman" />
     <extension name="coverage">
