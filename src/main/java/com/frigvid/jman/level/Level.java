@@ -229,7 +229,7 @@ public class Level
 	 * @param col The index id for the second array.
 	 * @return The element in that position.
 	 */
-	public TileType getLevelElement(int col, int row)
+	public TileType getTileType(int col, int row)
 	{
 		int levelWidth = getLevelWidth();
 		int levelHeight = getLevelHeight();
