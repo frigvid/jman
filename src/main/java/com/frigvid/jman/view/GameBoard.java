@@ -1,21 +1,28 @@
 package com.frigvid.jman.view;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.entity.Direction;
+import com.frigvid.jman.entity.Entity;
 import com.frigvid.jman.level.Level;
 import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import static com.frigvid.jman.Constants.GAME_TITLE;
-import static com.frigvid.jman.Constants.WINDOW_BACKGROUND_COLOR;
-import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
+import java.util.Objects;
+
+import static com.frigvid.jman.Constants.*;
 
 /**
  * A class representing the game board view state.
@@ -51,12 +58,20 @@ public class GameBoard
 {
 	private static final String WINDOW_TITLE = GAME_TITLE + " Game Stage";
 	private static int highScore = 0;
+	private Level level;
+	private Entity player;
+	private ImageView playerView;
+	private Group gameBoard;
 	
 	@Override
 	public void start(Stage stage)
 	{
-		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: `start` class called.");};
-
+		if (Constants.DEBUG_ENABLED)
+		{
+			System.out.println("GameBoard: `start` class called.");
+		}
+		;
+		
 		// Root layout.
 		BorderPane root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
@@ -75,11 +90,70 @@ public class GameBoard
 		
 		// Game board, where the actual level will be drawn.
 		// NOTE: Consider using SubScene for the actual game?
-		Group gameBoard = new Group();
+		//gameBoard = new Group();
 		// Testing, this works:
-		//Level level = new Level("map1");
+		level = new Level("map1");
 		//TileMap tileMap = new TileMap(level);
 		//gameBoard.getChildren().add(tileMap.render());
+		
+		gameBoard = new Group();
+		TileMap tileMap = new TileMap(level);
+		gameBoard.getChildren().add(tileMap.render());
+		
+		// Create a SubScene for the gameBoard
+		SubScene gameBoardSubScene = new SubScene(gameBoard, 0, 0);
+		
+		// Bind the SubScene's size to the parent BorderPane's size
+		gameBoardSubScene.widthProperty().bind(root.widthProperty());
+		gameBoardSubScene.heightProperty().bind(root.heightProperty());
+		
+		gameBoardSubScene.setFocusTraversable(true); // Allow it to capture key events
+		
+		// Attach key event handlers to the SubScene
+		gameBoardSubScene.setOnKeyPressed(event ->
+		{
+			// Your key event handling logic here
+			if (player != null)
+			{
+				switch (event.getCode())
+				{
+					case LEFT ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println("Player's current direction: LEFT");
+						}
+						player.move(Direction.LEFT, level.getLevelWidth(), level.getLevelHeight());
+					}
+					case RIGHT ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println("Player's current direction: RIGHT");
+						}
+						player.move(Direction.RIGHT, level.getLevelWidth(), level.getLevelHeight());
+					}
+					case UP ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println("Player's current direction: UP");
+						}
+						player.move(Direction.UP, level.getLevelWidth(), level.getLevelHeight());
+					}
+					case DOWN ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println("Player's current direction: DOWN");
+						}
+						player.move(Direction.DOWN, level.getLevelWidth(), level.getLevelHeight());
+					}
+				}
+			}
+			
+			event.consume();
+		});
 		
 		// FIXME: This is a temporary high score value.
 		setHighScore(69420);
@@ -101,7 +175,7 @@ public class GameBoard
 			IViewState view = new MainMenu();
 			view.start(stage);
 		});
-
+		
 		headerLeft.getChildren()
 			.add(buttonQuitToMainMenu);
 		
@@ -126,20 +200,52 @@ public class GameBoard
 		
 		// Add elements to root.
 		root.setTop(header);
-		root.setCenter(gameBoard);
+		//root.setCenter(gameBoard);
+		StackPane centeredGameBoard = new StackPane(gameBoardSubScene);
+		root.setCenter(centeredGameBoard);
 		
 		new SceneBuilder()
 			.setStage(stage)
 			.setRoot(root)
 			.setTitle(WINDOW_TITLE)
 			.build();
-
-		if (Constants.DEBUG_ENABLED) {System.out.println("GameBoard: Showing stage.");}
-
+		
+		loadPlayer();
+		
+		if (Constants.DEBUG_ENABLED)
+		{
+			System.out.println("GameBoard: Showing stage.");
+		}
+		
 		stage.show();
 	}
 	
+	private void loadPlayer()
+	{
+		Image playerImage = new Image(
+			Objects.requireNonNull(
+				getClass().getResourceAsStream(
+					"/com/frigvid/jman/entity/player/jman.gif"
+				)
+			)
+		);
+		
+		playerView = new ImageView(playerImage);
+		playerView.setFitWidth(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		playerView.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		
+		player = new Entity(
+			level.getPlayerSpawnRow(),
+			level.getPlayerSpawnCol(),
+			playerView
+		);
+		
+		gameBoard.getChildren()
+					.add(player.getImageView());
+	}
+	
 	/* Setters & Getters. */
+	
 	/**
 	 * Set the high score.
 	 *
