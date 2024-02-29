@@ -29,6 +29,7 @@ public final class Constants
 	// NOTE: Should probably check that this gets the primary screen, and not secondaries.
 	public static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 	public static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+	public static final double SCREEN_SIZE = SCREEN_WIDTH + SCREEN_HEIGHT;
 
 	// Scale window relative to screen.
 	public static final double WINDOW_WIDTH = SCREEN_WIDTH / 2;
@@ -49,5 +50,6 @@ public final class Constants
 																+ "-fx-font-size: " + 14 * SCALE_FACTOR + "px;"
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
-	public static final double TILE_SIZE = 25.0 / (SCALE_FACTOR / 1.75);
+	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
+	public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 : 25.0 / (SCALE_FACTOR / 1.75);
 }
