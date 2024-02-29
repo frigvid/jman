@@ -99,28 +99,19 @@ public class Level
 	 * @see com.frigvid.jman.map.TileType
 	 */
 	private TileType mapCharToTileType(char character) {
-		switch (character) {
-			case 'W':
-				return TileType.WALL;
-			case 'S':
-				return TileType.SMALL_DOT;
-			case 'B':
-				return TileType.BIG_DOT;
-			case 'O':
-				return TileType.OPEN_SPACE;
-			case 'E':
-				return TileType.EXIT;
-			case 'T':
-				return TileType.TELEPORT;
-			case 'P':
-				return TileType.SPAWN_PLAYER;
-			case '1':
-				return TileType.SPAWN_GHOST_1;
-			case '2':
-				return TileType.SPAWN_GHOST_2;
-			default:
-				throw new IllegalArgumentException("Invalid character: " + character);
-		}
+		return switch (character)
+		{
+			case 'W' -> TileType.WALL;
+			case 'S' -> TileType.SMALL_DOT;
+			case 'B' -> TileType.BIG_DOT;
+			case 'O' -> TileType.OPEN_SPACE;
+			case 'E' -> TileType.EXIT;
+			case 'T' -> TileType.TELEPORT;
+			case 'P' -> TileType.SPAWN_PLAYER;
+			case '1' -> TileType.SPAWN_GHOST_1;
+			case '2' -> TileType.SPAWN_GHOST_2;
+			default -> throw new IllegalArgumentException("Invalid character: " + character);
+		};
 	}
 	
 	/* Setters. */
