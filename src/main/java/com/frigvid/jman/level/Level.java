@@ -251,4 +251,32 @@ public class Level
 		
 		return this.level[row][col];
 	}
+	
+	/**
+	 * Finds the position of a unique tile tileType.
+	 * <br/><br/>
+	 * Unique tiles:
+	 * - SPAWN_GHOST_1
+	 * - SPAWN_GHOST_2
+	 * - SPAWN_PLAYER
+	 * <br/><br/>
+	 * Forgive the deceptive title.
+	 * @param tileType The tile to find.
+	 * @return The position of the tile as a string.
+	 */
+	public String findTilePosition(TileType tileType)
+	{
+		for (int row = 0; row < getLevelHeight(); row++)
+		{
+			for (int col = 0; col < getLevelWidth(); col++)
+			{
+				if (getTileType(col, row) == tileType)
+				{
+					return col + "," + row;
+				}
+			}
+		}
+		
+		return "Tile not found!";
+	}
 }
