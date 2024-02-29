@@ -26,7 +26,6 @@ public class Level
 	public Level(String fileName)
 	{
 		filePath = BASE_PATH + fileName + ".level";
-		//filePath = "/com/frigvid/jman/levels/map1.level";
 		
 		try (
 			InputStream resource = getClass().getResourceAsStream(filePath);
@@ -34,28 +33,19 @@ public class Level
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 		)
 		{
-			if (Constants.DEBUG_ENABLED) {out.println("Reading level data from " + filePath);}
-
+			if (Constants.DEBUG_ENABLED)
+			{
+				out.println("Reading level data from " + filePath);
+			}
+			
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
 			
-			//char[][] lines = bufferedReader.lines()
-			//	// Remove spaces and convert each line into a char array.
-			//	.map(line -> line.replace(" ", "").toCharArray())
-			//	// Collect into a list.
-			//	.toArray(char[][]::new);
-
-			TileType[][] lines = bufferedReader.lines()
-				// Remove spaces and convert each line into a TileType array.
-				.map(line -> line.replace(" ", "").chars()
-					.mapToObj(c -> mapCharToTileType((char) c))
-					.toArray(TileType[]::new))
-				// Collect into a list.
-				.toArray(TileType[][]::new);
-
+			TileType[][] lines = createTileTypeLogicGrid(bufferedReader);
+			
 			// Store the level.
 			setLevel(lines);
-
+			
 			if (Constants.DEBUG_ENABLED)
 			{
 				out.println("Level title: " + this.title);
@@ -66,7 +56,7 @@ public class Level
 				if (Constants.DEBUG_LEVEL == 1)
 				{
 					out.println("Level data:");
-
+					
 					for (TileType[] type : lines)
 					{
 						out.println(Arrays.toString(type));
@@ -87,9 +77,8 @@ public class Level
 			out.println("Something went wrong! " + e);
 		}
 	}
-
+	
 	/* Utilities. */
-
 	/**
 	 * Used to "convert" a character-based level into a
 	 * TileType based one.
@@ -98,7 +87,8 @@ public class Level
 	 * @return The TileType corresponding to the character.
 	 * @see com.frigvid.jman.map.TileType
 	 */
-	private TileType mapCharToTileType(char character) {
+	private TileType mapCharToTileType(char character)
+	{
 		return switch (character)
 		{
 			case 'W' -> TileType.WALL;
@@ -114,6 +104,38 @@ public class Level
 		};
 	}
 	
+	/**
+	 * Create a 2-dimensional TileType array from a BufferedReader.
+	 *
+	 * @param br The BufferedReader to read from.
+	 * @return A 2-dimensional TileType array.
+	 */
+	private TileType[][] createTileTypeLogicGrid(BufferedReader br)
+	{
+		return br.lines()
+			// Remove spaces and convert each line into a TileType array.
+			.map(line -> line.replace(" ", "").chars()
+				.mapToObj(c -> mapCharToTileType((char) c))
+				.toArray(TileType[]::new))
+			// Collect into a list.
+			.toArray(TileType[][]::new);
+	}
+	
+	/**
+	 * Create a 2-dimensional char array from a BufferedReader.
+	 *
+	 * @param br The BufferedReader to read from.
+	 * @return A 2-dimensional char array.
+	 */
+	private char[][] createRawLogicGrid(BufferedReader br)
+	{
+		return br.lines()
+			// Remove spaces and convert each line into a char array.
+			.map(line -> line.replace(" ", "").toCharArray())
+			// Collect into a list.
+			.toArray(char[][]::new);
+	}
+	
 	/* Setters. */
 	private void setTitle(String title)
 	{
@@ -124,8 +146,9 @@ public class Level
 	{
 		this.level = level;
 	}
-
+	
 	/* Getters. */
+	
 	/**
 	 * Gets the level's title.
 	 *
@@ -135,7 +158,7 @@ public class Level
 	{
 		return this.title;
 	}
-
+	
 	/**
 	 * Get the whole level.
 	 *
@@ -145,10 +168,10 @@ public class Level
 	{
 		return this.level;
 	}
-
+	
 	/**
 	 * Get the level's height as an int.
-	 *
+	 * <br/><br/>
 	 * Since the map is stored in a 2-dimensional array,
 	 * you're actually getting the length of the first
 	 * array.
@@ -159,10 +182,10 @@ public class Level
 	{
 		return this.level.length;
 	}
-
+	
 	/**
 	 * Get the level's width as an int.
-	 *
+	 * <br/><br/>
 	 * Since the map is stored in a 2-dimensional array,
 	 * you're actually getting the length of the nested
 	 * array.
@@ -173,7 +196,7 @@ public class Level
 	{
 		return this.level[0].length;
 	}
-
+	
 	/**
 	 * Get an element by its position in the tile map
 	 * arraydata representing the level layout.
@@ -186,19 +209,22 @@ public class Level
 	{
 		int levelWidth = getLevelWidth();
 		int levelHeight = getLevelHeight();
-
+		
 		if (row > levelHeight)
 		{
 			throw new ArrayIndexOutOfBoundsException("Your row exceeds the possible range. The level is only " + levelHeight + " high.");
 		}
-
+		
 		if (col > levelWidth)
 		{
 			throw new ArrayIndexOutOfBoundsException("Your col exceeds the possible range. The level is only " + levelWidth + " wide.");
 		}
-
-		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1) {out.println("getLevelElement: " + this.level[row][col]);}
-
+		
+		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1)
+		{
+			out.println("getLevelElement: " + this.level[row][col]);
+		}
+		
 		return this.level[row][col];
 	}
 }
