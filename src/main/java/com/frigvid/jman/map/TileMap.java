@@ -38,7 +38,7 @@ public class TileMap
 	/* Utilities. */
 	/**
 	 * Renders the tilemap.
-	 *
+	 * <br/><br/>
 	 * NOTE: This should probably use Canvas instead.
 	 */
 	public Pane render() {
@@ -56,7 +56,7 @@ public class TileMap
 				if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1)
 				{
 					// Set border to tiles.
-					tile.setStyle("-fx-stroke: gray; -fx-stroke-width: 5;");
+					tile.setStyle("-fx-stroke: grey; -fx-stroke-width: 5;");
 				}
 				root.getChildren().add(tile);
 
