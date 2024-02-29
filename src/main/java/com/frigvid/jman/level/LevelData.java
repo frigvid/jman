@@ -13,25 +13,13 @@ package com.frigvid.jman.level;
  */
 public enum LevelData
 {
-	BIG_DOT("B"),
-	EXIT("E"),
-	OPEN_SPACE("O"),
-	SMALL_DOT("S"),
-	SPAWN_GHOST_1("1"),
-	SPAWN_GHOST_2("2"),
-	SPAWN_PLAYER("P"),
-	TELEPORT("T"),
-	WALL("W");
-	
-	private String type;
-	
-	LevelData(String type)
-	{
-		this.type = type;
-	}
-	
-	public String getType()
-	{
-		return this.type;
-	}
+	BIG_DOT,
+	EXIT,
+	OPEN_SPACE,
+	SMALL_DOT,
+	SPAWN_GHOST_1,
+	SPAWN_GHOST_2,
+	SPAWN_PLAYER,
+	TELEPORT,
+	WALL
 }
