@@ -42,8 +42,6 @@ public class TileMap
 	 * NOTE: This should probably use Canvas instead.
 	 */
 	public Pane render() {
-		//Stage primaryStage = new Stage();
-		//primaryStage.setTitle("TileMap Renderer");
 		root = new Pane();
 
 		for (int row = 0; row < level.getLevelHeight(); row++) {
@@ -108,10 +106,6 @@ public class TileMap
 				}
 			}
 		}
-
-		//Scene scene = new Scene(root, level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
-		//primaryStage.setScene(scene);
-		//primaryStage.show();
 
 		root.setPrefSize(level.getLevelWidth() * tileSize, level.getLevelHeight() * tileSize);
 
