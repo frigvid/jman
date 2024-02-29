@@ -51,5 +51,5 @@ public final class Constants
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
 	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
-	public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 : 25.0 / (SCALE_FACTOR / 1.75);
+	public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
 }
