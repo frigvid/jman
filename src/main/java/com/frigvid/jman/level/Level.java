@@ -148,7 +148,6 @@ public class Level
 	}
 	
 	/* Getters. */
-	
 	/**
 	 * Gets the level's title.
 	 *
