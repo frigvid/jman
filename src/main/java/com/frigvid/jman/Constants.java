@@ -42,7 +42,7 @@ public final class Constants
 	public static final double SCALE_FACTOR = Math.min(SCALE_FACTOR_HEIGHT, SCALE_FACTOR_WIDTH);
 
 	/* GAME/UI RELATED. */
-	public static final String GAME_TITLE = "J-Man!";
+	public static final String GAME_TITLE = DEBUG_ENABLED ? "(DEBUG) J-Man!" : "J-Man!";
 	public static final String WINDOW_BACKGROUND_COLOR = "-fx-background-color: black;";
 	public static final String MENU_BUTTON_STYLE = "-fx-background-color: yellow;"
 																+ "-fx-font-weight: bold;"
