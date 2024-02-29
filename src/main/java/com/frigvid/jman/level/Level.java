@@ -116,6 +116,7 @@ public class Level
 	 */
 	private TileType[][] createTileTypeLogicGrid(BufferedReader br)
 	{
+		// TODO: Get position of player spawn, and save it.
 		return br.lines()
 			// Remove spaces and convert each line into a TileType array.
 			.map(line -> line.replace(" ", "").chars()
