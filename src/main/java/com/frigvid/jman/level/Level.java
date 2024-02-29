@@ -22,6 +22,8 @@ public class Level
 	private String filePath;
 	private String title;
 	private TileType[][] level;
+	private int playerSpawnRow;
+	private int playerSpawnCol;
 	
 	public Level(String fileName)
 	{
@@ -40,6 +42,8 @@ public class Level
 			
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
+			setPlayerSpawnRow(Integer.parseInt(bufferedReader.readLine()));
+			setPlayerSpawnCol(Integer.parseInt(bufferedReader.readLine()));
 			
 			TileType[][] lines = createTileTypeLogicGrid(bufferedReader);
 			
@@ -142,6 +146,16 @@ public class Level
 		this.title = title;
 	}
 	
+	private void setPlayerSpawnRow(int playerSpawnRow)
+	{
+		this.playerSpawnRow = playerSpawnRow;
+	}
+	
+	private void setPlayerSpawnCol(int playerSpawnCol)
+	{
+		this.playerSpawnCol = playerSpawnCol;
+	}
+	
 	private void setLevel(TileType[][] level)
 	{
 		this.level = level;
@@ -156,6 +170,16 @@ public class Level
 	public String getTitle()
 	{
 		return this.title;
+	}
+	
+	public int getPlayerSpawnRow()
+	{
+		return this.playerSpawnRow;
+	}
+	
+	public int getPlayerSpawnCol()
+	{
+		return this.playerSpawnCol;
 	}
 	
 	/**
