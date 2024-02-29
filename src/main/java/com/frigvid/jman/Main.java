@@ -53,6 +53,7 @@ public class Main
 			+ "\nGAME_TITLE: " + Constants.GAME_TITLE
 			+ "\nSCREEN_WIDTH: " + Constants.SCREEN_WIDTH
 			+ "\nSCREEN_HEIGHT: " + Constants.SCREEN_HEIGHT
+			+ "\nSCREEN_SIZE: " + Constants.SCREEN_SIZE
 			+ "\nWINDOW_WIDTH: "  + WINDOW_WIDTH
 			+ "\nWINDOW_HEIGHT: "  + WINDOW_HEIGHT
 			+ "\nSCALE_FACTOR_WIDTH: "  + Constants.SCALE_FACTOR_WIDTH
@@ -60,6 +61,7 @@ public class Main
 			+ "\nSCALE_FACTOR: " + Constants.SCALE_FACTOR
 			+ "\nWINDOW_BACKGROUND_COLOR: " + Constants.WINDOW_BACKGROUND_COLOR
 			+ "\nMENU_BUTTON_STYLE: " + Constants.MENU_BUTTON_STYLE
+			+ "\nTILE_SIZE: " + Constants.TILE_SIZE
 		);
 	}
 }
