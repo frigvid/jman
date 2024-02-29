@@ -3,6 +3,7 @@ package com.frigvid.jman.view;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.Entity;
+import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.level.Level;
 import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
@@ -58,6 +59,7 @@ public class GameBoard
 {
 	private static final String WINDOW_TITLE = GAME_TITLE + " Game Stage";
 	private static int highScore = 0;
+	private final String debugPlayerDirection = "Player direction: ";
 	private Level level;
 	private Entity player;
 	private ImageView playerView;
@@ -70,7 +72,6 @@ public class GameBoard
 		{
 			System.out.println("GameBoard: `start` class called.");
 		}
-		;
 		
 		// Root layout.
 		BorderPane root = new BorderPane();
@@ -121,33 +122,33 @@ public class GameBoard
 					{
 						if (Constants.DEBUG_ENABLED)
 						{
-							System.out.println("Player's current direction: LEFT");
+							System.out.println(debugPlayerDirection + "LEFT");
 						}
-						player.move(Direction.LEFT, level.getLevelWidth(), level.getLevelHeight());
+						player.move(Direction.LEFT, level);
 					}
 					case RIGHT ->
 					{
 						if (Constants.DEBUG_ENABLED)
 						{
-							System.out.println("Player's current direction: RIGHT");
+							System.out.println(debugPlayerDirection + "RIGHT");
 						}
-						player.move(Direction.RIGHT, level.getLevelWidth(), level.getLevelHeight());
+						player.move(Direction.RIGHT, level);
 					}
 					case UP ->
 					{
 						if (Constants.DEBUG_ENABLED)
 						{
-							System.out.println("Player's current direction: UP");
+							System.out.println(debugPlayerDirection + "UP");
 						}
-						player.move(Direction.UP, level.getLevelWidth(), level.getLevelHeight());
+						player.move(Direction.UP, level);
 					}
 					case DOWN ->
 					{
 						if (Constants.DEBUG_ENABLED)
 						{
-							System.out.println("Player's current direction: DOWN");
+							System.out.println(debugPlayerDirection + "DOWN");
 						}
-						player.move(Direction.DOWN, level.getLevelWidth(), level.getLevelHeight());
+						player.move(Direction.DOWN, level);
 					}
 				}
 			}
@@ -210,6 +211,12 @@ public class GameBoard
 			.setTitle(WINDOW_TITLE)
 			.build();
 		
+		//player = new Player(
+		//	level,
+		//	playerView
+		//);
+		//
+		//player.load(gameBoard);
 		loadPlayer();
 		
 		if (Constants.DEBUG_ENABLED)
@@ -229,19 +236,18 @@ public class GameBoard
 				)
 			)
 		);
-		
+	
 		playerView = new ImageView(playerImage);
 		playerView.setFitWidth(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 		playerView.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-		
-		player = new Entity(
-			level.getPlayerSpawnRow(),
-			level.getPlayerSpawnCol(),
+	
+		player = new Player(
+			level,
 			playerView
 		);
-		
+	
 		gameBoard.getChildren()
-					.add(player.getImageView());
+					.add(player.getSprite());
 	}
 	
 	/* Setters & Getters. */

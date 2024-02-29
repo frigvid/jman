@@ -2,13 +2,10 @@ package com.frigvid.jman.map;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.level.Level;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 /**
  * This is more like the map "grid." Though it's not wrong
@@ -58,7 +55,7 @@ public class TileMap
 				}
 				root.getChildren().add(tile);
 
-				switch (level.getLevelElement(col, row)) {
+				switch (level.getTileType(col, row)) {
 					case WALL:
 						tile.setFill(
 							Color.valueOf("#0000bf")

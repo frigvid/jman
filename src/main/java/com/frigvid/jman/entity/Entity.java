@@ -3,40 +3,51 @@ package com.frigvid.jman.entity;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.level.Level;
 import com.frigvid.jman.map.TileType;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
-public class Entity
+public abstract class Entity
 {
-	private int row;
-	private int column;
-	private ImageView imageView;
+	protected Level level;
+	protected int spawnRow;
+	protected int spawnColumn;
+	protected ImageView entitySprite;
 	
-	public Entity(int row, int column, ImageView imageView)
+	public Entity(Level level, ImageView entitySprite)
 	{
-		this.row = row;
-		this.column = column;
-		this.imageView = imageView;
-		updateImagePosition();
+		this.level = level;
+		this.entitySprite = entitySprite;
+		setStartingPosition();
+		updateSpritePosition();
+	}
+	
+	public abstract void load(Group gameBoard);
+	protected abstract void setSpawn(TileType tileType);
+	
+	protected void setStartingPosition()
+	{
+		this.spawnRow = level.getPlayerSpawnRow();
+		this.spawnColumn = level.getPlayerSpawnCol();
 	}
 	
 	public void move(Direction direction, Level level)
 	{
 		int rows = level.getLevelWidth();
 		int columns = level.getLevelHeight();
-		int nextRow = row;
-		int nextColumn = column;
+		int nextRow = spawnRow;
+		int nextColumn = spawnColumn;
 		
 		switch (direction)
 		{
-			case LEFT -> nextColumn = Math.max(0, column - 1);
-			case RIGHT -> nextColumn = Math.min(rows - 1, column + 1);
-			case UP -> nextRow = Math.max(0, row - 1);
-			case DOWN -> nextRow = Math.min(columns - 1, row + 1);
+			case LEFT -> nextColumn = Math.max(0, spawnColumn - 1);
+			case RIGHT -> nextColumn = Math.min(rows - 1, spawnColumn + 1);
+			case UP -> nextRow = Math.max(0, spawnRow - 1);
+			case DOWN -> nextRow = Math.min(columns - 1, spawnRow + 1);
 		}
 		
 		if (nextRow >= 0 && nextColumn >= 0)
 		{
-			TileType nextTile = level.getLevelElement(nextColumn, nextRow);
+			TileType nextTile = level.getTileType(nextColumn, nextRow);
 			
 			if (Constants.DEBUG_ENABLED)
 			{
@@ -45,21 +56,33 @@ public class Entity
 			
 			if (nextTile != TileType.WALL)
 			{
-				row = nextRow;
-				column = nextColumn;
-				updateImagePosition();
+				spawnRow = nextRow;
+				spawnColumn = nextColumn;
+				updateSpritePosition();
 			}
 		}
 	}
 	
-	private void updateImagePosition()
+	/**
+	 * Validate entity-specific movement.
+	 */
+	protected abstract void validateMove();
+	
+	public void updateSpritePosition()
 	{
-		imageView.setX(column * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-		imageView.setY(row * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		entitySprite.setX(spawnColumn * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		entitySprite.setY(spawnRow * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 	}
 	
-	public ImageView getImageView()
+	/* Setters. */
+	protected void setSprite(ImageView imageView)
 	{
-		return imageView;
+		this.entitySprite = imageView;
+	}
+	
+	/* Getters. */
+	public ImageView getSprite()
+	{
+		return entitySprite;
 	}
 }

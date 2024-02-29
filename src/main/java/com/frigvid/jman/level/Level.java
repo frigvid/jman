@@ -272,7 +272,7 @@ public class Level
 			{
 				if (getTileType(col, row) == tileType)
 				{
-					return col + "," + row;
+					return row + "," + col;
 				}
 			}
 		}
