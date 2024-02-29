@@ -63,6 +63,7 @@ public class TileMap
 						tile.setFill(
 							Color.valueOf("#0000bf")
 						);
+						tile.setSmooth(false); // Fixes tiny spacing issue when scaling dynamically.
 						break;
 					case SMALL_DOT:
 						Circle point = new Circle(x + Constants.TILE_SIZE, y + Constants.TILE_SIZE, 5);
