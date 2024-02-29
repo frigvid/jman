@@ -1,7 +1,5 @@
 package com.frigvid.jman;
 
-import com.frigvid.jman.level.Level;
-import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -45,11 +43,6 @@ public class Main
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
 		stage.setMaximized(true);
-
-		// testing.
-		//Level level = new Level("map1");
-		//TileMap tileMap = new TileMap(level);
-		//tileMap.render();
 	}
 
 	private void logConstants()
