@@ -48,20 +48,20 @@ public class Main
 	private void logConstants()
 	{
 		System.out.println("Values of constants:"
-			+ "\nDEBUG_ENABLED: " + Constants.DEBUG_ENABLED
-			+ "\nDEBUG_LEVEL: " + Constants.DEBUG_LEVEL
-			+ "\nGAME_TITLE: " + Constants.GAME_TITLE
-			+ "\nSCREEN_WIDTH: " + Constants.SCREEN_WIDTH
-			+ "\nSCREEN_HEIGHT: " + Constants.SCREEN_HEIGHT
-			+ "\nSCREEN_SIZE: " + Constants.SCREEN_SIZE
-			+ "\nWINDOW_WIDTH: "  + WINDOW_WIDTH
-			+ "\nWINDOW_HEIGHT: "  + WINDOW_HEIGHT
-			+ "\nSCALE_FACTOR_WIDTH: "  + Constants.SCALE_FACTOR_WIDTH
-			+ "\nSCALE_FACTOR_HEIGHT: " + Constants.SCALE_FACTOR_HEIGHT
-			+ "\nSCALE_FACTOR: " + Constants.SCALE_FACTOR
-			+ "\nWINDOW_BACKGROUND_COLOR: " + Constants.WINDOW_BACKGROUND_COLOR
-			+ "\nMENU_BUTTON_STYLE: " + Constants.MENU_BUTTON_STYLE
-			+ "\nTILE_SIZE: " + Constants.TILE_SIZE
+			+ "\n┣ DEBUG_ENABLED: " + Constants.DEBUG_ENABLED
+			+ "\n┣ DEBUG_LEVEL: " + Constants.DEBUG_LEVEL
+			+ "\n┣ GAME_TITLE: " + Constants.GAME_TITLE
+			+ "\n┣ SCREEN_WIDTH: " + Constants.SCREEN_WIDTH
+			+ "\n┣ SCREEN_HEIGHT: " + Constants.SCREEN_HEIGHT
+			+ "\n┣ SCREEN_SIZE: " + Constants.SCREEN_SIZE
+			+ "\n┣ WINDOW_WIDTH: "  + WINDOW_WIDTH
+			+ "\n┣ WINDOW_HEIGHT: "  + WINDOW_HEIGHT
+			+ "\n┣ SCALE_FACTOR_WIDTH: "  + Constants.SCALE_FACTOR_WIDTH
+			+ "\n┣ SCALE_FACTOR_HEIGHT: " + Constants.SCALE_FACTOR_HEIGHT
+			+ "\n┣ SCALE_FACTOR: " + Constants.SCALE_FACTOR
+			+ "\n┣ WINDOW_BACKGROUND_COLOR: " + Constants.WINDOW_BACKGROUND_COLOR
+			+ "\n┣ MENU_BUTTON_STYLE: " + Constants.MENU_BUTTON_STYLE
+			+ "\n┗ TILE_SIZE: " + Constants.TILE_SIZE
 		);
 	}
 }
