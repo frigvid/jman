@@ -52,10 +52,11 @@ public class Level
 			
 			if (Constants.DEBUG_ENABLED)
 			{
-				out.println("Level title: " + this.title);
 				out.println(
-					"Level columns: " + getLevelHeight() +
-					"\nLevel rows: " + getLevelWidth()
+					"Level information:" +
+					"\n┣ Level title: " + this.title +
+					"\n┣ Level columns: " + getLevelHeight() +
+					"\n┗ Level rows: " + getLevelWidth()
 				);
 				if (Constants.DEBUG_LEVEL == 1)
 				{
