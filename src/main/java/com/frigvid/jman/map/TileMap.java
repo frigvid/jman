@@ -46,6 +46,9 @@ public class TileMap
 			for (int col = 0; col < level.getLevelWidth(); col++) {
 				double x = col * tileSize;
 				double y = row * tileSize;
+				// Calculate the center of the tile.
+				double centerX = x + tileSize / 2;
+				double centerY = y + tileSize / 2;
 
 				Rectangle tile = new Rectangle(x, y, tileSize, tileSize);
 				tile.setFill(Color.BLACK);
@@ -59,10 +62,6 @@ public class TileMap
 				// Draw center lines for alignment debugging.
 				if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 2)
 				{
-					// Calculate the center of the rectangle.
-					double centerX = x + tileSize / 2;
-					double centerY = y + tileSize / 2;
-					
 					// Define the length of each line.
 					double plusLength = tileSize / 4;
 					
@@ -85,12 +84,12 @@ public class TileMap
 						tile.setSmooth(false); // Fixes tiny spacing issue when scaling dynamically.
 						break;
 					case SMALL_DOT:
-						Circle point = new Circle(x + Constants.TILE_SIZE, y + Constants.TILE_SIZE, 5);
+						Circle point = new Circle(centerX, centerY, 5);
 						point.setFill(Color.GOLD);
 						root.getChildren().add(point);
 						break;
 					case BIG_DOT:
-						Circle powerUp = new Circle(x + Constants.TILE_SIZE, y + Constants.TILE_SIZE, 10);
+						Circle powerUp = new Circle(centerX, centerY, 10);
 						powerUp.setFill(Color.ORANGE);
 						root.getChildren().add(powerUp);
 						break;
