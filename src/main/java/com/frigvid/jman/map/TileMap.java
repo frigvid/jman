@@ -5,6 +5,7 @@ import com.frigvid.jman.level.Level;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -54,6 +55,27 @@ public class TileMap
 					tile.setStyle("-fx-stroke: grey; -fx-stroke-width: 5;");
 				}
 				root.getChildren().add(tile);
+				
+				// Draw center lines for alignment debugging.
+				if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 2)
+				{
+					// Calculate the center of the rectangle.
+					double centerX = x + tileSize / 2;
+					double centerY = y + tileSize / 2;
+					
+					// Define the length of each line.
+					double plusLength = tileSize / 4;
+					
+					Line horizontalLine = new Line(centerX - plusLength, centerY, centerX + plusLength, centerY);
+					Line verticalLine = new Line(centerX, centerY - plusLength, centerX, centerY + plusLength);
+					horizontalLine.setStroke(Color.RED);
+					verticalLine.setStroke(Color.RED);
+					
+					root.getChildren().addAll(
+						horizontalLine,
+						verticalLine
+					);
+				}
 
 				switch (level.getTileType(col, row)) {
 					case WALL:
