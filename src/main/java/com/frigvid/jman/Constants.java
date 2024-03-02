@@ -21,7 +21,7 @@ public final class Constants
 	/* DEBUGGING. */
 	// Switch to true to enable debug logging.
 	public static final boolean DEBUG_ENABLED = false;
-	// 0 = default. 1 = full logging.
+	// 0 = default. 1 = full logging. 2 = Unnecessary logging.
 	public static final int DEBUG_LEVEL = 0;
 
 	/* SCALING. */

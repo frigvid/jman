@@ -54,17 +54,29 @@ public class Level
 			{
 				out.println(
 					"Level information:" +
-					"\n┣ Level title: " + this.title +
-					"\n┣ Level columns: " + getLevelHeight() +
-					"\n┗ Level rows: " + getLevelWidth()
+					"\n┣ Title: " + this.title +
+					"\n┣ Rows: " + getLevelWidth() +
+					"\n┗ Columns: " + getLevelHeight()
 				);
 				if (Constants.DEBUG_LEVEL == 1)
 				{
+					char[][] rawLines = createRawLogicGrid(filePath);
 					out.println("Level data:");
 					
-					for (TileType[] type : lines)
+					// NOTE: This could use "char[] line : rawLines" instead, but this is just
+					//			for more clarity.
+					assert rawLines != null;
+					for (int i = 0; i < rawLines.length; i++)
 					{
-						out.println(Arrays.toString(type));
+						char[] line = rawLines[i];
+						if (i != rawLines.length - 1)
+						{
+							out.println("┣ " + Arrays.toString(line));
+						}
+						else
+						{
+							out.println("┗ " + Arrays.toString(line));
+						}
 					}
 				}
 			}
@@ -84,6 +96,7 @@ public class Level
 	}
 	
 	/* Utilities. */
+	
 	/**
 	 * Used to "convert" a character-based level into a
 	 * TileType based one.
@@ -128,18 +141,37 @@ public class Level
 	}
 	
 	/**
-	 * Create a 2-dimensional char array from a BufferedReader.
+	 * Create a 2-dimensional char array.
 	 *
-	 * @param br The BufferedReader to read from.
+	 * @param String The file path to read from.
 	 * @return A 2-dimensional char array.
+	 * @warning This is only meant for debugging purposes.
 	 */
-	private char[][] createRawLogicGrid(BufferedReader br)
+	private char[][] createRawLogicGrid(String filePath)
 	{
-		return br.lines()
-			// Remove spaces and convert each line into a char array.
-			.map(line -> line.replace(" ", "").toCharArray())
-			// Collect into a list.
-			.toArray(char[][]::new);
+		try
+		{
+			InputStream resource = getClass().getResourceAsStream(filePath);
+			assert resource != null;
+			InputStreamReader inputStreamReader = new InputStreamReader(resource);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+			
+			// Skip the first three lines.
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			bufferedReader.readLine();
+			
+			return bufferedReader.lines()
+				.map(line -> line.replace(" ", ""))
+				.map(String::toCharArray)
+				.toArray(char[][]::new);
+		}
+		catch (Exception e)
+		{
+			out.println("Something went wrong! " + e);
+		}
+		
+		return null;
 	}
 	
 	/* Setters. */
@@ -164,6 +196,7 @@ public class Level
 	}
 	
 	/* Getters. */
+	
 	/**
 	 * Gets the level's title.
 	 *
@@ -245,7 +278,7 @@ public class Level
 			throw new ArrayIndexOutOfBoundsException("Your col exceeds the possible range. The level is only " + levelWidth + " wide.");
 		}
 		
-		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 1)
+		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 2)
 		{
 			out.println("getLevelElement: " + this.level[row][col]);
 		}
@@ -262,6 +295,7 @@ public class Level
 	 * - SPAWN_PLAYER
 	 * <br/><br/>
 	 * Forgive the deceptive title.
+	 *
 	 * @param tileType The tile to find.
 	 * @return The position of the tile as a string.
 	 */
