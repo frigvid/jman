@@ -1,6 +1,5 @@
 package com.frigvid.jman.view;
 
-import com.frigvid.jman.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,8 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.frigvid.jman.Constants.DEBUG_ENABLED;
-import static com.frigvid.jman.Constants.GAME_TITLE;
+import static com.frigvid.jman.Constants.*;
 
 /**
  * A builder class for creating JavaFX scenes,
@@ -101,14 +99,34 @@ public class SceneBuilder
 		}
 
 		if (DEBUG_ENABLED) {
-			System.out.println("SceneBuilder:\nWidth: " + width + "\nHeight: " + height);
+			System.out.println(
+				"SceneBuilder (" + title + "):" +
+				"\n┣ Width/height variables (pre-check):" +
+				"\n┃ ┣ Width: " + width +
+				"\n┃ ┗ Height: " + height);
 		}
 		
 		// Check if the width and height are set, and use the stage size if not.
 		if (width <= 0 || height <= 0)
 		{
-			width = stage.getWidth();
-			height = stage.getHeight();
+			if (!Double.isNaN(stage.getWidth()) || !Double.isNaN(stage.getHeight()))
+			{
+				width = stage.getWidth();
+				height = stage.getHeight();
+			}
+			
+			if (DEBUG_ENABLED && DEBUG_LEVEL == 1) {
+				System.out.println(
+					"┗ Width/height variables (post check):" +
+					"\n  ┣ Width (var): " + width +
+					"\n  ┣ Height (var): " + height +
+					"\n  ┣ Stage width: " + stage.getWidth() +
+					"\n  ┗ Stage height: " + stage.getHeight());
+			}
+			else
+			{
+				System.out.println("┗ Set DEBUG_LEVEL to 1 to see post check log.");
+			}
 		}
 
 		Scene scene = new Scene(root, width, height);
