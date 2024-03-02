@@ -25,8 +25,13 @@ public final class Constants
 	public static final int DEBUG_LEVEL = 0;
 
 	/* SCALING. */
-	// Save screen size, for scaling.
-	// NOTE: Should probably check that this gets the primary screen, and not secondaries.
+	/* Save screen size, for scaling.
+	 * NOTE: AWT and JavaFX both get the *scaled* resolution, never the native resolution.
+	 *			This *will* cause weird issues if you're not at native resolution above 1080p
+	 *			or 2k or so, basically high DPI. 4k@100%+ scaling gets weird man. For example,
+	 * 		main menu → start game → back to main menu causes the menu to shift down
+	 * 		towards the right hand side.
+	 */
 	public static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 	public static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
 	public static final double SCREEN_SIZE = SCREEN_WIDTH + SCREEN_HEIGHT;
@@ -36,8 +41,10 @@ public final class Constants
 	public static final double WINDOW_HEIGHT = SCREEN_HEIGHT / 2;
 
 	// Element scaling factor.
-	public static final double SCALE_FACTOR_WIDTH = Math.abs(SCREEN_WIDTH / WINDOW_WIDTH);
-	public static final double SCALE_FACTOR_HEIGHT = Math.abs(SCREEN_HEIGHT / WINDOW_HEIGHT);
+	// Alternative: Math.abs(SCREEN_WIDTH / WINDOW_WIDTH);
+	public static final double SCALE_FACTOR_WIDTH = Screen.getPrimary().getOutputScaleX();
+	// Alternative: Math.abs(SCREEN_HEIGHT / WINDOW_HEIGHT);
+	public static final double SCALE_FACTOR_HEIGHT = Screen.getPrimary().getOutputScaleY();
 	// Use this for things like font size.
 	public static final double SCALE_FACTOR = Math.min(SCALE_FACTOR_HEIGHT, SCALE_FACTOR_WIDTH);
 
@@ -51,5 +58,6 @@ public final class Constants
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
 	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
-	public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
+	//public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
+	public static final double TILE_SIZE = 25.0;
 }
