@@ -278,10 +278,10 @@ public class Level
 			throw new ArrayIndexOutOfBoundsException("Your col exceeds the possible range. The level is only " + levelWidth + " wide.");
 		}
 		
-		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 2)
-		{
-			out.println("getLevelElement: " + this.level[row][col]);
-		}
+		//if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL == 2)
+		//{
+		//	out.println("getLevelElement: " + this.level[row][col]);
+		//}
 		
 		return this.level[row][col];
 	}
