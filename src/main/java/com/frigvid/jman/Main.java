@@ -4,8 +4,7 @@ import com.frigvid.jman.view.state.ViewStateManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import static com.frigvid.jman.Constants.WINDOW_WIDTH;
-import static com.frigvid.jman.Constants.WINDOW_HEIGHT;
+import static com.frigvid.jman.Constants.*;
 
 /**
  * The main class for the application.
@@ -39,6 +38,8 @@ public class Main
 
 		ViewStateManager viewStateManager = new ViewStateManager();
 		viewStateManager.startMainMenu(stage);
+		stage.setMinWidth(WINDOW_WIDTH / SCALE_FACTOR);
+		stage.setMinHeight(WINDOW_HEIGHT);
 		stage.setWidth(WINDOW_WIDTH);
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
