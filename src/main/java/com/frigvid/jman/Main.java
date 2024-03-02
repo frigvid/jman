@@ -34,7 +34,10 @@ public class Main
 	@Override
 	public void start(Stage stage)
 	{
-		if (Constants.DEBUG_ENABLED) {logConstants();};
+		if (Constants.DEBUG_ENABLED)
+		{
+			logConstants();
+		}
 
 		ViewStateManager viewStateManager = new ViewStateManager();
 		viewStateManager.startMainMenu(stage);
@@ -46,9 +49,10 @@ public class Main
 		stage.setMaximized(true);
 	}
 
-	private void logConstants()
+	public static void logConstants()
 	{
-		System.out.println("Values of constants:"
+		System.out.println(
+			"Values of constants:"
 			+ "\n┣ DEBUG_ENABLED: " + Constants.DEBUG_ENABLED
 			+ "\n┣ DEBUG_LEVEL: " + Constants.DEBUG_LEVEL
 			+ "\n┣ GAME_TITLE: " + Constants.GAME_TITLE
