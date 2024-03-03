@@ -26,11 +26,7 @@ public final class Constants
 
 	/* SCALING. */
 	/* Save screen size, for scaling.
-	 * NOTE: AWT and JavaFX both get the *scaled* resolution, never the native resolution.
-	 *			This *will* cause weird issues if you're not at native resolution above 1080p
-	 *			or 2k or so, basically high DPI. 4k@100%+ scaling gets weird man. For example,
-	 * 		main menu → start game → back to main menu causes the menu to shift down
-	 * 		towards the right hand side.
+	 * NOTE: Use JavaFX 21+, sub 21 has issues with scaling on 2k/4k screens.
 	 */
 	public static final double SCREEN_WIDTH = Screen.getPrimary().getBounds().getWidth();
 	public static final double SCREEN_HEIGHT = Screen.getPrimary().getBounds().getHeight();
