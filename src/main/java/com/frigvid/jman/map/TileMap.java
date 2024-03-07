@@ -133,4 +133,8 @@ public class TileMap
 
 	/* Setters. */
 	/* Getters. */
+	public Pane getRoot()
+	{
+		return this.root;
+	}
 }

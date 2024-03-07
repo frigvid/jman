@@ -128,7 +128,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "LEFT");
 						}
-						player.move(Direction.LEFT, level);
+						player.move(Direction.LEFT, level, tileMap);
 					}
 					case RIGHT ->
 					{
@@ -136,7 +136,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "RIGHT");
 						}
-						player.move(Direction.RIGHT, level);
+						player.move(Direction.RIGHT, level, tileMap);
 					}
 					case UP ->
 					{
@@ -144,7 +144,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "UP");
 						}
-						player.move(Direction.UP, level);
+						player.move(Direction.UP, level, tileMap);
 					}
 					case DOWN ->
 					{
@@ -152,7 +152,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "DOWN");
 						}
-						player.move(Direction.DOWN, level);
+						player.move(Direction.DOWN, level, tileMap);
 					}
 				}
 			}

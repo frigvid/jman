@@ -58,4 +58,7 @@ public final class Constants
 	public static final double TILE_SIZE = 25.0;
 	public static final double PELLET_SIZE = 5.0;
 	public static final double POWERUP_SIZE = 10.0;
+	public static final int SCORE_PELLET = 10;
+	public static final int SCORE_POWERUP = 50;
+	public static final int SCORE_GHOST = 200; // 200, 400, 800, 1600
 }

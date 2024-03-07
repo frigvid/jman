@@ -2,9 +2,12 @@ package com.frigvid.jman.entity;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.level.Level;
+import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.map.TileType;
+import com.frigvid.jman.view.GameBoard;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 public abstract class Entity
 {
@@ -30,7 +33,7 @@ public abstract class Entity
 		this.spawnColumn = level.getPlayerSpawnCol();
 	}
 	
-	public void move(Direction direction, Level level)
+	public void move(Direction direction, Level level, TileMap tileMap)
 	{
 		int rows = level.getLevelWidth();
 		int columns = level.getLevelHeight();
@@ -59,6 +62,31 @@ public abstract class Entity
 				spawnRow = nextRow;
 				spawnColumn = nextColumn;
 				updateSpritePosition();
+				
+				// Delete pellets and powerups, and increase score.
+				tileMap.getRoot().getChildren().removeIf(node ->
+				{
+					if (node instanceof Circle circle)
+					{
+						boolean intersectsPlayer = circle.getBoundsInParent()
+																	.intersects(entitySprite.getBoundsInParent());
+						
+						if (intersectsPlayer)
+						{
+							if (circle.getRadius() == Constants.PELLET_SIZE)
+							{
+								GameBoard.increaseScoreBy(Constants.SCORE_PELLET);
+								return true;
+							}
+							else if (circle.getRadius() == Constants.POWERUP_SIZE)
+							{
+								GameBoard.increaseScoreBy(Constants.SCORE_POWERUP);
+								return true;
+							}
+						}
+					}
+					return false;
+				});
 			}
 		}
 	}
