@@ -94,12 +94,7 @@ public class GameBoard
 		headerCenter.setAlignment(Pos.CENTER);
 		
 		// Game board, where the actual level will be drawn.
-		// NOTE: Consider using SubScene for the actual game?
-		//gameBoard = new Group();
-		// Testing, this works:
 		level = new Level("map1");
-		//TileMap tileMap = new TileMap(level);
-		//gameBoard.getChildren().add(tileMap.render());
 		
 		gameBoard = new Group();
 		TileMap tileMap = new TileMap(level);
@@ -161,7 +156,6 @@ public class GameBoard
 		});
 		
 		// Header score counter.
-		//drawScore();
 		labelScore = new Label("High Score: " + getHighScore());
 		labelScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
 		labelScore.setStyle("""
