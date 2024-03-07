@@ -2,11 +2,14 @@ package com.frigvid.jman.level;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.map.TileType;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 import static java.lang.System.out;
 
@@ -170,6 +173,29 @@ public class Level
 		catch (Exception e)
 		{
 			out.println("Something went wrong! " + e);
+		}
+		
+		return null;
+	}
+	
+	public Pair<Integer, Integer> findRandomTeleportLocation(int currentCol, int currentRow)
+	{
+		ArrayList<Pair<Integer, Integer>> teleportLocations = new ArrayList<>();
+		
+		for (int row = 0; row < getLevelHeight(); row++)
+		{
+			for (int col = 0; col < getLevelWidth(); col++)
+			{
+				if (getTileType(col, row) == TileType.TELEPORT && (col != currentCol || row != currentRow))
+				{
+					teleportLocations.add(new Pair<>(col, row));
+				}
+			}
+		}
+		
+		if (!teleportLocations.isEmpty())
+		{
+			return teleportLocations.get(new Random().nextInt(teleportLocations.size()));
 		}
 		
 		return null;

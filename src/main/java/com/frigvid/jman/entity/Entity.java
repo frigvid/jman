@@ -8,6 +8,7 @@ import com.frigvid.jman.view.GameBoard;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.util.Pair;
 
 public abstract class Entity
 {
@@ -61,6 +62,7 @@ public abstract class Entity
 			{
 				spawnRow = nextRow;
 				spawnColumn = nextColumn;
+				teleportIfNecessary(spawnColumn, spawnRow);
 				updateSpritePosition();
 				
 				// Delete pellets and powerups, and increase score.
@@ -100,6 +102,20 @@ public abstract class Entity
 	{
 		entitySprite.setX(spawnColumn * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 		entitySprite.setY(spawnRow * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+	}
+	
+	private void teleportIfNecessary(int nextColumn, int nextRow)
+	{
+		if (level.getTileType(nextColumn, nextRow) == TileType.TELEPORT)
+		{
+			Pair<Integer, Integer> newLocation = level.findRandomTeleportLocation(nextColumn, nextRow);
+			
+			if (newLocation != null)
+			{
+				spawnColumn = newLocation.getKey();
+				spawnRow = newLocation.getValue();
+			}
+		}
 	}
 	
 	/* Setters. */
