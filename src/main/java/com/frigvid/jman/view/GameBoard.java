@@ -214,12 +214,6 @@ public class GameBoard
 			.setTitle(WINDOW_TITLE)
 			.build();
 		
-		//player = new Player(
-		//	level,
-		//	playerView
-		//);
-		//
-		//player.load(gameBoard);
 		loadPlayer();
 		
 		if (Constants.DEBUG_ENABLED)
@@ -230,6 +224,7 @@ public class GameBoard
 		stage.show();
 	}
 	
+	/* Utilities. */
 	private void loadPlayer()
 	{
 		Image playerImage = new Image(
@@ -281,6 +276,7 @@ public class GameBoard
 		setScore(true, value);
 	}
 	
+	/* Getters. */
 	/**
 	 * Get the high score.
 	 *

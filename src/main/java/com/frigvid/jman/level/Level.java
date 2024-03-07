@@ -134,6 +134,7 @@ public class Level
 		return br.lines()
 			// Remove spaces and convert each line into a TileType array.
 			.map(line -> line.replace(" ", "").chars()
+				.peek(c -> { if ((char)c == 'P') System.out.println("P"); })
 				.mapToObj(c -> mapCharToTileType((char) c))
 				.toArray(TileType[]::new))
 			// Collect into a list.

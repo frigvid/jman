@@ -22,8 +22,7 @@ public class Player
 		//setSpawn(TileType.SPAWN_PLAYER);
 	}
 	
-	@Override
-	protected void setSpawn(TileType tileType)
+	public void setSpawn(TileType tileType)
 	{
 		String position = level.findTilePosition(tileType);
 		String[] positionArray = position.split(",");
