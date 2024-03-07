@@ -7,6 +7,9 @@ import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.level.Level;
 import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -58,7 +61,8 @@ public class GameBoard
 	implements IViewState
 {
 	private static final String WINDOW_TITLE = GAME_TITLE + " Game Stage";
-	private static int highScore = 0;
+	private static IntegerProperty score = new SimpleIntegerProperty(0);
+	private static Label labelScore;
 	private final String debugPlayerDirection = "Player direction: ";
 	private Level level;
 	private Entity player;
@@ -156,17 +160,16 @@ public class GameBoard
 			event.consume();
 		});
 		
-		// FIXME: This is a temporary high score value.
-		setHighScore(69420);
-		
 		// Header score counter.
-		// TODO: Implement a way to update the score dynamically.
-		Label labelHighScore = new Label("High Score: " + getHighScore());
-		labelHighScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
-		labelHighScore.setStyle("""
+		//drawScore();
+		labelScore = new Label("High Score: " + getHighScore());
+		labelScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
+		labelScore.setStyle("""
 				-fx-text-fill: white;
 				-fx-font-weight: bold;
 			""");
+		
+		labelScore.textProperty().bind(score.asString());
 		
 		// Noob button.
 		Button buttonQuitToMainMenu = new Button("Quit to Main Menu");
@@ -181,7 +184,7 @@ public class GameBoard
 			.add(buttonQuitToMainMenu);
 		
 		headerCenter.getChildren()
-			.add(labelHighScore);
+			.add(labelScore);
 		
 		/* If you're wondering why they're added in reverse order, it has to do with how StackPane works.
 		 * I'm using it as a kind of pretty ugly workaround to get the elements to align properly. However,
@@ -250,16 +253,32 @@ public class GameBoard
 					.add(player.getSprite());
 	}
 	
-	/* Setters & Getters. */
+	/**
+	 * Wrapper method for {@link #setScore}.
+	 * <p/>
+	 * Allows for easy score increase.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to increase the score by.
+	 * @see #setScore(boolean, int)
+	 */
+	public static void increaseScoreBy(int value)
+	{
+		setScore(false, value);
+	}
 	
 	/**
-	 * Set the high score.
-	 *
-	 * @param highScore The high score.
+	 * Wrapper method for {@link #setScore}.
+	 * <p/>
+	 * Allows for easy score subtraction.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to decrease the score by.
+	 * @see #setScore(boolean, int)
 	 */
-	public static void setHighScore(int highScore)
+	public static void reduceScoreBy(int value)
 	{
-		GameBoard.highScore = highScore;
+		setScore(true, value);
 	}
 	
 	/**
@@ -269,6 +288,31 @@ public class GameBoard
 	 */
 	public static int getHighScore()
 	{
-		return highScore;
+		return score.get();
+	}
+	
+	/* Setters. */
+	/**
+	 * Add to, or subtract from the score.
+	 * <p/>
+	 * Method is static to allow for easy access from other classes.
+	 *
+	 * @param subtract Whether to subtract from the score.
+	 * @param value The value to add to, or subtract from the score.
+	 */
+	public static void setScore(boolean subtract, int value)
+	{
+		if (subtract)
+		{
+			score.set(
+				score.get() - value
+			);
+		}
+		else
+		{
+			score.set(
+				score.get() + value
+			);
+		}
 	}
 }
