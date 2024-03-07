@@ -84,12 +84,12 @@ public class TileMap
 						tile.setSmooth(false); // Fixes tiny spacing issue when scaling dynamically.
 						break;
 					case SMALL_DOT:
-						Circle point = new Circle(centerX, centerY, 5);
-						point.setFill(Color.GOLD);
-						root.getChildren().add(point);
+						Circle pellet = new Circle(centerX, centerY, Constants.PELLET_SIZE);
+						pellet.setFill(Color.GOLD);
+						root.getChildren().add(pellet);
 						break;
 					case BIG_DOT:
-						Circle powerUp = new Circle(centerX, centerY, 10);
+						Circle powerUp = new Circle(centerX, centerY, Constants.POWERUP_SIZE);
 						powerUp.setFill(Color.ORANGE);
 						root.getChildren().add(powerUp);
 						break;
