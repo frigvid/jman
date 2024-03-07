@@ -7,7 +7,6 @@ import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.level.Level;
 import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.view.state.IViewState;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
@@ -67,7 +66,7 @@ public class GameBoard
 	private Level level;
 	private Entity player;
 	private ImageView playerView;
-	private Group gameBoard;
+	private Group board;
 	
 	@Override
 	public void start(Stage stage)
@@ -85,32 +84,24 @@ public class GameBoard
 		StackPane header = new StackPane();
 		header.setPadding(new Insets(10));
 		
-		// For the button.
-		HBox headerLeft = new HBox();
-		headerLeft.setAlignment(Pos.CENTER_LEFT);
+		HBox headerButton = new HBox() {{ setAlignment(Pos.CENTER_LEFT); }};
+		HBox headerLabel = new HBox() {{ setAlignment(Pos.CENTER); }};
 		
-		// For the label.
-		HBox headerCenter = new HBox();
-		headerCenter.setAlignment(Pos.CENTER);
-		
-		// Game board, where the actual level will be drawn.
+		// Game board.
 		level = new Level("map1");
-		
-		gameBoard = new Group();
 		TileMap tileMap = new TileMap(level);
-		gameBoard.getChildren().add(tileMap.render());
+		board = new Group();
+		board.getChildren().add(tileMap.render());
 		
-		// Create a SubScene for the gameBoard
-		SubScene gameBoardSubScene = new SubScene(gameBoard, 0, 0);
-		
-		// Bind the SubScene's size to the parent BorderPane's size
-		gameBoardSubScene.widthProperty().bind(root.widthProperty());
-		gameBoardSubScene.heightProperty().bind(root.heightProperty());
-		
-		gameBoardSubScene.setFocusTraversable(true); // Allow it to capture key events
+		SubScene boardGame = new SubScene(board, 0, 0);
+		boardGame.widthProperty()
+			.bind(tileMap.getRoot().widthProperty());
+		boardGame.heightProperty()
+			.bind(tileMap.getRoot().heightProperty());
+		boardGame.setFocusTraversable(true); // Allow it to capture key events
 		
 		// Attach key event handlers to the SubScene
-		gameBoardSubScene.setOnKeyPressed(event ->
+		boardGame.setOnKeyPressed(event ->
 		{
 			// Your key event handling logic here
 			if (player != null)
@@ -174,10 +165,10 @@ public class GameBoard
 			view.start(stage);
 		});
 		
-		headerLeft.getChildren()
+		headerButton.getChildren()
 			.add(buttonQuitToMainMenu);
 		
-		headerCenter.getChildren()
+		headerLabel.getChildren()
 			.add(labelScore);
 		
 		/* If you're wondering why they're added in reverse order, it has to do with how StackPane works.
@@ -192,15 +183,13 @@ public class GameBoard
 		 */
 		header.getChildren()
 			.addAll(
-				headerCenter,
-				headerLeft
+				headerLabel,
+				headerButton
 			);
 		
 		// Add elements to root.
 		root.setTop(header);
-		//root.setCenter(gameBoard);
-		StackPane centeredGameBoard = new StackPane(gameBoardSubScene);
-		root.setCenter(centeredGameBoard);
+		root.setCenter(boardGame);
 		
 		new SceneBuilder()
 			.setStage(stage)
@@ -238,7 +227,7 @@ public class GameBoard
 			playerView
 		);
 	
-		gameBoard.getChildren()
+		board.getChildren()
 					.add(player.getSprite());
 	}
 	
