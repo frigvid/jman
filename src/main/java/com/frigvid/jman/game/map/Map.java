@@ -42,8 +42,6 @@ public class Map
 	// - Player spawn.
 	private ImageView playerSprite;
 	private Player player;
-	private int playerSpawnRow;
-	private int playerSpawnCol;
 	// - Miscellaneous.
 	private final String filePath;
 	
