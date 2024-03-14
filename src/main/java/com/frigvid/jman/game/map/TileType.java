@@ -1,14 +1,17 @@
-package com.frigvid.jman.level;
+package com.frigvid.jman.game.map;
 
 /**
  * An enum for the different types of level data.
+ * <br/><br/>
+ * This is similar to Constants, but dissimilar enough
+ * that I chose to use an enum instead of a final class.
  *
  * @author frigvid
  * @created 2024-02-19
  * @since 0.1
  * @see com.frigvid.jman.Constants
  */
-public enum LevelData
+public enum TileType
 {
 	BIG_DOT,
 	EXIT,
@@ -18,5 +21,5 @@ public enum LevelData
 	SPAWN_GHOST_2,
 	SPAWN_PLAYER,
 	TELEPORT,
-	WALL
+	WALL;
 }

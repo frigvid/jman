@@ -2,10 +2,8 @@ package com.frigvid.jman.view;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
-import com.frigvid.jman.entity.Entity;
 import com.frigvid.jman.entity.player.Player;
-import com.frigvid.jman.level.Level;
-import com.frigvid.jman.map.TileMap;
+import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,15 +13,12 @@ import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.util.Objects;
 
 import static com.frigvid.jman.Constants.*;
 
@@ -63,7 +58,7 @@ public class GameBoard
 	private static IntegerProperty score = new SimpleIntegerProperty(0);
 	private static Label labelScore;
 	private final String debugPlayerDirection = "Player direction: ";
-	private Level level;
+	private Map map;
 	private Player player;
 	private ImageView playerView;
 	private Group board;
@@ -88,16 +83,15 @@ public class GameBoard
 		HBox headerLabel = new HBox() {{ setAlignment(Pos.CENTER); }};
 		
 		// Game board.
-		level = new Level("map1");
-		TileMap tileMap = new TileMap(level);
+		map = new Map("map1");
 		board = new Group();
-		board.getChildren().add(tileMap.render());
+		board.getChildren().add(map.getVisualGrid());
 		
 		SubScene boardGame = new SubScene(board, 0, 0);
 		boardGame.widthProperty()
-			.bind(tileMap.getRoot().widthProperty());
+			.bind(map.getVisualGrid().widthProperty());
 		boardGame.heightProperty()
-			.bind(tileMap.getRoot().heightProperty());
+			.bind(map.getVisualGrid().heightProperty());
 		boardGame.setFocusTraversable(true); // Allow it to capture key events
 		
 		// Attach key event handlers to the SubScene
@@ -114,7 +108,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "LEFT");
 						}
-						player.move(Direction.LEFT, level, tileMap);
+						player.move(Direction.LEFT, map);
 					}
 					case RIGHT ->
 					{
@@ -122,7 +116,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "RIGHT");
 						}
-						player.move(Direction.RIGHT, level, tileMap);
+						player.move(Direction.RIGHT, map);
 					}
 					case UP ->
 					{
@@ -130,7 +124,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "UP");
 						}
-						player.move(Direction.UP, level, tileMap);
+						player.move(Direction.UP, map);
 					}
 					case DOWN ->
 					{
@@ -138,7 +132,7 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "DOWN");
 						}
-						player.move(Direction.DOWN, level, tileMap);
+						player.move(Direction.DOWN, map);
 					}
 				}
 			}
@@ -197,7 +191,8 @@ public class GameBoard
 			.setTitle(WINDOW_TITLE)
 			.build();
 		
-		loadPlayer();
+		player = new Player(map);
+		player.load(board);
 		
 		if (Constants.DEBUG_ENABLED)
 		{
@@ -208,29 +203,6 @@ public class GameBoard
 	}
 	
 	/* Utilities. */
-	private void loadPlayer()
-	{
-		Image playerImage = new Image(
-			Objects.requireNonNull(
-				getClass().getResourceAsStream(
-					"/com/frigvid/jman/entity/player/jman.gif"
-				)
-			)
-		);
-	
-		playerView = new ImageView(playerImage);
-		playerView.setFitWidth(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-		playerView.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-	
-		player = new Player(
-			level,
-			playerView
-		);
-	
-		board.getChildren()
-					.add(player.getSprite());
-	}
-	
 	/**
 	 * Wrapper method for {@link #setScore}.
 	 * <p/>

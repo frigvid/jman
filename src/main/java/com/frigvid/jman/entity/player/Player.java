@@ -3,9 +3,8 @@ package com.frigvid.jman.entity.player;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.Entity;
-import com.frigvid.jman.level.Level;
-import com.frigvid.jman.map.TileMap;
-import com.frigvid.jman.map.TileType;
+import com.frigvid.jman.game.map.Map;
+import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -18,40 +17,49 @@ public class Player
 	extends Entity
 {
 	private final String spritePath = "/com/frigvid/jman/entity/player/jman.gif";
-	//private ImageView sprite;
 	
-	public Player() {
-		super(null, null);
-	};
-	
-	public Player(Level level, ImageView imageView)
+	public Player(Map map)
 	{
-		super(level, imageView);
-		//setSpawn(TileType.SPAWN_PLAYER);
+		super(map, null);
 	}
 	
-	public void setSpawn(TileType tileType)
+	public Player(Map map, ImageView playerSprite)
 	{
-		String position = level.findTilePosition(tileType);
-		String[] positionArray = position.split(",");
-		if (Constants.DEBUG_ENABLED)
+		super(map, playerSprite);
+	}
+	
+	public void setSpawn(TileType[][] logicGrid)
+	{
+		for (int row = 0; row < logicGrid.length; row++)
 		{
-			System.out.println("Player spawn position: " + position);
-			System.out.println("Player spawn row: " + positionArray[0]);
-			System.out.println("Player spawn column: " + positionArray[1]);
+			for (int col = 0; col < logicGrid[0].length; col++)
+			{
+				if (logicGrid[row][col] == TileType.SPAWN_PLAYER)
+				{
+					spawnRow = row;
+					spawnColumn = col;
+				}
+			}
 		}
 		
-		this.spawnRow = Integer.parseInt(positionArray[0]);
-		this.spawnColumn = Integer.parseInt(positionArray[1]);
-		//this.spawnRow = level.getPlayerSpawnRow();
-		//this.spawnColumn = level.getPlayerSpawnCol();
+		if (Constants.DEBUG_ENABLED)
+		{
+			System.out.println(
+				"Player: Setting spawn!"
+				+ "\n┣ Player spawn row: " + spawnRow
+				+ "\n┗ Player spawn column: " + spawnColumn
+			);
+		}
+		
+		updateSpritePosition();
 	}
 	
 	@Override
-	public void move(Direction direction, Level level, TileMap tileMap)
+	public void move(Direction direction, Map map)
 	{
-		int rows = level.getLevelWidth();
-		int columns = level.getLevelHeight();
+		// NOTE: Not sure what I was smoking at the time, rows and columns are inversed. It works though.
+		int rows = map.getMapWidth();
+		int columns = map.getMapHeight();
 		int nextRow = spawnRow;
 		int nextColumn = spawnColumn;
 		
@@ -65,7 +73,7 @@ public class Player
 		
 		if (nextRow >= 0 && nextColumn >= 0)
 		{
-			TileType nextTile = level.getTileType(nextColumn, nextRow);
+			TileType nextTile = map.getTileType(nextColumn, nextRow);
 			
 			if (Constants.DEBUG_ENABLED)
 			{
@@ -80,7 +88,7 @@ public class Player
 				updateSpritePosition();
 				
 				// Delete pellets and powerups, and increase score.
-				tileMap.getRoot().getChildren().removeIf(node ->
+				map.getVisualGrid().getChildren().removeIf(node ->
 				{
 					if (node instanceof Circle circle)
 					{
@@ -108,18 +116,13 @@ public class Player
 	}
 	
 	@Override
-	protected void validateMove()
-	{
-		// 💀
-	}
-	
-	@Override
 	public void load(Group gameBoard)
 	{
 		setPlayerSprite(spritePath);
+		setSpawn(map.getLogicGrid());
 		
 		gameBoard.getChildren()
-			.add(this.getSprite());
+					.add(this.getSprite());
 	}
 	
 	private void setPlayerSprite(String spritePath)
@@ -137,8 +140,6 @@ public class Player
 			sprite.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 			
 			setSprite(sprite);
-			
-			//this.sprite = sprite;
 		}
 		catch (Exception e)
 		{

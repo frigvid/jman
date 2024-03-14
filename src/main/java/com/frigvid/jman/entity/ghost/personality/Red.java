@@ -1,15 +1,15 @@
 package com.frigvid.jman.entity.ghost.personality;
 
 import com.frigvid.jman.entity.ghost.Ghost;
-import com.frigvid.jman.level.Level;
+import com.frigvid.jman.game.map.Map;
 import javafx.scene.image.ImageView;
 
 // Blinky.
 public class Red
 	extends Ghost
 {
-	public Red(Level level, ImageView entitySprite)
+	public Red(Map map, ImageView entitySprite)
 	{
-		super(level, entitySprite);
+		super(map, entitySprite);
 	}
 }

@@ -1,57 +1,52 @@
 package com.frigvid.jman.entity;
 
 import com.frigvid.jman.Constants;
-import com.frigvid.jman.level.Level;
-import com.frigvid.jman.map.TileMap;
-import com.frigvid.jman.map.TileType;
-import com.frigvid.jman.view.GameBoard;
+import com.frigvid.jman.game.map.Map;
+import com.frigvid.jman.game.map.TileType;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 
 public abstract class Entity
 	implements IEntity
 {
-	protected Level level;
+	protected Map map;
 	protected int spawnRow;
 	protected int spawnColumn;
 	protected ImageView entitySprite;
 	
-	public Entity(Level level, ImageView entitySprite)
+	public Entity(Map map, ImageView entitySprite)
 	{
-		this.level = level;
+		this.map = map;
 		this.entitySprite = entitySprite;
-		setStartingPosition();
-		updateSpritePosition();
+		//setStartingPosition();
+		//updateSpritePosition();
 	}
 	
 	public abstract void load(Group gameBoard);
-	public abstract void move(Direction direction, Level level, TileMap tileMap);
-	protected abstract void setSpawn(TileType tileType);
-	
-	protected void setStartingPosition()
-	{
-		this.spawnRow = level.getPlayerSpawnRow();
-		this.spawnColumn = level.getPlayerSpawnCol();
-	}
-	
-	/**
-	 * Validate entity-specific movement.
-	 */
-	protected abstract void validateMove();
+	public abstract void move(Direction direction, Map map);
+	public abstract void setSpawn(TileType[][] logicGrid);
 	
 	protected void updateSpritePosition()
 	{
-		entitySprite.setX(spawnColumn * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		if (Constants.DEBUG_ENABLED && Constants.DEBUG_LEVEL >= 1)
+		{
+			System.out.println(
+				"Entity: Updating sprite position!"
+				+ "\n┣ Column (X): " + spawnColumn
+				+ "\n┗ Row (Y): " + spawnRow
+			);
+		}
+		
 		entitySprite.setY(spawnRow * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+		entitySprite.setX(spawnColumn * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 	}
 	
 	protected void teleportIfNecessary(int nextColumn, int nextRow)
 	{
-		if (level.getTileType(nextColumn, nextRow) == TileType.TELEPORT)
+		if (map.getTileType(nextColumn, nextRow) == TileType.TELEPORT)
 		{
-			Pair<Integer, Integer> newLocation = level.findRandomTeleportLocation(nextColumn, nextRow);
+			Pair<Integer, Integer> newLocation = map.findRandomTeleportLocation(nextColumn, nextRow);
 			
 			if (newLocation != null)
 			{
@@ -62,9 +57,9 @@ public abstract class Entity
 	}
 	
 	/* Setters. */
-	protected void setSprite(ImageView imageView)
+	protected void setSprite(ImageView entitySprite)
 	{
-		this.entitySprite = imageView;
+		this.entitySprite = entitySprite;
 	}
 	
 	/* Getters. */

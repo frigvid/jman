@@ -1,15 +1,15 @@
 package com.frigvid.jman.entity.ghost.personality;
 
 import com.frigvid.jman.entity.ghost.Ghost;
-import com.frigvid.jman.level.Level;
+import com.frigvid.jman.game.map.Map;
 import javafx.scene.image.ImageView;
 
 // Inky.
 public class Cyan
 	extends Ghost
 {
-	public Cyan(Level level, ImageView entitySprite)
+	public Cyan(Map map, ImageView entitySprite)
 	{
-		super(level, entitySprite);
+		super(map, entitySprite);
 	}
 }
