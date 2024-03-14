@@ -62,6 +62,7 @@ public class GameBoard
 	private Map map;
 	private Group board;
 	private SubScene boardGame;
+	private StackPane header;
 	
 	@Override
 	public void start(Stage stage)
@@ -75,56 +76,9 @@ public class GameBoard
 		BorderPane root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
-		// Header bar, for score and such.
-		StackPane header = new StackPane();
-		header.setPadding(new Insets(10));
-		
-		HBox headerButton = new HBox() {{ setAlignment(Pos.CENTER_LEFT); }};
-		HBox headerLabel = new HBox() {{ setAlignment(Pos.CENTER); }};
-		
-		// Game board
+		// Load the game board and header.
 		loadGameBoard();
-		
-		// Header score counter.
-		labelScore = new Label("High Score: " + getHighScore());
-		labelScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
-		labelScore.setStyle("""
-				-fx-text-fill: white;
-				-fx-font-weight: bold;
-			""");
-		
-		labelScore.textProperty().bind(score.asString());
-		
-		// Noob button.
-		Button buttonQuitToMainMenu = new Button("Quit to Main Menu");
-		buttonQuitToMainMenu.setStyle(MENU_BUTTON_STYLE);
-		buttonQuitToMainMenu.setOnAction(e ->
-		{
-			IViewState view = new MainMenu();
-			view.start(stage);
-		});
-		
-		headerButton.getChildren()
-			.add(buttonQuitToMainMenu);
-		
-		headerLabel.getChildren()
-			.add(labelScore);
-		
-		/* If you're wondering why they're added in reverse order, it has to do with how StackPane works.
-		 * I'm using it as a kind of pretty ugly workaround to get the elements to align properly. However,
-		 * since it actually stacks them on top of each other, you'll be clicking the HBox instead of the
-		 * button in the normal order.
-		 *
-		 * In a reverse order, the button's HBox is first, and the button is thusly reachable.
-		 *
-		 * I hate it, and there's likely a much cleaner way of doing this, but I don't know of it at this
-		 * moment, so this is what it'll be for the foreseeable future.
-		 */
-		header.getChildren()
-			.addAll(
-				headerLabel,
-				headerButton
-			);
+		loadHeader(stage);
 		
 		// Add elements to root.
 		root.setTop(header);
@@ -209,6 +163,62 @@ public class GameBoard
 			
 			event.consume();
 		});
+	}
+	
+	/**
+	 * Loads the header.
+	 *
+	 * @param stage The stage to load the header into.
+	 */
+	private void loadHeader(Stage stage)
+	{
+		// Header bar, for score and such.
+		header = new StackPane();
+		header.setPadding(new Insets(10));
+		
+		HBox headerButton = new HBox() {{ setAlignment(Pos.CENTER_LEFT); }};
+		HBox headerLabel = new HBox() {{ setAlignment(Pos.CENTER); }};
+		
+		// Header score counter.
+		labelScore = new Label("High Score: " + getHighScore());
+		labelScore.setFont(new Font(20.0 * Constants.SCALE_FACTOR));
+		labelScore.setStyle("""
+				-fx-text-fill: white;
+				-fx-font-weight: bold;
+			""");
+		
+		labelScore.textProperty().bind(score.asString());
+		
+		// Noob button.
+		Button buttonQuitToMainMenu = new Button("Quit to Main Menu");
+		buttonQuitToMainMenu.setStyle(MENU_BUTTON_STYLE);
+		buttonQuitToMainMenu.setOnAction(e ->
+		{
+			IViewState view = new MainMenu();
+			view.start(stage);
+		});
+		
+		headerButton.getChildren()
+			.add(buttonQuitToMainMenu);
+		
+		headerLabel.getChildren()
+			.add(labelScore);
+		
+		/* If you're wondering why they're added in reverse order, it has to do with how StackPane works.
+		 * I'm using it as a kind of pretty ugly workaround to get the elements to align properly. However,
+		 * since it actually stacks them on top of each other, you'll be clicking the HBox instead of the
+		 * button in the normal order.
+		 *
+		 * In a reverse order, the button's HBox is first, and the button is thusly reachable.
+		 *
+		 * I hate it, and there's likely a much cleaner way of doing this, but I don't know of it at this
+		 * moment, so this is what it'll be for the foreseeable future.
+		 */
+		header.getChildren()
+			.addAll(
+				headerLabel,
+				headerButton
+			);
 	}
 	
 	/**
