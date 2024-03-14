@@ -115,7 +115,8 @@ public class SceneBuilder
 				height = stage.getHeight();
 			}
 			
-			if (DEBUG_ENABLED && DEBUG_LEVEL == 1) {
+			if (DEBUG_ENABLED && DEBUG_LEVEL == 1)
+			{
 				System.out.println(
 					"┗ Width/height variables (post check):" +
 					"\n  ┣ Width (var): " + width +
