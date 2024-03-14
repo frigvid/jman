@@ -86,13 +86,8 @@ public class Map
 			
 			// Grab the title and move to next line.
 			setTitle(bufferedReader.readLine());
-			//setPlayerSpawnRow(Integer.parseInt(bufferedReader.readLine()));
-			//setPlayerSpawnCol(Integer.parseInt(bufferedReader.readLine()));
-			// FIXME: Skips lines until this can be tested.
-			bufferedReader.readLine();
-			bufferedReader.readLine();
 			
-			//TileType[][] lines
+			// Store the logic grid.
 			this.logicGrid = bufferedReader.lines()
 				// Remove spaces and convert each line into a TileType array.
 				.map(line -> line.replace(" ", "").chars()
@@ -102,9 +97,6 @@ public class Map
 					.toArray(TileType[]::new))
 				// Collect into a list.
 				.toArray(TileType[][]::new);
-			
-			// Store the logic grid.
-			//this.logicGrid = lines;
 			
 			if (Constants.DEBUG_ENABLED)
 			{
@@ -268,9 +260,7 @@ public class Map
 			InputStreamReader inputStreamReader = new InputStreamReader(resource);
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 			
-			// Skip the first three lines.
-			bufferedReader.readLine();
-			bufferedReader.readLine();
+			// Skip the first line.
 			bufferedReader.readLine();
 			
 			return bufferedReader.lines()
