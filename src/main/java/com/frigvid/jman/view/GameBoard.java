@@ -13,7 +13,6 @@ import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -61,8 +60,6 @@ public class GameBoard
 	private Player player;
 	private Map map;
 	private Group board;
-	private SubScene boardGame;
-	private StackPane header;
 	
 	@Override
 	public void start(Stage stage)
@@ -76,13 +73,9 @@ public class GameBoard
 		BorderPane root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
-		// Load the game board and header.
-		loadGameBoard();
-		loadHeader(stage);
-		
 		// Add elements to root.
-		root.setTop(header);
-		root.setCenter(boardGame);
+		root.setTop(createHeader(stage));
+		root.setCenter(createGameBoard());
 		
 		new SceneBuilder()
 			.setStage(stage)
@@ -104,14 +97,16 @@ public class GameBoard
 	/* Utilities. */
 	/**
 	 * Loads the game board.
+	 *
+	 * @return The game board SubScene.
 	 */
-	private void loadGameBoard()
+	private SubScene createGameBoard()
 	{
 		map = new Map("map1");
 		board = new Group();
 		board.getChildren().add(map.getVisualGrid());
 		
-		boardGame = new SubScene(board, 0, 0);
+		SubScene boardGame = new SubScene(board, 0, 0);
 		boardGame.widthProperty()
 			.bind(map.getVisualGrid().widthProperty());
 		boardGame.heightProperty()
@@ -163,17 +158,20 @@ public class GameBoard
 			
 			event.consume();
 		});
+		
+		return boardGame;
 	}
 	
 	/**
 	 * Loads the header.
 	 *
 	 * @param stage The stage to load the header into.
+	 * @return The header StackPane.
 	 */
-	private void loadHeader(Stage stage)
+	private StackPane createHeader(Stage stage)
 	{
 		// Header bar, for score and such.
-		header = new StackPane();
+		StackPane header = new StackPane();
 		header.setPadding(new Insets(10));
 		
 		HBox headerButton = new HBox() {{ setAlignment(Pos.CENTER_LEFT); }};
@@ -219,6 +217,8 @@ public class GameBoard
 				headerLabel,
 				headerButton
 			);
+		
+		return header;
 	}
 	
 	/**
