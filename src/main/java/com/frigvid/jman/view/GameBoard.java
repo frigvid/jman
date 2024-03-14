@@ -64,7 +64,7 @@ public class GameBoard
 	private static Label labelScore;
 	private final String debugPlayerDirection = "Player direction: ";
 	private Level level;
-	private Entity player;
+	private Player player;
 	private ImageView playerView;
 	private Group board;
 	

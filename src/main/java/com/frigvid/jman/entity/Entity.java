@@ -26,6 +26,7 @@ public abstract class Entity
 	}
 	
 	public abstract void load(Group gameBoard);
+	public abstract void move(Direction direction, Level level, TileMap tileMap);
 	protected abstract void setSpawn(TileType tileType);
 	
 	protected void setStartingPosition()
@@ -34,77 +35,18 @@ public abstract class Entity
 		this.spawnColumn = level.getPlayerSpawnCol();
 	}
 	
-	public void move(Direction direction, Level level, TileMap tileMap)
-	{
-		int rows = level.getLevelWidth();
-		int columns = level.getLevelHeight();
-		int nextRow = spawnRow;
-		int nextColumn = spawnColumn;
-		
-		switch (direction)
-		{
-			case LEFT -> nextColumn = Math.max(0, spawnColumn - 1);
-			case RIGHT -> nextColumn = Math.min(rows - 1, spawnColumn + 1);
-			case UP -> nextRow = Math.max(0, spawnRow - 1);
-			case DOWN -> nextRow = Math.min(columns - 1, spawnRow + 1);
-		}
-		
-		if (nextRow >= 0 && nextColumn >= 0)
-		{
-			TileType nextTile = level.getTileType(nextColumn, nextRow);
-			
-			if (Constants.DEBUG_ENABLED)
-			{
-				System.out.println("Next tile: " + nextTile);
-			}
-			
-			if (nextTile != TileType.WALL)
-			{
-				spawnRow = nextRow;
-				spawnColumn = nextColumn;
-				teleportIfNecessary(spawnColumn, spawnRow);
-				updateSpritePosition();
-				
-				// Delete pellets and powerups, and increase score.
-				tileMap.getRoot().getChildren().removeIf(node ->
-				{
-					if (node instanceof Circle circle)
-					{
-						boolean intersectsPlayer = circle.getBoundsInParent()
-																	.intersects(entitySprite.getBoundsInParent());
-						
-						if (intersectsPlayer)
-						{
-							if (circle.getRadius() == Constants.PELLET_SIZE)
-							{
-								GameBoard.increaseScoreBy(Constants.SCORE_PELLET);
-								return true;
-							}
-							else if (circle.getRadius() == Constants.POWERUP_SIZE)
-							{
-								GameBoard.increaseScoreBy(Constants.SCORE_POWERUP);
-								return true;
-							}
-						}
-					}
-					return false;
-				});
-			}
-		}
-	}
-	
 	/**
 	 * Validate entity-specific movement.
 	 */
 	protected abstract void validateMove();
 	
-	public void updateSpritePosition()
+	protected void updateSpritePosition()
 	{
 		entitySprite.setX(spawnColumn * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 		entitySprite.setY(spawnRow * Constants.TILE_SIZE * Constants.SCALE_FACTOR);
 	}
 	
-	private void teleportIfNecessary(int nextColumn, int nextRow)
+	protected void teleportIfNecessary(int nextColumn, int nextRow)
 	{
 		if (level.getTileType(nextColumn, nextRow) == TileType.TELEPORT)
 		{

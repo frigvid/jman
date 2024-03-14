@@ -1,12 +1,16 @@
 package com.frigvid.jman.entity.player;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.Entity;
 import com.frigvid.jman.level.Level;
+import com.frigvid.jman.map.TileMap;
 import com.frigvid.jman.map.TileType;
+import com.frigvid.jman.view.GameBoard;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.util.Objects;
 
@@ -15,6 +19,10 @@ public class Player
 {
 	private final String spritePath = "/com/frigvid/jman/entity/player/jman.gif";
 	//private ImageView sprite;
+	
+	public Player() {
+		super(null, null);
+	};
 	
 	public Player(Level level, ImageView imageView)
 	{
@@ -37,6 +45,66 @@ public class Player
 		this.spawnColumn = Integer.parseInt(positionArray[1]);
 		//this.spawnRow = level.getPlayerSpawnRow();
 		//this.spawnColumn = level.getPlayerSpawnCol();
+	}
+	
+	@Override
+	public void move(Direction direction, Level level, TileMap tileMap)
+	{
+		int rows = level.getLevelWidth();
+		int columns = level.getLevelHeight();
+		int nextRow = spawnRow;
+		int nextColumn = spawnColumn;
+		
+		switch (direction)
+		{
+			case LEFT -> nextColumn = Math.max(0, spawnColumn - 1);
+			case RIGHT -> nextColumn = Math.min(rows - 1, spawnColumn + 1);
+			case UP -> nextRow = Math.max(0, spawnRow - 1);
+			case DOWN -> nextRow = Math.min(columns - 1, spawnRow + 1);
+		}
+		
+		if (nextRow >= 0 && nextColumn >= 0)
+		{
+			TileType nextTile = level.getTileType(nextColumn, nextRow);
+			
+			if (Constants.DEBUG_ENABLED)
+			{
+				System.out.println("Next tile: " + nextTile);
+			}
+			
+			if (nextTile != TileType.WALL)
+			{
+				spawnRow = nextRow;
+				spawnColumn = nextColumn;
+				teleportIfNecessary(spawnColumn, spawnRow);
+				updateSpritePosition();
+				
+				// Delete pellets and powerups, and increase score.
+				tileMap.getRoot().getChildren().removeIf(node ->
+				{
+					if (node instanceof Circle circle)
+					{
+						boolean intersectsPlayer = circle.getBoundsInParent()
+							.intersects(entitySprite.getBoundsInParent());
+						
+						if (intersectsPlayer)
+						{
+							if (circle.getRadius() == Constants.PELLET_SIZE)
+							{
+								GameBoard.increaseScoreBy(Constants.SCORE_PELLET);
+								return true;
+							}
+							else if (circle.getRadius() == Constants.POWERUP_SIZE)
+							{
+								GameBoard.increaseScoreBy(Constants.SCORE_POWERUP);
+								return true;
+							}
+						}
+					}
+					return false;
+				});
+			}
+		}
 	}
 	
 	@Override
