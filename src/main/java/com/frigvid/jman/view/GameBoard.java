@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -112,12 +113,12 @@ public class GameBoard
 			.bind(map.getVisualGrid().widthProperty());
 		boardGame.heightProperty()
 			.bind(map.getVisualGrid().heightProperty());
-		boardGame.setFocusTraversable(true); // Allow it to capture key events
+		// Allow it to capture key events.
+		boardGame.setFocusTraversable(true);
 		
-		// Attach key event handlers to the SubScene
+		// Attach key event handlers to the SubScene.
 		boardGame.setOnKeyPressed(event ->
 		{
-			// Your key event handling logic here
 			if (player != null)
 			{
 				switch (event.getCode())
