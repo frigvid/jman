@@ -341,6 +341,23 @@ public class Map
 		return null;
 	}
 	
+	/**
+	 * A pretty heavy-handed and ugly approach to "cleaning up the board" as it were.
+	 * <p/>
+	 * This is to be used in conjunction with the {@link Player} movement (move) method.
+	 * Once an element of the visual grid intercects with the player, you can call this
+	 * method, and replace the element (e.g. a pellet or a power-up) and remove it from
+	 * the logic grid as well.
+	 *
+	 * @param row The row of the element to remove.
+	 * @param column The column of the element to remove.
+	 * @param tileType The TileType you're replacing the element with.
+	 */
+	public void replaceLogicGridElement(int row, int column, TileType tileType)
+	{
+		this.logicGrid[row][column] = tileType;
+	}
+	
 	/* Setters. */
 	private void setTitle(String title)
 	{

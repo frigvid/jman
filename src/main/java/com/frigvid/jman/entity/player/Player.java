@@ -88,6 +88,8 @@ public class Player
 				updateSpritePosition();
 				
 				// Delete pellets and powerups, and increase score.
+				int finalNextRow = nextRow;
+				int finalNextColumn = nextColumn;
 				map.getVisualGrid().getChildren().removeIf(node ->
 				{
 					if (node instanceof Circle circle)
@@ -97,6 +99,8 @@ public class Player
 						
 						if (intersectsPlayer)
 						{
+							map.replaceLogicGridElement(finalNextRow, finalNextColumn, TileType.OPEN_SPACE);
+							
 							if (circle.getRadius() == Constants.PELLET_SIZE)
 							{
 								GameBoard.increaseScoreBy(Constants.SCORE_PELLET);
