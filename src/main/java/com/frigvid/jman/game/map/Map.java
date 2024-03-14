@@ -80,7 +80,6 @@ public class Map
 				out.println(
 					"Map: Creating logic grid." +
 					"\n┗ Reading level data from file: " + filePath
-					//+ "\n" + Arrays.deepToString(Objects.requireNonNull(createRawGrid()))
 				);
 			}
 			
@@ -91,9 +90,7 @@ public class Map
 			this.logicGrid = bufferedReader.lines()
 				// Remove spaces and convert each line into a TileType array.
 				.map(line -> line.replace(" ", "").chars()
-					//.peek(c -> {if ((char) c == 'P') {System.out.println(c); player.setSpawn(TileType.SPAWN_PLAYER);}})
 					.mapToObj(c -> mapCharToTileType((char) c))
-					//.peek(tileType -> {if (tileType == TileType.SPAWN_PLAYER) {System.out.println(tileType); player.setSpawn(TileType.SPAWN_PLAYER);}})
 					.toArray(TileType[]::new))
 				// Collect into a list.
 				.toArray(TileType[][]::new);
