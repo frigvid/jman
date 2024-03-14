@@ -3,6 +3,7 @@ package com.frigvid.jman.view;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.player.Player;
+import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.view.state.IViewState;
 import javafx.beans.property.IntegerProperty;
@@ -127,7 +128,11 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "LEFT");
 						}
-						player.move(Direction.LEFT, map);
+						
+						if (TickController.getInstance().onNextTick())
+						{
+							player.move(Direction.LEFT, map);
+						}
 					}
 					case RIGHT ->
 					{
@@ -135,7 +140,11 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "RIGHT");
 						}
-						player.move(Direction.RIGHT, map);
+						
+						if (TickController.getInstance().onNextTick())
+						{
+							player.move(Direction.RIGHT, map);
+						}
 					}
 					case UP ->
 					{
@@ -143,7 +152,11 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "UP");
 						}
-						player.move(Direction.UP, map);
+						
+						if (TickController.getInstance().onNextTick())
+						{
+							player.move(Direction.UP, map);
+						}
 					}
 					case DOWN ->
 					{
@@ -151,7 +164,11 @@ public class GameBoard
 						{
 							System.out.println(debugPlayerDirection + "DOWN");
 						}
-						player.move(Direction.DOWN, map);
+						
+						if (TickController.getInstance().onNextTick())
+						{
+							player.move(Direction.DOWN, map);
+						}
 					}
 				}
 			}
