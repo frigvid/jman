@@ -6,10 +6,13 @@ import com.frigvid.jman.entity.Entity;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
+import com.frigvid.jman.view.MainMenu;
+import com.frigvid.jman.view.state.IViewState;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -87,9 +90,19 @@ public class Player
 				teleportIfNecessary(spawnColumn, spawnRow);
 				updateSpritePosition();
 				
-				// Delete pellets and powerups, and increase score.
+				// Check if you've completed the map.
+				if (map.getCountPellets() == 0 && map.getCountPowerups() == 0)
+				{
+					//GameBoard.mapComplete();
+					//IViewState view = new MainMenu();
+					//view.start();
+					System.out.println("Map complete!");
+				}
+				
+				// Assert values for use in lambda.
 				int finalNextRow = nextRow;
 				int finalNextColumn = nextColumn;
+				// Delete pellets and powerups, and increase score.
 				map.getVisualGrid().getChildren().removeIf(node ->
 				{
 					if (node instanceof Circle circle)
@@ -104,11 +117,13 @@ public class Player
 							if (circle.getRadius() == Constants.PELLET_SIZE)
 							{
 								GameBoard.increaseScoreBy(Constants.SCORE_PELLET);
+								map.decreasePelletCountBy(1);
 								return true;
 							}
 							else if (circle.getRadius() == Constants.POWERUP_SIZE)
 							{
 								GameBoard.increaseScoreBy(Constants.SCORE_POWERUP);
+								map.decreasePowerupCountBy(1);
 								return true;
 							}
 						}

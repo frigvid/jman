@@ -2,6 +2,8 @@ package com.frigvid.jman.game.map;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.player.Player;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -39,10 +41,10 @@ public class Map
 	
 	// Logic grid.
 	private String title;
-	// - Player spawn.
+	private IntegerProperty counterPellets = new SimpleIntegerProperty(0);
+	private IntegerProperty counterPowerups = new SimpleIntegerProperty(0);
 	private ImageView playerSprite;
 	private Player player;
-	// - Miscellaneous.
 	private final String filePath;
 	
 	// Visual grid.
@@ -93,13 +95,31 @@ public class Map
 				// Collect into a list.
 				.toArray(TileType[][]::new);
 			
+			// Store amount of pellets and power-ups.
+			for (TileType[] row : this.logicGrid)
+			{
+				for (TileType tile : row)
+				{
+					if (tile == TileType.SMALL_DOT)
+					{
+						increasePelletCountBy(1);
+					}
+					else if (tile == TileType.BIG_DOT)
+					{
+						increasePowerupCountBy(1);
+					}
+				}
+			}
+			
 			if (Constants.DEBUG_ENABLED)
 			{
 				out.println(
-					"Map: level information." +
-					"\n┣ Title: " + this.title +
-					"\n┣ Rows: " + getMapWidth() +
-					"\n┗ Columns: " + getMapHeight()
+					"Map: level information."
+					+ "\n┣ Title: " + this.title
+					+ "\n┣ Rows: " + getMapWidth()
+					+ "\n┣ Columns: " + getMapHeight()
+					+ "\n┣ Pellets: " + getCountPellets()
+					+ "\n┗ Power-ups: " + getCountPowerups()
 				);
 				if (Constants.DEBUG_LEVEL == 1)
 				{
@@ -358,10 +378,111 @@ public class Map
 		this.logicGrid[row][column] = tileType;
 	}
 	
+	/* Wrapper methods. */
+	/**
+	 * Wrapper method for {@link #setCountPellet(boolean, int)}.
+	 * <p/>
+	 * Allows for easy pellet counter increase.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to increase the pellet counter by.
+	 * @see #setCountPellet(boolean, int)
+	 */
+	public void increasePelletCountBy(int value)
+	{
+		setCountPellet(false, value);
+	}
+	
+	/**
+	 * Wrapper method for {@link #setCountPellet(boolean, int)}.
+	 * <p/>
+	 * Allows for easy pellet counter decrease.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to decrease the pellet counter by.
+	 * @see #setCountPellet(boolean, int)
+	 */
+	public void decreasePelletCountBy(int value)
+	{
+		setCountPellet(true, value);
+	}
+	
+	/**
+	 * Wrapper method for {@link #setCountPowerup(boolean, int)}.
+	 * <p/>
+	 * Allows for easy power-up counter decrease.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to increase the power-up counter by.
+	 * @see #setCountPowerup(boolean, int)
+	 */
+	public void increasePowerupCountBy(int value)
+	{
+		setCountPowerup(false, value);
+	}
+	
+	/**
+	 * Wrapper method for {@link #setCountPowerup(boolean, int)}.
+	 * <p/>
+	 * Allows for easy power-up counter decrease.
+	 * <p/>
+	 * <strong>Role:</strong> Utility.
+	 * @param value The value to decrease the power-up counter by.
+	 * @see #setCountPowerup(boolean, int)
+	 */
+	public void decreasePowerupCountBy(int value)
+	{
+		setCountPowerup(true, value);
+	}
+	
 	/* Setters. */
 	private void setTitle(String title)
 	{
 		this.title = title;
+	}
+	
+	/**
+	 * Generic multipurpose method for increasing or decreasing the pellet count.
+	 *
+	 * @param subtract Whether to subtract from the count.
+	 * @param value The value to add to, or subtract from the count.
+	 */
+	private void setCountPellet(boolean subtract, int value)
+	{
+		if (subtract)
+		{
+			counterPellets.set(
+				counterPellets.get() - value
+			);
+		}
+		else
+		{
+			counterPellets.set(
+				counterPellets.get() + value
+			);
+		}
+	}
+	
+	/**
+	 * Generic multipurpose method for increasing or decreasing the power-up count.
+	 *
+	 * @param subtract Whether to subtract from the count.
+	 * @param value The value to add to, or subtract from the count.
+	 */
+	private void setCountPowerup(boolean subtract, int value)
+	{
+		if (subtract)
+		{
+			counterPowerups.set(
+				counterPowerups.get() - value
+			);
+		}
+		else
+		{
+			counterPowerups.set(
+				counterPowerups.get() + value
+			);
+		}
 	}
 	
 	/* Getters. */
@@ -421,6 +542,16 @@ public class Map
 	public int getMapWidth()
 	{
 		return this.logicGrid[0].length;
+	}
+	
+	public int getCountPellets()
+	{
+		return this.counterPellets.get();
+	}
+	
+	public int getCountPowerups()
+	{
+		return this.counterPowerups.get();
 	}
 	
 	/**
