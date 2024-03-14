@@ -11,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 
 public abstract class Entity
+	implements IEntity
 {
 	protected Level level;
 	protected int spawnRow;
