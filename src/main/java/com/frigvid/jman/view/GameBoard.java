@@ -58,10 +58,10 @@ public class GameBoard
 	private static IntegerProperty score = new SimpleIntegerProperty(0);
 	private static Label labelScore;
 	private final String debugPlayerDirection = "Player direction: ";
-	private Map map;
 	private Player player;
-	private ImageView playerView;
+	private Map map;
 	private Group board;
+	private SubScene boardGame;
 	
 	@Override
 	public void start(Stage stage)
@@ -82,63 +82,8 @@ public class GameBoard
 		HBox headerButton = new HBox() {{ setAlignment(Pos.CENTER_LEFT); }};
 		HBox headerLabel = new HBox() {{ setAlignment(Pos.CENTER); }};
 		
-		// Game board.
-		map = new Map("map1");
-		board = new Group();
-		board.getChildren().add(map.getVisualGrid());
-		
-		SubScene boardGame = new SubScene(board, 0, 0);
-		boardGame.widthProperty()
-			.bind(map.getVisualGrid().widthProperty());
-		boardGame.heightProperty()
-			.bind(map.getVisualGrid().heightProperty());
-		boardGame.setFocusTraversable(true); // Allow it to capture key events
-		
-		// Attach key event handlers to the SubScene
-		boardGame.setOnKeyPressed(event ->
-		{
-			// Your key event handling logic here
-			if (player != null)
-			{
-				switch (event.getCode())
-				{
-					case LEFT ->
-					{
-						if (Constants.DEBUG_ENABLED)
-						{
-							System.out.println(debugPlayerDirection + "LEFT");
-						}
-						player.move(Direction.LEFT, map);
-					}
-					case RIGHT ->
-					{
-						if (Constants.DEBUG_ENABLED)
-						{
-							System.out.println(debugPlayerDirection + "RIGHT");
-						}
-						player.move(Direction.RIGHT, map);
-					}
-					case UP ->
-					{
-						if (Constants.DEBUG_ENABLED)
-						{
-							System.out.println(debugPlayerDirection + "UP");
-						}
-						player.move(Direction.UP, map);
-					}
-					case DOWN ->
-					{
-						if (Constants.DEBUG_ENABLED)
-						{
-							System.out.println(debugPlayerDirection + "DOWN");
-						}
-						player.move(Direction.DOWN, map);
-					}
-				}
-			}
-			
-			event.consume();
-		});
+		// Game board
+		loadGameBoard();
 		
 		// Header score counter.
 		labelScore = new Label("High Score: " + getHighScore());
@@ -203,6 +148,69 @@ public class GameBoard
 	}
 	
 	/* Utilities. */
+	/**
+	 * Loads the game board.
+	 */
+	private void loadGameBoard()
+	{
+		map = new Map("map1");
+		board = new Group();
+		board.getChildren().add(map.getVisualGrid());
+		
+		boardGame = new SubScene(board, 0, 0);
+		boardGame.widthProperty()
+			.bind(map.getVisualGrid().widthProperty());
+		boardGame.heightProperty()
+			.bind(map.getVisualGrid().heightProperty());
+		boardGame.setFocusTraversable(true); // Allow it to capture key events
+		
+		// Attach key event handlers to the SubScene
+		boardGame.setOnKeyPressed(event ->
+		{
+			// Your key event handling logic here
+			if (player != null)
+			{
+				switch (event.getCode())
+				{
+					case LEFT ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println(debugPlayerDirection + "LEFT");
+						}
+						player.move(Direction.LEFT, map);
+					}
+					case RIGHT ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println(debugPlayerDirection + "RIGHT");
+						}
+						player.move(Direction.RIGHT, map);
+					}
+					case UP ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println(debugPlayerDirection + "UP");
+						}
+						player.move(Direction.UP, map);
+					}
+					case DOWN ->
+					{
+						if (Constants.DEBUG_ENABLED)
+						{
+							System.out.println(debugPlayerDirection + "DOWN");
+						}
+						player.move(Direction.DOWN, map);
+					}
+				}
+			}
+			
+			event.consume();
+		});
+	}
+	
 	/**
 	 * Wrapper method for {@link #setScore}.
 	 * <p/>
