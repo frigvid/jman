@@ -8,6 +8,14 @@ import javafx.scene.image.ImageView;
 public class Red
 	extends Ghost
 {
+	public Red(Map map)
+	{
+		super(map);
+		
+		setGhostSprite("blinky/blinky.png");
+		
+	}
+	
 	public Red(Map map, ImageView entitySprite)
 	{
 		super(map, entitySprite);

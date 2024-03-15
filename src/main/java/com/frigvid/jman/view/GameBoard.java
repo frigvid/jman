@@ -2,6 +2,11 @@ package com.frigvid.jman.view;
 
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
+import com.frigvid.jman.entity.ghost.Ghost;
+import com.frigvid.jman.entity.ghost.personality.Cyan;
+import com.frigvid.jman.entity.ghost.personality.Orange;
+import com.frigvid.jman.entity.ghost.personality.Pink;
+import com.frigvid.jman.entity.ghost.personality.Red;
 import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
@@ -87,6 +92,18 @@ public class GameBoard
 		
 		player = new Player(map);
 		player.load(board);
+		
+		Ghost cyan = new Cyan(map);
+		cyan.load(board);
+		
+		Ghost orange = new Orange(map);
+		orange.load(board);
+		
+		Ghost pink = new Pink(map);
+		pink.load(board);
+		
+		Ghost red = new Red(map);
+		red.load(board);
 		
 		if (Constants.DEBUG_ENABLED)
 		{

@@ -8,6 +8,14 @@ import javafx.scene.image.ImageView;
 public class Pink
 	extends Ghost
 {
+	public Pink(Map map)
+	{
+		super(map);
+		
+		setGhostSprite("pinky/pinky.png");
+		
+	}
+	
 	public Pink(Map map, ImageView entitySprite)
 	{
 		super(map, entitySprite);

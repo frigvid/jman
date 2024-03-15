@@ -8,6 +8,14 @@ import javafx.scene.image.ImageView;
 public class Orange
 	extends Ghost
 {
+	public Orange(Map map)
+	{
+		super(map);
+		
+		setGhostSprite("clyde/clyde.png");
+		
+	}
+	
 	public Orange(Map map, ImageView entitySprite)
 	{
 		super(map, entitySprite);

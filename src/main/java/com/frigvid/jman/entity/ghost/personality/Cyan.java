@@ -8,6 +8,14 @@ import javafx.scene.image.ImageView;
 public class Cyan
 	extends Ghost
 {
+	public Cyan(Map map)
+	{
+		super(map);
+		
+		setGhostSprite("inky/inky.png");
+		
+	}
+	
 	public Cyan(Map map, ImageView entitySprite)
 	{
 		super(map, entitySprite);
