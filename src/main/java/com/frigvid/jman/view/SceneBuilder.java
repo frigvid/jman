@@ -103,7 +103,8 @@ public class SceneBuilder
 				"SceneBuilder (" + title + "):" +
 				"\n┣ Width/height variables (pre-check):" +
 				"\n┃ ┣ Width: " + width +
-				"\n┃ ┗ Height: " + height);
+				"\n┃ ┗ Height: " + height
+			);
 		}
 		
 		// Check if the width and height are set, and use the stage size if not.
@@ -115,18 +116,22 @@ public class SceneBuilder
 				height = stage.getHeight();
 			}
 			
-			if (DEBUG_ENABLED && DEBUG_LEVEL == 1)
+			if (DEBUG_ENABLED && DEBUG_LEVEL >= 1)
 			{
 				System.out.println(
 					"┗ Width/height variables (post check):" +
 					"\n  ┣ Width (var): " + width +
 					"\n  ┣ Height (var): " + height +
 					"\n  ┣ Stage width: " + stage.getWidth() +
-					"\n  ┗ Stage height: " + stage.getHeight());
+					"\n  ┗ Stage height: " + stage.getHeight()
+				);
 			}
-			else
+			else if (DEBUG_ENABLED && DEBUG_LEVEL == 0)
 			{
-				System.out.println("┗ Set DEBUG_LEVEL to 1 to see post check log.");
+				System.out.println(
+					"SceneBuilder (" + title + "):"
+					+ "\n┗ Set DEBUG_LEVEL to 1 to see post check log."
+				);
 			}
 		}
 
