@@ -87,17 +87,29 @@ public class Player
 			{
 				spawnRow = nextRow;
 				spawnColumn = nextColumn;
-				teleportIfNecessary(spawnColumn, spawnRow);
-				updateSpritePosition();
 				
 				// Check if you've completed the map.
-				if (map.getCountPellets() == 0 && map.getCountPowerups() == 0)
+				if
+				(
+					map.getCountPellets() == 0 &&
+					map.getCountPowerups() == 0 &&
+					nextTile == TileType.TELEPORT
+				)
 				{
+					// Once all pellets and power-ups are collected, the player must enter
+					// a TileType.TELEPORT tile to complete the map.
+					
 					//GameBoard.mapComplete();
 					//IViewState view = new MainMenu();
 					//view.start();
 					System.out.println("Map complete!");
 				}
+				else
+				{
+					teleportIfNecessary(spawnColumn, spawnRow);
+				}
+				
+				updateSpritePosition();
 				
 				// Assert values for use in lambda.
 				int finalNextRow = nextRow;
