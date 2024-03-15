@@ -25,6 +25,7 @@ public class Player
 	{
 		super(map, null);
 		
+		// This sets the "entitySprite" in super.
 		setPlayerSprite(spritePath);
 	}
 	
@@ -151,7 +152,6 @@ public class Player
 	@Override
 	public void load(Group gameBoard)
 	{
-		setPlayerSprite(spritePath);
 		setSpawn(map.getLogicGrid());
 		
 		gameBoard.getChildren()
