@@ -24,6 +24,8 @@ public class Player
 	public Player(Map map)
 	{
 		super(map, null);
+		
+		setPlayerSprite(spritePath);
 	}
 	
 	public Player(Map map, ImageView playerSprite)

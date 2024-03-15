@@ -59,11 +59,9 @@ public class Map
 	{
 		filePath = "/com/frigvid/jman/levels/" + fileName + ".level";
 		
-		createPlayer();
+		player = new Player(this);
 		createLogicGrid();
 		createVisualGrid();
-		
-		player.setSpawn(logicGrid);
 	}
 	
 	/* Grids. */
@@ -293,26 +291,6 @@ public class Map
 	}
 	
 	/* Utilities. */
-	private void createPlayer()
-	{
-		Image playerImage = new Image(
-			Objects.requireNonNull(
-				getClass().getResourceAsStream(
-					"/com/frigvid/jman/entity/player/jman.gif"
-				)
-			)
-		);
-		
-		playerSprite = new ImageView(playerImage);
-		playerSprite.setFitWidth(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-		playerSprite.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
-		
-		player = new Player(
-			this,
-			playerSprite
-		);
-	}
-	
 	/**
 	 * Used to "convert" a character-based level into a
 	 * TileType based one.
