@@ -226,12 +226,13 @@ public class Ghost
 		}
 	}
 	
-	
-	
 	/* Pathfinding section.
 	 *
 	 * This is kind of eye-bleeding, and may or may not be
 	 * traumatizing. Viewer discretion is advised.
+	 *
+	 * NOTE: Add visual debugging that draws a line from the ghost
+	 * 		to the player.
 	 */
 	
 	/**
