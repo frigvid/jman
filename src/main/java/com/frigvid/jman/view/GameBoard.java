@@ -93,17 +93,22 @@ public class GameBoard
 		player = new Player(map);
 		player.load(board);
 		
+		// Initialize ghosts.
 		Ghost cyan = new Cyan(map);
 		cyan.load(board);
+		cyan.start(player);
 		
 		Ghost orange = new Orange(map);
 		orange.load(board);
+		orange.start(player);
 		
 		Ghost pink = new Pink(map);
 		pink.load(board);
+		pink.start(player);
 		
 		Ghost red = new Red(map);
 		red.load(board);
+		red.start(player);
 		
 		if (Constants.DEBUG_ENABLED)
 		{
@@ -111,6 +116,11 @@ public class GameBoard
 		}
 		
 		stage.show();
+		
+		// Stop TickController thread if the window closes.
+		stage.setOnCloseRequest(
+			event -> TickController.getInstance().stop()
+		);
 	}
 	
 	/* Utilities. */
@@ -147,10 +157,8 @@ public class GameBoard
 							System.out.println(debugPlayerDirection + "LEFT");
 						}
 						
-						if (TickController.getInstance().onNextTick())
-						{
-							player.move(Direction.LEFT, map);
-						}
+						TickController.getInstance()
+							.onNextTick(player, player -> player.move(Direction.LEFT, map));
 					}
 					case RIGHT ->
 					{
@@ -159,10 +167,8 @@ public class GameBoard
 							System.out.println(debugPlayerDirection + "RIGHT");
 						}
 						
-						if (TickController.getInstance().onNextTick())
-						{
-							player.move(Direction.RIGHT, map);
-						}
+						TickController.getInstance()
+							.onNextTick(player, player -> player.move(Direction.RIGHT, map));
 					}
 					case UP ->
 					{
@@ -171,10 +177,8 @@ public class GameBoard
 							System.out.println(debugPlayerDirection + "UP");
 						}
 						
-						if (TickController.getInstance().onNextTick())
-						{
-							player.move(Direction.UP, map);
-						}
+						TickController.getInstance()
+							.onNextTick(player, player -> player.move(Direction.UP, map));
 					}
 					case DOWN ->
 					{
@@ -183,10 +187,8 @@ public class GameBoard
 							System.out.println(debugPlayerDirection + "DOWN");
 						}
 						
-						if (TickController.getInstance().onNextTick())
-						{
-							player.move(Direction.DOWN, map);
-						}
+						TickController.getInstance()
+							.onNextTick(player, player -> player.move(Direction.DOWN, map));
 					}
 				}
 			}
@@ -227,6 +229,7 @@ public class GameBoard
 		buttonQuitToMainMenu.setStyle(MENU_BUTTON_STYLE);
 		buttonQuitToMainMenu.setOnAction(e ->
 		{
+			TickController.getInstance().stop();
 			IViewState view = new MainMenu();
 			view.start(stage);
 		});
