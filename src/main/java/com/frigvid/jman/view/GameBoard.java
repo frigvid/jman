@@ -123,7 +123,16 @@ public class GameBoard
 		
 		// Stop TickController thread if the window closes.
 		stage.setOnCloseRequest(
-			event -> TickController.getInstance().stop()
+			event -> {
+				TickController.getInstance().stop();
+				
+				/* Murder that poor bastard.
+				 *
+				 * Just in case the thread refuses to close.
+				 * It's sadly not that rare.
+				 */
+				System.exit(0);
+			}
 		);
 	}
 	
