@@ -103,7 +103,7 @@ public class Ghost
 		{
 			TickController.getInstance().onNextTick(this, ghost ->
 			{
-				//trackPlayer(player, map);
+				trackPlayer(player, map);
 				
 				// Schedule the next move.
 				start(player);
@@ -229,5 +229,184 @@ public class Ghost
 		{
 			this.actionDelay = 10;
 		}
+	}
+	
+	
+	
+	/* Pathfinding section.
+	 *
+	 * This is kind of eye-bleeding, and may or may not be
+	 * traumatizing. Viewer discretion is advised.
+	 */
+	
+	/**
+	 * Tracks the player using an A* algorithm.
+	 *
+	 * @param player The Player Entity to track.
+	 * @param map The Map object to track the player in.
+	 */
+	public void trackPlayer(Player player, Map map)
+	{
+		List<Pair<Integer, Integer>> path = findPath(player, map);
+		
+		if (path.size() > 1)
+		{
+			Pair<Integer, Integer> nextStep = path.get(1);
+			Pair<Integer, Integer> previousStep = new Pair<>(spawnRow, spawnColumn);
+			
+			if (nextStep.equals(previousStep) && path.size() > 2)
+			{
+				nextStep = path.get(2);
+			}
+			
+			spawnRow = nextStep.getKey();
+			spawnColumn = nextStep.getValue();
+			updateSpritePosition();
+		}
+	}
+	
+	/**
+	 * Finds a path to the player using an A* algorithm.
+	 *
+	 * @param player The Player Entity to find a path to.
+	 * @param map The Map object to find a path in.
+	 * @return A list of coordinates representing the path to the player.
+	 */
+	private List<Pair<Integer, Integer>> findPath(Player player, Map map)
+	{
+		Pair<Integer, Integer> start = new Pair<>(spawnRow, spawnColumn);
+		Pair<Integer, Integer> goal = new Pair<>(player.getCurrentRow(), player.getCurrentColumn());
+		
+		PriorityQueue<Pair<Integer, Integer>> openList = new PriorityQueue<>(
+			Comparator.comparingDouble(n -> heuristic(n, goal))
+		);
+		
+		/* The set of nodes already evaluated. */
+		Set<Pair<Integer, Integer>> closedList = new HashSet<>();
+		java.util.Map<Pair<Integer, Integer>, Pair<Integer, Integer>> cameFrom = new HashMap<>();
+		java.util.Map<Pair<Integer, Integer>, Double> gScore = new HashMap<>();
+		java.util.Map<Pair<Integer, Integer>, Double> fScore = new HashMap<>();
+		
+		openList.add(start);
+		gScore.put(start, 0.0);
+		fScore.put(start, heuristic(start, goal));
+		
+		/* The main loop of the A* algorithm. */
+		while (!openList.isEmpty())
+		{
+			Pair<Integer, Integer> current = openList.poll();
+			
+			if (current.equals(goal))
+			{
+				return constructPath(cameFrom, current);
+			}
+			
+			closedList.add(current);
+			
+			/* Iterate through the neighbors of the current node. */
+			for (Pair<Integer, Integer> neighbor : getNeighbors(current, map))
+			{
+				if (closedList.contains(neighbor))
+				{
+					continue;
+				}
+				
+				double tentativeGScore = gScore.getOrDefault(current, Double.MAX_VALUE) + 1;
+				
+				if (!openList.contains(neighbor))
+				{
+					openList.add(neighbor);
+				}
+				else if (tentativeGScore >= gScore.getOrDefault(neighbor, Double.MAX_VALUE))
+				{
+					continue;
+				}
+				
+				cameFrom.put(neighbor, current);
+				gScore.put(neighbor, tentativeGScore);
+				fScore.put(neighbor, tentativeGScore + heuristic(neighbor, goal));
+			}
+		}
+		
+		return Collections.emptyList();
+	}
+	
+	/**
+	 * Constructs a path from the cameFrom map.
+	 *
+	 * @param cameFrom The cameFrom map.
+	 * @param current The current node.
+	 * @return A list of coordinates representing the path.
+	 */
+	private List<Pair<Integer, Integer>> constructPath
+	(
+		java.util.Map<Pair<Integer, Integer>,
+			Pair<Integer, Integer>> cameFrom,
+		Pair<Integer, Integer> current
+	)
+	{
+		List<Pair<Integer, Integer>> path = new ArrayList<>();
+		
+		while (current != null)
+		{
+			path.add(current);
+			current = cameFrom.get(current);
+		}
+		
+		Collections.reverse(path);
+		
+		return path;
+	}
+	
+	/**
+	 * Gets the neighbors of a node.
+	 *
+	 * @param node The node to get the neighbors of.
+	 * @param map The Map object to get the neighbors in.
+	 * @return A list of coordinates representing the neighbors of the node.
+	 */
+	private List<Pair<Integer, Integer>> getNeighbors(Pair<Integer, Integer> node, Map map)
+	{
+		List<Pair<Integer, Integer>> neighbors = new ArrayList<>();
+		
+		int[][] directions = {
+			{-1, 0},
+			{1, 0},
+			{0, -1},
+			{0, 1}
+		};
+		
+		for (int[] direction : directions)
+		{
+			int newRow = node.getKey() + direction[0];
+			int newCol = node.getValue() + direction[1];
+			
+			if
+			(
+				newRow >= 0
+					&& newRow < map.getMapHeight()
+					&& newCol >= 0
+					&& newCol < map.getMapWidth()
+					&& map.getTileType(newCol, newRow) != TileType.WALL
+			)
+			{
+				Pair<Integer, Integer> neighbor = new Pair<>(newRow, newCol);
+				neighbors.add(neighbor);
+			}
+		}
+		
+		return neighbors;
+	}
+	
+	/**
+	 * Calculates the heuristic for the A* algorithm.
+	 *
+	 * @param start The start node.
+	 * @param goal The goal node.
+	 * @return The heuristic value.
+	 */
+	private double heuristic(Pair<Integer, Integer> start, Pair<Integer, Integer> goal)
+	{
+		return Math.abs(start.getKey() - goal.getKey()) + Math.abs(start.getValue() - goal.getValue());
 	}
 }
