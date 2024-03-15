@@ -2,9 +2,13 @@ package com.frigvid.jman.entity.ghost.personality;
 
 import com.frigvid.jman.entity.ghost.Ghost;
 import com.frigvid.jman.game.map.Map;
-import javafx.scene.image.ImageView;
 
-// Inky.
+/**
+ * Cyan Ghost, otherwise named "Inky."
+ * <p/>
+ * Inky tries to ambush the player, placing itself in front of them.
+ * It has a default duration.
+ */
 public class Cyan
 	extends Ghost
 {
@@ -14,10 +18,8 @@ public class Cyan
 		
 		setGhostSprite("inky/inky.png");
 		
-	}
-	
-	public Cyan(Map map, ImageView entitySprite)
-	{
-		super(map, entitySprite);
+		// Personality.
+		setActionDelay(12);
+		enableChaseMode();
 	}
 }

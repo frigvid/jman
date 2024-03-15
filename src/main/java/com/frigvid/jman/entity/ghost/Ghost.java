@@ -27,11 +27,6 @@ public class Ghost
 		super(map, null);
 	}
 	
-	public Ghost(Map map, ImageView entitySprite)
-	{
-		super(map, entitySprite);
-	}
-	
 	/* Utility. */
 	/**
 	 * Loads the ghost onto the game board.

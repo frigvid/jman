@@ -2,9 +2,13 @@ package com.frigvid.jman.entity.ghost.personality;
 
 import com.frigvid.jman.entity.ghost.Ghost;
 import com.frigvid.jman.game.map.Map;
-import javafx.scene.image.ImageView;
 
-// Clyde.
+/**
+ * Orange Ghost, otherwise named "Clyde."
+ * <p/>
+ * Clyde switches between chasing the player and running away from them.
+ * It has a default duration.
+ */
 public class Orange
 	extends Ghost
 {
@@ -14,10 +18,8 @@ public class Orange
 		
 		setGhostSprite("clyde/clyde.png");
 		
-	}
-	
-	public Orange(Map map, ImageView entitySprite)
-	{
-		super(map, entitySprite);
+		// Personality.
+		setActionDelay(12);
+		enableChaseMode();
 	}
 }

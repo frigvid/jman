@@ -2,9 +2,13 @@ package com.frigvid.jman.entity.ghost.personality;
 
 import com.frigvid.jman.entity.ghost.Ghost;
 import com.frigvid.jman.game.map.Map;
-import javafx.scene.image.ImageView;
 
-// Pinky.
+/**
+ * Pink Ghost, otherwise named "Pinky."
+ * <p/>
+ * Pinky tries to ambush the player, placing itself in front of them.
+ * It has a default duration.
+ */
 public class Pink
 	extends Ghost
 {
@@ -14,10 +18,8 @@ public class Pink
 		
 		setGhostSprite("pinky/pinky.png");
 		
-	}
-	
-	public Pink(Map map, ImageView entitySprite)
-	{
-		super(map, entitySprite);
+		// Personality.
+		setActionDelay(12);
+		enableChaseMode();
 	}
 }
