@@ -19,8 +19,6 @@ public abstract class Entity
 	{
 		this.map = map;
 		this.entitySprite = entitySprite;
-		//setStartingPosition();
-		//updateSpritePosition();
 	}
 	
 	public abstract void load(Group gameBoard);
