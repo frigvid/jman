@@ -23,6 +23,7 @@ public final class Constants
 	public static final boolean DEBUG_ENABLED = false;
 	// 0 = default. 1 = full logging. 2 = Unnecessary logging.
 	public static final int DEBUG_LEVEL = 0;
+	public static final boolean DEBUG_AI = false;
 
 	/* SCALING. */
 	/* Save screen size, for scaling.
@@ -55,6 +56,7 @@ public final class Constants
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
 	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
 	//public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
+	public static final long TICK_RATE = 25; // 40 ticks per second.
 	public static final double TILE_SIZE = 25.0;
 	public static final double PELLET_SIZE = 5.0;
 	public static final double POWERUP_SIZE = 10.0;
