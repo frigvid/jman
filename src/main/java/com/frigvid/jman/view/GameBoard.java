@@ -159,7 +159,7 @@ public class GameBoard
 		// Attach key event handlers to the SubScene.
 		boardGame.setOnKeyPressed(event ->
 		{
-			if (player != null)
+			if (player != null && player.isAlive())
 			{
 				switch (event.getCode())
 				{
@@ -171,7 +171,7 @@ public class GameBoard
 						}
 						
 						TickController.getInstance()
-							.onNextTick(player, player -> player.move(Direction.LEFT, map));
+							.onNextTick(player, player -> this.player.move(Direction.LEFT, map));
 					}
 					case RIGHT ->
 					{
@@ -181,7 +181,7 @@ public class GameBoard
 						}
 						
 						TickController.getInstance()
-							.onNextTick(player, player -> player.move(Direction.RIGHT, map));
+							.onNextTick(player, player -> this.player.move(Direction.RIGHT, map));
 					}
 					case UP ->
 					{
@@ -191,7 +191,7 @@ public class GameBoard
 						}
 						
 						TickController.getInstance()
-							.onNextTick(player, player -> player.move(Direction.UP, map));
+							.onNextTick(player, player -> this.player.move(Direction.UP, map));
 					}
 					case DOWN ->
 					{
@@ -201,7 +201,7 @@ public class GameBoard
 						}
 						
 						TickController.getInstance()
-							.onNextTick(player, player -> player.move(Direction.DOWN, map));
+							.onNextTick(player, player -> this.player.move(Direction.DOWN, map));
 					}
 				}
 			}

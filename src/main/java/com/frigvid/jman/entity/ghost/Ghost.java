@@ -17,6 +17,7 @@ import java.util.*;
 public class Ghost
 	extends Entity
 {
+	protected Player player;
 	protected boolean chaseMode = false;
 	protected boolean isAfraid;
 	private boolean isDead;
@@ -43,57 +44,14 @@ public class Ghost
 	}
 	
 	/**
-	 * Moves the ghost in a given direction.
-	 * <p/>
-	 * This method is called by the {@link TickController} to move the ghost.
-	 * The ghost will move in the given direction if the next tile is not a wall.
-	 *
-	 * @param direction The {@link Direction} to move in.
-	 * @param map The Map object to move in.
-	 */
-	@Override
-	public void move(Direction direction, Map map)
-	{
-		// NOTE: Not sure what I was smoking at the time, rows and columns are inversed. It works though.
-		int rows = map.getMapWidth();
-		int columns = map.getMapHeight();
-		int nextRow = spawnRow;
-		int nextColumn = spawnColumn;
-		
-		switch (direction)
-		{
-			case LEFT -> nextColumn = Math.max(0, spawnColumn - 1);
-			case RIGHT -> nextColumn = Math.min(rows - 1, spawnColumn + 1);
-			case UP -> nextRow = Math.max(0, spawnRow - 1);
-			case DOWN -> nextRow = Math.min(columns - 1, spawnRow + 1);
-		}
-		
-		if (nextRow >= 0 && nextColumn >= 0)
-		{
-			TileType nextTile = map.getTileType(nextColumn, nextRow);
-			
-			if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
-			{
-				System.out.println("Next tile: " + nextTile);
-			}
-			
-			if (nextTile != TileType.WALL)
-			{
-				spawnRow = nextRow;
-				spawnColumn = nextColumn;
-				teleportIfNecessary(spawnColumn, spawnRow);
-				updateSpritePosition();
-			}
-		}
-	}
-	
-	/**
 	 * Starts the ghost's "AI."
 	 *
 	 * @param player The Player Entity to track.
 	 */
 	public void start(Player player)
 	{
+		this.player = player;
+		
 		if (player.isAlive())
 		{
 			TickController.getInstance().onNextTick(this, ghost ->
@@ -257,6 +215,28 @@ public class Ghost
 			
 			spawnRow = nextStep.getKey();
 			spawnColumn = nextStep.getValue();
+			
+			if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
+			{
+				System.out.println("Ghost: Moving to " + spawnRow + ", " + spawnColumn);
+				System.out.println("Ghost: Player at " + player.getCurrentRow() + ", " + player.getCurrentColumn());
+			}
+			
+			if
+			(
+				spawnRow == player.getCurrentRow()
+				&& spawnColumn == player.getCurrentColumn()
+			)
+			{
+				if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
+				{
+					System.out.println("Ghost: Player killed!");
+				}
+				
+				player.killPlayer();
+			}
+			
+			teleportIfNecessary(spawnColumn, spawnRow);
 			updateSpritePosition();
 		}
 	}
@@ -337,7 +317,7 @@ public class Ghost
 	private List<Pair<Integer, Integer>> constructPath
 	(
 		java.util.Map<Pair<Integer, Integer>,
-			Pair<Integer, Integer>> cameFrom,
+		Pair<Integer, Integer>> cameFrom,
 		Pair<Integer, Integer> current
 	)
 	{

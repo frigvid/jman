@@ -22,7 +22,6 @@ public abstract class Entity
 	}
 	
 	public abstract void load(Group gameBoard);
-	public abstract void move(Direction direction, Map map);
 	public abstract void setSpawn(TileType[][] logicGrid);
 	
 	protected void updateSpritePosition()

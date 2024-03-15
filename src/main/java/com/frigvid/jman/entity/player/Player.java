@@ -71,7 +71,6 @@ public class Player
 	 * @param direction The direction to move the Player Entity.
 	 * @param map The map to move the Player Entity on.
 	 */
-	@Override
 	public void move(Direction direction, Map map)
 	{
 		// NOTE: Not sure what I was smoking at the time, rows and columns are inversed. It works though.
