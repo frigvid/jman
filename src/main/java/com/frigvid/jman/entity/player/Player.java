@@ -1,12 +1,15 @@
 package com.frigvid.jman.entity.player;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.Main;
 import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.Entity;
 import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
+import com.frigvid.jman.view.state.IViewState;
+import com.frigvid.jman.view.views.MapCompletion;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -116,8 +119,8 @@ public class Player
 					System.out.println("Map complete!");
 					
 					// Switch to the map completion view.
-					//IViewState view = new MapCompletion();
-					//view.start();
+					IViewState view = new MapCompletion();
+					view.start(Main.disgustingHack);
 				}
 				else
 				{

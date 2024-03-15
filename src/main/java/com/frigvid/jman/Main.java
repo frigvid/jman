@@ -26,6 +26,16 @@ import static com.frigvid.jman.Constants.*;
 public class Main
 	extends Application
 {
+	/**
+	 * See {@link com.frigvid.jman.entity.player.Player} approximately at
+	 * line 123 for usage.
+	 * <p/>
+	 * Essentially, the player's movement shouldn't have a hard argument
+	 * requirement for usage. This is ergo a disgusting, eye-bleeding and
+	 * vomit-inducing hack to get around that.
+	 */
+	public static Stage disgustingHack;
+	
 	public static void main(String[] args)
 	{
 		launch();
@@ -47,6 +57,8 @@ public class Main
 		stage.setHeight(WINDOW_HEIGHT);
 		stage.centerOnScreen();
 		stage.setMaximized(true);
+		
+		disgustingHack = stage;
 	}
 
 	public static void logConstants()
