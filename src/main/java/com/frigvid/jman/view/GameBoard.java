@@ -15,15 +15,15 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import static com.frigvid.jman.Constants.*;
@@ -64,6 +64,7 @@ public class GameBoard
 	private static IntegerProperty score = new SimpleIntegerProperty(0);
 	private static Label labelScore;
 	private final String debugPlayerDirection = "Player direction: ";
+	private BorderPane root;
 	private Player player;
 	private Map map;
 	private Group board;
@@ -77,7 +78,7 @@ public class GameBoard
 		}
 		
 		// Root layout.
-		BorderPane root = new BorderPane();
+		root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
 		
 		// Add elements to root.
@@ -227,6 +228,7 @@ public class GameBoard
 		// Noob button.
 		Button buttonQuitToMainMenu = new Button("Quit to Main Menu");
 		buttonQuitToMainMenu.setStyle(MENU_BUTTON_STYLE);
+		buttonQuitToMainMenu.setCursor(Cursor.HAND);
 		buttonQuitToMainMenu.setOnAction(e ->
 		{
 			TickController.getInstance().stop();
@@ -265,6 +267,7 @@ public class GameBoard
 	 * Allows for easy score increase.
 	 * <p/>
 	 * <strong>Role:</strong> Utility.
+	 *
 	 * @param value The value to increase the score by.
 	 * @see #setScore(boolean, int)
 	 */
@@ -279,6 +282,7 @@ public class GameBoard
 	 * Allows for easy score subtraction.
 	 * <p/>
 	 * <strong>Role:</strong> Utility.
+	 *
 	 * @param value The value to decrease the score by.
 	 * @see #setScore(boolean, int)
 	 */
@@ -305,7 +309,7 @@ public class GameBoard
 	 * Method is static to allow for easy access from other classes.
 	 *
 	 * @param subtract Whether to subtract from the score.
-	 * @param value The value to add to, or subtract from the score.
+	 * @param value    The value to add to, or subtract from the score.
 	 */
 	public static void setScore(boolean subtract, int value)
 	{
