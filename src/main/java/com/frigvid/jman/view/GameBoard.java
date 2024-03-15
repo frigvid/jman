@@ -77,6 +77,9 @@ public class GameBoard
 			System.out.println("GameBoard: `start` class called.");
 		}
 		
+		// Ensure TickController starts.
+		TickController.getInstance();
+		
 		// Root layout.
 		root = new BorderPane();
 		root.setStyle(WINDOW_BACKGROUND_COLOR);
