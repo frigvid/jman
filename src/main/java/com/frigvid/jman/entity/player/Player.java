@@ -3,37 +3,39 @@ package com.frigvid.jman.entity.player;
 import com.frigvid.jman.Constants;
 import com.frigvid.jman.entity.Direction;
 import com.frigvid.jman.entity.Entity;
+import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
-import com.frigvid.jman.view.MainMenu;
-import com.frigvid.jman.view.state.IViewState;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class Player
 	extends Entity
 {
-	private final String spritePath = "/com/frigvid/jman/entity/player/jman.gif";
+	private boolean isAlive = true;
 	
 	public Player(Map map)
 	{
 		super(map, null);
 		
 		// This sets the "entitySprite" in super.
-		setPlayerSprite(spritePath);
+		setPlayerSprite("/com/frigvid/jman/entity/player/jman.gif");
 	}
 	
-	public Player(Map map, ImageView playerSprite)
-	{
-		super(map, playerSprite);
-	}
-	
+	/**
+	 * Sets the spawn position of the Player Entity.
+	 * <p/>
+	 * Iterates through the logic grid and sets the
+	 * {@code TileType.SPAWN_PLAYER} to the spawn
+	 * position.
+	 *
+	 * @param logicGrid The logic grid of the map.
+	 */
 	public void setSpawn(TileType[][] logicGrid)
 	{
 		for (int row = 0; row < logicGrid.length; row++)
@@ -60,6 +62,15 @@ public class Player
 		updateSpritePosition();
 	}
 	
+	/**
+	 * Moves the Player Entity in the specified direction.
+	 * <p/>
+	 * If the next tile is not a wall, the Player Entity
+	 * will move to the next tile.
+	 *
+	 * @param direction The direction to move the Player Entity.
+	 * @param map The map to move the Player Entity on.
+	 */
 	@Override
 	public void move(Direction direction, Map map)
 	{
@@ -101,11 +112,13 @@ public class Player
 				{
 					// Once all pellets and power-ups are collected, the player must enter
 					// a TileType.TELEPORT tile to complete the map.
-					
-					//GameBoard.mapComplete();
-					//IViewState view = new MainMenu();
-					//view.start();
+					//this.killPlayer();
+					TickController.getInstance().stop();
 					System.out.println("Map complete!");
+					
+					// Switch to the map completion view.
+					//IViewState view = new MapCompletion();
+					//view.start();
 				}
 				else
 				{
@@ -117,6 +130,7 @@ public class Player
 				// Assert values for use in lambda.
 				int finalNextRow = nextRow;
 				int finalNextColumn = nextColumn;
+				
 				// Delete pellets and powerups, and increase score.
 				map.getVisualGrid().getChildren().removeIf(node ->
 				{
@@ -149,6 +163,11 @@ public class Player
 		}
 	}
 	
+	/**
+	 * Loads the Player Entity onto the game board.
+	 *
+	 * @param gameBoard The game board to load the Player Entity onto.
+	 */
 	@Override
 	public void load(Group gameBoard)
 	{
@@ -158,6 +177,11 @@ public class Player
 					.add(this.getSprite());
 	}
 	
+	/**
+	 * Sets the sprite for the Player Entity.
+	 *
+	 * @param spritePath The path to the sprite.
+	 */
 	private void setPlayerSprite(String spritePath)
 	{
 		try
@@ -176,7 +200,53 @@ public class Player
 		}
 		catch (Exception e)
 		{
-			System.out.println("Setting the player sprite failed. Error:\n" + e.getMessage());
+			System.out.println("Setting the player sprite failed!");
+			e.printStackTrace(System.err);
 		}
+	}
+	
+	/* Setters. */
+	/**
+	 * If the Player Entity intercects with a Ghost Entity,
+	 * they should call for this method so that the Player
+	 * "dies."
+	 */
+	public void killPlayer()
+	{
+		isAlive = false;
+		//entitySprite = null;
+	}
+	
+	/* Getters. */
+	/**
+	 * Returns the current row of the Player Entity.
+	 *
+	 * @return The current row of the Player Entity.
+	 */
+	public int getCurrentRow()
+	{
+		return spawnRow;
+	}
+	
+	/**
+	 * Returns the current column of the Player Entity.
+	 *
+	 * @return The current column of the Player Entity.
+	 */
+	public int getCurrentColumn()
+	{
+		return spawnColumn;
+	}
+	
+	/**
+	 * Used by Ghost entities to determine if the Player
+	 * Entity is "alive" and thus if the hunt should
+	 * continue.
+	 *
+	 * @return Whether the Player Entity is "alive."
+	 */
+	public boolean isAlive()
+	{
+		return isAlive;
 	}
 }
