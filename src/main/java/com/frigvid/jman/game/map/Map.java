@@ -1,6 +1,11 @@
 package com.frigvid.jman.game.map;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.entity.ghost.Ghost;
+import com.frigvid.jman.entity.ghost.personality.Cyan;
+import com.frigvid.jman.entity.ghost.personality.Orange;
+import com.frigvid.jman.entity.ghost.personality.Pink;
+import com.frigvid.jman.entity.ghost.personality.Red;
 import com.frigvid.jman.entity.player.Player;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -45,6 +50,10 @@ public class Map
 	private IntegerProperty counterPowerups = new SimpleIntegerProperty(0);
 	private ImageView playerSprite;
 	private Player player;
+	private Ghost cyan;
+	private Ghost orange;
+	private Ghost pink;
+	private Ghost red;
 	private final String filePath;
 	
 	// Visual grid.
@@ -60,6 +69,12 @@ public class Map
 		filePath = "/com/frigvid/jman/levels/" + fileName + ".level";
 		
 		player = new Player(this);
+		// NOTE: Investigate necessity of defining these here instead of in GameBoard.java.
+		cyan = new Cyan(this);
+		orange = new Orange(this);
+		pink = new Pink(this);
+		red = new Red(this);
+		
 		createLogicGrid();
 		createVisualGrid();
 	}
