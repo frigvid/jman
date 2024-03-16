@@ -191,6 +191,12 @@ public class Ghost
 	 *
 	 * NOTE: Add visual debugging that draws a line from the ghost
 	 * 		to the player.
+	 * FIXME: Add controlled randomness to movement to help Ghost
+	 * 		 entities from getting stuck at corners in rare cases.
+	 * FIXME: Add a "scatter" mode for the Ghost entities with
+	 * 		 customizable duration.
+	 * FIXME: Add a return-to-spawn mode for the Ghost entities.
+	 * FIXME: Add ability to ignore TileType.WALL when "dead."
 	 */
 	
 	/**
