@@ -19,7 +19,9 @@ Don't expect things to be very balanced though.
 <summary>Design</summary>
 
 ## Map data
-Map data is very simple.
+Map file and its data is very simple.
+
+The Map basename must be prefixed with `map`, appended with a number higher than the one before (e.g. 1, 2, 3, etc.) and finally suffixed with `.level` for the game to recognize it. Example: `map1.level` and then `map2.level`.
 
 The first line is the name of the level, and the rest is the map itself. It uses singular letters and numbers with a space between them to define parts of the map.
 
