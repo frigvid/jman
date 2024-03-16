@@ -27,7 +27,7 @@ public class Player
 		super(map, null);
 		
 		// This sets the "entitySprite" in super.
-		setPlayerSprite("/com/frigvid/jman/entity/player/jman.gif");
+		setPlayerSprite(Constants.RESOURCE_BASE_PATH + "entity/player/jman.gif");
 	}
 	
 	/**

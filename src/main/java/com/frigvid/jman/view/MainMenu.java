@@ -31,7 +31,7 @@ public class MainMenu
 	private static final String WINDOW_TITLE = Constants.GAME_TITLE + " Main Menu";
 	private static final double GHOST_FIT_WIDTH = 43.0 * Constants.SCALE_FACTOR_WIDTH;
 	private static final double GHOST_FIT_HEIGHT = 69.0 * Constants.SCALE_FACTOR_HEIGHT;
-	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource("/com/frigvid/jman/entity/ghost/")).toExternalForm();
+	private static final String GHOST_PATH_PREFIX = Objects.requireNonNull(MainMenu.class.getResource(Constants.RESOURCE_BASE_PATH + "entity/ghost/")).toExternalForm();
 	
 	@Override
 	public void start(Stage stage)

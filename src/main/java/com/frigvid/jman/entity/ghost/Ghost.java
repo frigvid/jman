@@ -150,7 +150,7 @@ public class Ghost
 		{
 			Image image = new Image(
 				Objects.requireNonNull(
-					getClass().getResourceAsStream("/com/frigvid/jman/entity/ghost/" + spritePath)
+					getClass().getResourceAsStream(Constants.RESOURCE_BASE_PATH + "entity/ghost/" + spritePath)
 				)
 			);
 			

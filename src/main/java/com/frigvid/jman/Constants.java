@@ -54,6 +54,7 @@ public final class Constants
 																+ "-fx-font-size: " + 14 * SCALE_FACTOR + "px;"
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
+	public static final String RESOURCE_BASE_PATH = "/com/frigvid/jman/";
 	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
 	//public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
 	public static final long TICK_RATE = 25; // 40 ticks per second.
