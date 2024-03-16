@@ -109,8 +109,10 @@ public class MainMenu
 		
 		buttonStartGame.setOnAction(event ->
 		{
-			IViewState view = new GameBoard();
-			view.start(stage);
+			GameBoard gameBoard = new GameBoard();
+			// Hard-coded for first map.
+			gameBoard.setMap(Constants.GAME_FIRST_MAP);
+			gameBoard.start(stage);
 		});
 		
 		Button buttonHighScores = new Button("High Scores");

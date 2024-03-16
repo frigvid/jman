@@ -66,6 +66,7 @@ public class GameBoard
 	private final String debugPlayerDirection = "Player direction: ";
 	private BorderPane root;
 	private Player player;
+	private String mapBasename;
 	private Map map;
 	private Group board;
 	
@@ -144,7 +145,6 @@ public class GameBoard
 	 */
 	private SubScene createGameBoard()
 	{
-		map = new Map("map1");
 		board = new Group();
 		board.getChildren().add(map.getVisualGrid());
 		
@@ -337,5 +337,27 @@ public class GameBoard
 				score.get() + value
 			);
 		}
+	}
+	
+	/**
+	 * Set the map to be used.
+	 * <p/>
+	 * This is used outside of this class, as it not only
+	 * stores the map filename to an internal variable,
+	 * but also creates a new Map object.
+	 * <p/>
+	 * Example usage:
+	 * {@snippet id="setMap" :
+	 * 	GameBoard gameBoard = new GameBoard();
+	 * 	gameBoard.setMap(Constants.GAME_FIRST_MAP);
+	 * 	gameBoard.start(stage);
+	 * }
+	 *
+	 * @param mapFilename The filename of the map to use.
+	 */
+	public void setMap(String mapFilename)
+	{
+		this.mapBasename = mapFilename;
+		map = new Map(mapBasename);
 	}
 }

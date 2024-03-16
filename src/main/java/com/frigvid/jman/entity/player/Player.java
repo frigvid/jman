@@ -8,7 +8,6 @@ import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
-import com.frigvid.jman.view.state.IViewState;
 import com.frigvid.jman.view.views.MapCompletion;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -118,9 +117,13 @@ public class Player
 					TickController.getInstance().stop();
 					System.out.println("Map complete!");
 					
-					// Switch to the map completion view.
-					IViewState view = new MapCompletion();
-					view.start(Main.disgustingHack);
+					/* Switch to the map completion view.
+					 * Normally would do this by saving it to IViewState,
+					 * but map completion requires some extra details. */
+					MapCompletion mapComplete = new MapCompletion();
+					mapComplete.setCurrentMap(map);
+					mapComplete.setMapScore(GameBoard.getHighScore());
+					mapComplete.start(Main.disgustingHack);
 				}
 				else
 				{

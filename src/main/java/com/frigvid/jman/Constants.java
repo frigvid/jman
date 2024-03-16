@@ -47,7 +47,10 @@ public final class Constants
 
 	/* GAME/UI RELATED. */
 	public static final String GAME_TITLE = DEBUG_ENABLED ? "(DEBUG) J-Man!" : "J-Man!";
+	public static final String GAME_FIRST_MAP = "map1";
 	public static final String WINDOW_BACKGROUND_COLOR = "-fx-background-color: black;";
+	public static final String TEXT_BASE_STYLE = "-fx-font-weight: bold;"
+															 + "-fx-font-family: 'Arial';";
 	public static final String MENU_BUTTON_STYLE = "-fx-background-color: yellow;"
 																+ "-fx-font-weight: bold;"
 																+ "-fx-font-family: 'Arial';"

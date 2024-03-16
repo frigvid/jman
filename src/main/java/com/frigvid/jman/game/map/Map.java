@@ -9,7 +9,6 @@ import com.frigvid.jman.entity.ghost.personality.Red;
 import com.frigvid.jman.entity.player.Player;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -54,6 +53,7 @@ public class Map
 	private Ghost orange;
 	private Ghost pink;
 	private Ghost red;
+	private final String fileBasename;
 	private final String filePath;
 	
 	// Visual grid.
@@ -66,7 +66,8 @@ public class Map
 	 */
 	public Map(String fileName)
 	{
-		filePath = "/com/frigvid/jman/levels/" + fileName + ".level";
+		fileBasename = fileName;
+		filePath = "/com/frigvid/jman/levels/" + fileBasename + ".level";
 		
 		player = new Player(this);
 		// NOTE: Investigate necessity of defining these here instead of in GameBoard.java.
@@ -487,6 +488,52 @@ public class Map
 	public String getTitle()
 	{
 		return this.title;
+	}
+	
+	/**
+	 * Get the map's filename without the extension.
+	 * E.g. "map1".
+	 * <p/>
+	 * Example usage:
+	 * {@snippet id="getBasenameExample" :
+	 * 	GameBoard gameBoard = new GameBoard();
+	 * 	gameBoard.setMap(currentMap.getBasename());
+	 * 	gameBoard.start(stage);
+	 * }
+	 *
+	 * @return The map's filename without the extension.
+	 */
+	public String getBasename()
+	{
+		return this.fileBasename;
+	}
+	
+	/**
+	 * Get the next map's filename without the extension.
+	 * E.g. "map2".
+	 * <p/>
+	 * In the event that the next map doesn't exist, this will
+	 * end up throwing a NullPointerException if used in
+	 * {@link com.frigvid.jman.view.views.MapCompletion#setCurrentMap(Map)}.
+	 * <p/>
+	 * Though do note that it doesn't crash the game, and there's handling
+	 * for it in the private {@code #setNextMap(Map)} method in
+	 * {@link com.frigvid.jman.view.views.MapCompletion}. This will make the
+	 * continue button disable itself. It's just a bit ugly.
+	 * <p/>
+	 * Example usage:
+	 * {@snippet id="getNextMapExample" :
+	 * 	GameBoard gameBoard = new GameBoard();
+	 * 	gameBoard.setMap(nextMap.getNextMap());
+	 * }
+	 *
+	 * @return The next map's filename without the extension.
+	 * @see com.frigvid.jman.view.views.MapCompletion
+	 */
+	public String getNextMap()
+	{
+		int next = Integer.parseInt(this.fileBasename.substring(3));
+		return "map" + ++next;
 	}
 	
 	/**
