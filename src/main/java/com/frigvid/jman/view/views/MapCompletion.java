@@ -29,6 +29,8 @@ public class MapCompletion
 	private String currentMapName;
 	private boolean isLastMap;
 	
+	// FIXME: Components should probably be extracted to their own methods to make it a bit
+	//			 easier to read and keep logic separate.
 	@Override
 	public void start(Stage stage)
 	{
