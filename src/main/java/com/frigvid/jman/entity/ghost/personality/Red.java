@@ -22,6 +22,7 @@ public class Red
 		
 		// Personality.
 		setActionDelay(10);
+		setRandomness(1.2);
 		enableChaseMode();
 	}
 }

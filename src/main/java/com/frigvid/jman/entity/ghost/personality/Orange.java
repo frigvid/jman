@@ -20,6 +20,7 @@ public class Orange
 		
 		// Personality.
 		setActionDelay(16);
+		setRandomness(2.0);
 		enableChaseMode();
 	}
 }

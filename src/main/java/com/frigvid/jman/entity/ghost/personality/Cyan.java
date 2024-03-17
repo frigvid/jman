@@ -20,6 +20,7 @@ public class Cyan
 		
 		// Personality.
 		setActionDelay(14);
+		setRandomness(0.5);
 		enableChaseMode();
 	}
 }

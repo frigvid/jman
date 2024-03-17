@@ -23,6 +23,7 @@ public class Ghost
 	protected boolean isAfraid;
 	private boolean isDead;
 	protected int actionDelay;
+	protected double randomness;
 	protected int originalSpawnRow;
 	protected int originalSpawnColumn;
 	
@@ -184,6 +185,11 @@ public class Ghost
 			System.out.println("Setting the ghost sprite failed!");
 			e.printStackTrace(System.err);
 		}
+	}
+	
+	public void setRandomness(double randomness)
+	{
+		this.randomness = randomness;
 	}
 	
 	protected void enableChaseMode()
@@ -380,36 +386,38 @@ public class Ghost
 	 * @return A list of coordinates representing the neighbors of the node.
 	 */
 	private List<Pair<Integer, Integer>> getNeighbors(Pair<Integer, Integer> node, Map map)
-	{
-		List<Pair<Integer, Integer>> neighbors = new ArrayList<>();
-		
-		int[][] directions = {
-			{-1, 0},
-			{1, 0},
-			{0, -1},
-			{0, 1}
-		};
-		
-		for (int[] direction : directions)
 		{
-			int newRow = node.getKey() + direction[0];
-			int newCol = node.getValue() + direction[1];
+			List<Pair<Integer, Integer>> neighbors = new ArrayList<>();
 			
-			if
-			(
-				newRow >= 0
-					&& newRow < map.getMapHeight()
-					&& newCol >= 0
-					&& newCol < map.getMapWidth()
-					&& map.getTileType(newCol, newRow) != TileType.WALL
-			)
-			{
-				Pair<Integer, Integer> neighbor = new Pair<>(newRow, newCol);
-				neighbors.add(neighbor);
+			int[][] directions = {
+				{-1, 0},
+				{1, 0},
+				{0, -1},
+				{0, 1}
+			};
+			
+			for (int[] direction : directions) {
+				int newRow = node.getKey() + direction[0];
+				int newCol = node.getValue() + direction[1];
+				
+				if
+				(
+					newRow >= 0
+						&& newRow < map.getMapHeight()
+						&& newCol >= 0
+						&& newCol < map.getMapWidth()
+						&& map.getTileType(newCol, newRow) != TileType.WALL
+				)
+				{
+					Pair<Integer, Integer> neighbor = new Pair<>(newRow, newCol);
+					neighbors.add(neighbor);
+				}
 			}
-		}
-		
-		return neighbors;
+			
+			// Shuffle the neighbors based on the randomness value
+			Collections.shuffle(neighbors, new Random((long) (randomness * Integer.MAX_VALUE)));
+			
+			return neighbors;
 	}
 	
 	/**

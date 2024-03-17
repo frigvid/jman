@@ -20,6 +20,7 @@ public class Pink
 		
 		// Personality.
 		setActionDelay(13);
+		setRandomness(1.2);
 		enableChaseMode();
 	}
 }
