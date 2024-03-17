@@ -8,16 +8,16 @@ import static com.frigvid.jman.Constants.*;
 
 /**
  * The main class for the application.
- * <br/><br/>
+ * <p/>
  * This class is the entry point for the application,
  * and is used to start the main menu.
- * <br/><br/>
+ * <p/>
  * <b>Responsibility: </b>To provide the entry point
  * for the application, and to start the main menu.
- * <br/><br/>
+ * <p/>
  * <b>Reasons for use: </b>To provide a common entry
  * point for the application, and to start the main menu.
- * <br/><br/>
+ *
  * @see com.frigvid.jman.view.MainMenu
  * @author frigvid
  * @created 2024-02-14
@@ -65,20 +65,30 @@ public class Main
 	{
 		System.out.println(
 			"Values of constants:"
-			+ "\n┣ DEBUG_ENABLED: " + Constants.DEBUG_ENABLED
-			+ "\n┣ DEBUG_LEVEL: " + Constants.DEBUG_LEVEL
-			+ "\n┣ GAME_TITLE: " + Constants.GAME_TITLE
-			+ "\n┣ SCREEN_WIDTH: " + Constants.SCREEN_WIDTH
-			+ "\n┣ SCREEN_HEIGHT: " + Constants.SCREEN_HEIGHT
-			+ "\n┣ SCREEN_SIZE: " + Constants.SCREEN_SIZE
+			+ "\n┣ DEBUG_ENABLED: " + DEBUG_ENABLED
+			+ "\n┣ DEBUG_LEVEL: " + DEBUG_LEVEL
+			+ "\n┣ DEBUG_AI: " + DEBUG_AI
+			+ "\n┣ SCREEN_WIDTH: " + SCREEN_WIDTH
+			+ "\n┣ SCREEN_HEIGHT: " + SCREEN_HEIGHT
+			+ "\n┣ SCREEN_SIZE: " + SCREEN_SIZE
 			+ "\n┣ WINDOW_WIDTH: "  + WINDOW_WIDTH
 			+ "\n┣ WINDOW_HEIGHT: "  + WINDOW_HEIGHT
-			+ "\n┣ SCALE_FACTOR_WIDTH: "  + Constants.SCALE_FACTOR_WIDTH
-			+ "\n┣ SCALE_FACTOR_HEIGHT: " + Constants.SCALE_FACTOR_HEIGHT
-			+ "\n┣ SCALE_FACTOR: " + Constants.SCALE_FACTOR
-			+ "\n┣ WINDOW_BACKGROUND_COLOR: " + Constants.WINDOW_BACKGROUND_COLOR
-			+ "\n┣ MENU_BUTTON_STYLE: " + Constants.MENU_BUTTON_STYLE
-			+ "\n┗ TILE_SIZE: " + Constants.TILE_SIZE
+			+ "\n┣ SCALE_FACTOR_WIDTH: "  + SCALE_FACTOR_WIDTH
+			+ "\n┣ SCALE_FACTOR_HEIGHT: " + SCALE_FACTOR_HEIGHT
+			+ "\n┣ SCALE_FACTOR: " + SCALE_FACTOR
+			+ "\n┣ GAME_TITLE: " + GAME_TITLE
+			+ "\n┣ WINDOW_BACKGROUND_COLOR: " + WINDOW_BACKGROUND_COLOR
+			+ "\n┣ TEXT_BASE_STYLE: " + TEXT_BASE_STYLE
+			+ "\n┣ MENU_BUTTON_STYLE: " + MENU_BUTTON_STYLE
+			+ "\n┣ RESOURCE_BASE_PATH: " + RESOURCE_BASE_PATH
+			+ "\n┣ TICK_RATE: " + TICK_RATE
+			+ "\n┣ TILE_SIZE: " + TILE_SIZE
+			+ "\n┣ PLAYER_INVINCIBLE_DURATION: " + PLAYER_INVINCIBLE_DURATION + "(seconds)"
+			+ "\n┣ PELLET_SIZE: " + PELLET_SIZE
+			+ "\n┣ POWERUP_SIZE: " + POWERUP_SIZE
+			+ "\n┣ SCORE_PELLET: " + SCORE_PELLET
+			+ "\n┣ SCORE_POWERUP: " + SCORE_POWERUP
+			+ "\n┗ SCORE_GHOST: " + SCORE_GHOST
 		);
 	}
 }

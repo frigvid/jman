@@ -43,19 +43,22 @@ public class MapCompletion
 		if (player.isAlive())
 		{
 			title = new Text("Congratulations!");
-			title.setStyle(Constants.TEXT_BASE_STYLE
+			title.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-font-size: " + 48 * SCALE_FACTOR + "px;"
 				+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, gold 0%, yellow 50%);"
 			);
 			
 			p1 = new Text("You've completed the map \"" + currentMapName + "\"!");
-			p1.setStyle(Constants.TEXT_BASE_STYLE
+			p1.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-fill: white;"
 				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 			);
 			
 			p3 = new Text("Would you like to exit to the menu or continue to the next map?");
-			p3.setStyle(Constants.TEXT_BASE_STYLE
+			p3.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-fill: white;"
 				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 			);
@@ -63,26 +66,30 @@ public class MapCompletion
 		else
 		{
 			title = new Text("YOU ARE DEAD!");
-			title.setStyle(Constants.TEXT_BASE_STYLE
+			title.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-font-size: " + 48 * SCALE_FACTOR + "px;"
 				+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, darkred 0%, red 50%);"
 			);
 			
 			p1 = new Text("You've died on map \"" + currentMapName + "\" ...");
-			p1.setStyle(Constants.TEXT_BASE_STYLE
+			p1.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-fill: white;"
 				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 			);
 			
 			p3 = new Text("Would you like to exit to the menu or retry?");
-			p3.setStyle(Constants.TEXT_BASE_STYLE
+			p3.setStyle(
+				Constants.TEXT_BASE_STYLE
 				+ "-fx-fill: white;"
 				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 			);
 		}
 		
 		Text p2 = new Text("You scored " + mapScore + ", for a total of " + totalScore + "!");
-		p2.setStyle(Constants.TEXT_BASE_STYLE
+		p2.setStyle(
+			Constants.TEXT_BASE_STYLE
 			+ "-fx-fill: white;"
 			+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 		);
@@ -145,7 +152,8 @@ public class MapCompletion
 		if (player.isAlive())
 		{
 			main = new VBox(20, title, message, buttons, buttonRetry);
-			main.setStyle("-fx-background-color: black;"
+			main.setStyle(
+				"-fx-background-color: black;"
 				+ "-fx-border-color: yellow;"
 				+ "-fx-border-width: 2px;"
 			);
@@ -153,7 +161,8 @@ public class MapCompletion
 		else
 		{
 			main = new VBox(20, title, message, buttons);
-			main.setStyle("-fx-background-color: black;"
+			main.setStyle(
+				"-fx-background-color: black;"
 				+ "-fx-border-color: darkred;"
 				+ "-fx-border-width: 2px;"
 			);

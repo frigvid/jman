@@ -5,23 +5,23 @@ import javafx.stage.Stage;
 
 /**
  * A class representing the view state manager.
- * <br/><br/>
+ * <p/>
  * This class is part of the Strategy pattern.
- * <br/><br/>
+ * <p/>
  * <b>Pattern: </b>Strategy
- * <br/><br/>
+ * <p/>
  * <b>Role: </b>Context
- * <br/><br/>
+ * <p/>
  * <b>Collaborators: </b>ViewState
- * <br/><br/>
+ * <p/>
  * <b>Responsibility: </b>To provide a more flexible way of managing
  * the different states of the application, and to avoid having to send
  * around the stage directly.
- * <br/><br/>
+ * <p/>
  * <b>Reasons for use: </b>To provide a more flexible way of managing
  * the different states of the application, and to avoid having to send
  * around the stage directly.
- * <br/><br/>
+ *
  * @see IViewState
  * @see MainMenu
  * @see com.frigvid.jman.view.MainMenu

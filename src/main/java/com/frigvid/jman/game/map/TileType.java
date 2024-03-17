@@ -2,7 +2,7 @@ package com.frigvid.jman.game.map;
 
 /**
  * An enum for the different types of level data.
- * <br/><br/>
+ * <p/>
  * This is similar to Constants, but dissimilar enough
  * that I chose to use an enum instead of a final class.
  *

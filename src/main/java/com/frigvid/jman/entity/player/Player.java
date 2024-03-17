@@ -9,15 +9,12 @@ import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
 import com.frigvid.jman.view.views.MapCompletion;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -245,7 +242,7 @@ public class Player
 	 * method.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="beInvincibleExample" :
+	 * {@snippet id="beInvincibleExample" lang="java" :
 	 * 	if (player.isInvincible())
 	 * 	{
 	 * 		System.out.println("Player: I'm invincible!");

@@ -4,12 +4,12 @@ import javafx.stage.Screen;
 
 /**
  * A class for storing constants used in the application.
- * <br/><br/>
- * Usage:
- * <pre>
- *    import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
- *    Constants.MENU_BUTTON_STYLE
- * </pre>
+ * <p/>
+ * Example usage:
+ * {@snippet id="ConstantsExample" lang="java" group="Constants" :
+ * 	import static com.frigvid.jman.Constants.MENU_BUTTON_STYLE;
+ *		Constants.MENU_BUTTON_STYLE
+ * }
  */
 public final class Constants
 {
@@ -55,8 +55,6 @@ public final class Constants
 																+ "-fx-min-width: " + 100 * SCALE_FACTOR + "px;"
 																+ "-fx-min-height: " + 20 * SCALE_FACTOR + "px;";
 	public static final String RESOURCE_BASE_PATH = "/com/frigvid/jman/";
-	// 3000 is 1920 + 1080, above, it's a ghetto attempt to scale for 2k/4k.
-	//public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
 	public static final long TICK_RATE = 25; // 40 ticks per second.
 	public static final double TILE_SIZE = 25.0;
 	public static final int PLAYER_INVINCIBLE_DURATION = 5;

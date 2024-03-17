@@ -12,7 +12,7 @@ import static com.frigvid.jman.Constants.*;
 /**
  * A builder class for creating JavaFX scenes,
  * following the Builder pattern.
- * <br/><br/>
+ * <p/>
  * This allows for a less cumbersome way of switching
  * between different menues and the like, without
  * sending the stage around directly.

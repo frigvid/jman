@@ -28,23 +28,22 @@ import static com.frigvid.jman.Constants.*;
 
 /**
  * A class representing the game board view state.
- * <br/><br/>
+ * <p/>
  * This class is part of the Strategy pattern.
- * <br/><br/>
+ * <p/>
  * <b>Pattern: </b>Strategy
- * <br/><br/>
+ * <p/>
  * <b>Role: </b>Concrete Strategy
- * <br/><br/>
+ * <p/>
  * <b>Collaborators: </b>ViewStateManager, SceneBuilder
- * <br/><br/>
+ * <p/>
  * <b>Responsibility: </b>To provide the view state for the game board,
  * and to allow for a more flexible way of managing the different states
  * of the application.
- * <br/><br/>
+ * <p/>
  * <b>Reasons for use: </b>To provide a more flexible way of managing
  * the different states of the application, and to avoid having to send
  * around the stage directly.
- * <br/><br/>
  *
  * @author frigvid
  * @version 0.1
@@ -356,7 +355,7 @@ public class GameBoard
 	 * but also creates a new Map object.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="setMap" :
+	 * {@snippet id="setMap" lang="java" lang="java" :
 	 * 	GameBoard gameBoard = new GameBoard();
 	 * 	gameBoard.setMap(Constants.GAME_FIRST_MAP);
 	 * 	gameBoard.start(stage);

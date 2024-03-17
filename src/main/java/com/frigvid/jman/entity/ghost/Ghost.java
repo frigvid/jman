@@ -21,7 +21,6 @@ public class Ghost
 	protected Player player;
 	protected boolean chaseMode = false;
 	protected boolean isAfraid = false;
-	private boolean isDead;
 	protected int actionDelay;
 	protected double randomness;
 	protected int originalSpawnRow;

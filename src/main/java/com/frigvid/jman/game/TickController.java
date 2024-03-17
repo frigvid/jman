@@ -72,7 +72,7 @@ public class TickController
 	 * Returns the instance of the TickController.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="getInstanceExample" :
+	 * {@snippet id="getInstanceExample" lang="java" :
 	 * 	TickController.getInstance();
 	 * }
 	 *
@@ -92,7 +92,7 @@ public class TickController
 	 * Starts the tick controller.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="startExample" :
+	 * {@snippet id="startExample" lang="java" :
 	 * 	private TickController()
 	 * 	{
 	 * 		// ...
@@ -138,7 +138,7 @@ public class TickController
 	 * Registers an action to be executed on the next tick.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="onNextTickExample" :
+	 * {@snippet id="onNextTickExample" lang="java" :
 	 * 	TickController.getInstance().onNextTick(player, player -> player.move(Direction.LEFT, map));
 	 * }
 	 *
@@ -157,7 +157,7 @@ public class TickController
 	 * Registers an action to be executed after a certain number of ticks.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="onNextTickExampleWithDelay" :
+	 * {@snippet id="onNextTickExampleWithDelay" lang="java" :
 	 * 	TickController.getInstance().onNextTick(entity, entityAction -> {
 	 * 		trackPlayer(player, map);
 	 * 		// Schedule the next move.
@@ -183,7 +183,7 @@ public class TickController
 	 * Stops the tick controller.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="stopExample" :
+	 * {@snippet id="stopExample" lang="java" :
 	 * 	TickController.getInstance().stop();
 	 * }
 	 */

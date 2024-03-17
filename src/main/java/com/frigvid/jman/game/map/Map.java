@@ -504,7 +504,7 @@ public class Map
 	 * E.g. "map1".
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="getBasenameExample" :
+	 * {@snippet id="getBasenameExample" lang="java" :
 	 * 	GameBoard gameBoard = new GameBoard();
 	 * 	gameBoard.setMap(currentMap.getBasename());
 	 * 	gameBoard.start(stage);
@@ -531,7 +531,7 @@ public class Map
 	 * continue button disable itself. It's just a bit ugly.
 	 * <p/>
 	 * Example usage:
-	 * {@snippet id="getNextMapExample" :
+	 * {@snippet id="getNextMapExample" lang="java" :
 	 * 	GameBoard gameBoard = new GameBoard();
 	 * 	gameBoard.setMap(nextMap.getNextMap());
 	 * }
