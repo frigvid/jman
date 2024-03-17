@@ -13,10 +13,7 @@ import javafx.stage.Screen;
  */
 public final class Constants
 {
-	private Constants()
-	{
-		// Restricted instantiation.
-	}
+	private Constants() {}
 
 	/* DEBUGGING. */
 	// Switch to true to enable debug logging.
