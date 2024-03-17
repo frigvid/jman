@@ -189,6 +189,7 @@ public class Player
 	 */
 	private void setPlayerSprite(String spritePath)
 	{
+		// FIXME: This should be extracted to its own class. This is re-used in multiple classes.
 		try
 		{
 			Image playerImage = new Image(
