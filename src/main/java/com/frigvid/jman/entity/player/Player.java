@@ -9,17 +9,24 @@ import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
 import com.frigvid.jman.view.GameBoard;
 import com.frigvid.jman.view.views.MapCompletion;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Player
 	extends Entity
 {
 	private boolean isAlive = true;
+	private boolean isInvincible = false;
 	
 	public Player(Map map)
 	{
@@ -158,6 +165,7 @@ public class Player
 							{
 								GameBoard.increaseScoreBy(Constants.SCORE_POWERUP);
 								map.decreasePowerupCountBy(1);
+								beInvincible(Constants.PLAYER_INVINCIBLE_DURATION);
 								return true;
 							}
 						}
@@ -223,6 +231,57 @@ public class Player
 		//entitySprite = null;
 	}
 	
+	/**
+	 * Toggles a boolean for the Player entity's invincibility state.
+	 * <p/>
+	 * This is used in conjunction with {@link #isInvincible()} in the
+	 * Ghost entity's {@link com.frigvid.jman.entity.ghost.Ghost#trackPlayer(Player, Map)}
+	 * method.
+	 * <p/>
+	 * Example usage:
+	 * {@snippet id="beInvincibleExample" :
+	 * 	if (player.isInvincible())
+	 * 	{
+	 * 		System.out.println("Player: I'm invincible!");
+	 * 	}
+	 * }
+	 * @param duration The duration of the invincibility.
+	 */
+	public void beInvincible(int duration)
+	{
+		if (Constants.DEBUG_ENABLED)
+		{
+			System.out.println("Player: Invincibility enabled!");
+		}
+		
+		isInvincible = true;
+		
+		// Disable invincibility after a set duration.
+		try
+		{
+			// NOTE: Normally you'd use this with a try-with-resource block, however, if that is done
+			//			the thread is paused until execution is finished. Effectively pausing the game in
+			//			the meantime.
+			ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+			executorService.schedule(() ->
+			{
+				if (Constants.DEBUG_ENABLED)
+				{
+					System.out.println("Player: Invincibility disabled!");
+				}
+				
+				isInvincible = false;
+			}, duration, TimeUnit.SECONDS);
+			
+			executorService.shutdown();
+		}
+		catch (Exception e)
+		{
+			System.out.println("Player: Executor service failed!");
+			e.printStackTrace(System.err);
+		}
+	}
+	
 	/* Getters. */
 	/**
 	 * Returns the current row of the Player Entity.
@@ -254,5 +313,10 @@ public class Player
 	public boolean isAlive()
 	{
 		return isAlive;
+	}
+	
+	public boolean isInvincible()
+	{
+		return isInvincible;
 	}
 }

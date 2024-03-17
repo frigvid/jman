@@ -7,6 +7,7 @@ import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.game.TickController;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.game.map.TileType;
+import com.frigvid.jman.view.GameBoard;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,8 @@ public class Ghost
 	protected boolean isAfraid;
 	private boolean isDead;
 	protected int actionDelay;
+	protected int originalSpawnRow;
+	protected int originalSpawnColumn;
 	
 	public Ghost(Map map)
 	{
@@ -74,6 +77,16 @@ public class Ghost
 		return Direction.values()[new Random().nextInt(Direction.values().length)];
 	}
 	
+	public void returnToSpawn()
+	{
+		GameBoard.increaseScoreBy(Constants.SCORE_GHOST);
+		
+		spawnRow = originalSpawnRow;
+		spawnColumn = originalSpawnColumn;
+		
+		updateSpritePosition();
+	}
+	
 	/* Setters. */
 	/**
 	 * Sets the spawn location for the ghost.
@@ -112,11 +125,17 @@ public class Ghost
 		// Randomize spawn location.
 		if (Math.random() > 0.5)
 		{
+			originalSpawnRow = spawn1Row;
+			originalSpawnColumn = spawn1Column;
+			
 			spawnRow = spawn1Row;
 			spawnColumn = spawn1Column;
 		}
 		else
 		{
+			originalSpawnRow = spawn2Row;
+			originalSpawnColumn = spawn2Column;
+			
 			spawnRow = spawn2Row;
 			spawnColumn = spawn2Column;
 		}
@@ -125,8 +144,8 @@ public class Ghost
 		{
 			System.out.println(
 				"Ghost: Setting spawn!"
-					+ "\n┣ Ghost spawn row: " + spawnRow
-					+ "\n┣ Ghost spawn column: " + spawnColumn
+				+ "\n┣ Ghost spawn row: " + spawnRow
+				+ "\n┣ Ghost spawn column: " + spawnColumn
 			);
 		}
 		
@@ -234,12 +253,25 @@ public class Ghost
 				&& spawnColumn == player.getCurrentColumn()
 			)
 			{
-				if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
-				{
-					System.out.println("Ghost: Player killed!");
-				}
 				
-				player.killPlayer();
+				if (player.isInvincible())
+				{
+					if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
+					{
+						System.out.println("Ghost: Ghost killed!");
+					}
+					
+					returnToSpawn();
+				}
+				else
+				{
+					if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
+					{
+						System.out.println("Ghost: Player killed!");
+					}
+					
+					player.killPlayer();
+				}
 			}
 			
 			teleportIfNecessary(spawnColumn, spawnRow);

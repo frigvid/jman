@@ -62,6 +62,7 @@ public final class Constants
 	//public static final double TILE_SIZE = SCREEN_SIZE > 3000 ? 25.0 * (SCALE_FACTOR / 1.50) : 25.0 / (SCALE_FACTOR / 1.75);
 	public static final long TICK_RATE = 25; // 40 ticks per second.
 	public static final double TILE_SIZE = 25.0;
+	public static final int PLAYER_INVINCIBLE_DURATION = 5;
 	public static final double PELLET_SIZE = 5.0;
 	public static final double POWERUP_SIZE = 10.0;
 	public static final int SCORE_PELLET = 10;
