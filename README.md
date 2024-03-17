@@ -18,6 +18,24 @@ Don't expect things to be very balanced though.
 <details>
 <summary>Design</summary>
 
+## Example images
+### Main Menu
+![MainMenu.png](./docs/examples/MainMenu.png)
+
+### Map 1: Beginnings
+![Map1.png](./docs/examples/Map1.png)
+![Map1_CompletionScreen.png](./docs/examples/Map1_CompletionScreen.png)
+![Map1_DeathScreen.png](./docs/examples/Map1_DeathScreen.png)
+
+### Map 2: Mania
+![Map2.png](./docs/examples/Map2.png)
+![Map2_CompletionScreen.png](./docs/examples/Map2_CompletionScreen.png)
+
+### Map 3: Electric Boogaloo
+![Map3.png](./docs/examples/Map3.png)
+
+There's a second spawn in the box in the top area, but ironically, this run no Ghosts spawned there.
+
 ## Map data
 Map file and its data is very simple.
 
