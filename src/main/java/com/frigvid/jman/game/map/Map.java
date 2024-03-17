@@ -9,6 +9,7 @@ import com.frigvid.jman.entity.ghost.personality.Red;
 import com.frigvid.jman.entity.player.Player;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -257,12 +258,20 @@ public class Map
 						break;
 					case EXIT:
 					case TELEPORT:
-						if (Constants.DEBUG_ENABLED)
-						{
-							Rectangle teleport = new Rectangle(x, y, TILE_SIZE, TILE_SIZE);
-							teleport.setFill(Color.PURPLE);
-							visualGrid.getChildren().add(teleport);
-						}
+						Image teleportImage = new Image(
+							Objects.requireNonNull(
+								getClass().getResourceAsStream(Constants.RESOURCE_BASE_PATH + "teleport.gif")
+							)
+						);
+						
+						ImageView teleport = new ImageView(teleportImage);
+						teleport.setFitWidth(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+						teleport.setFitHeight(Constants.TILE_SIZE * Constants.SCALE_FACTOR);
+						teleport.setX(x);
+						teleport.setY(y);
+						
+						visualGrid.getChildren().add(teleport);
+						
 						break;
 					case OPEN_SPACE:
 					default:
