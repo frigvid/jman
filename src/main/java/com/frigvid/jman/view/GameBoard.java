@@ -21,9 +21,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import static com.frigvid.jman.Constants.*;
@@ -66,9 +64,14 @@ public class GameBoard
 	private final String debugPlayerDirection = "Player direction: ";
 	private BorderPane root;
 	private Player player;
+	private Ghost cyan;
+	private Ghost orange;
+	private Ghost pink;
+	private Ghost red;
 	private String mapBasename;
 	private Map map;
 	private Group board;
+	private boolean isFirstClick = true;
 	
 	@Override
 	public void start(Stage stage)
@@ -99,21 +102,17 @@ public class GameBoard
 		player.load(board);
 		
 		// Initialize ghosts.
-		Ghost cyan = new Cyan(map);
+		cyan = new Cyan(map);
 		cyan.load(board);
-		cyan.start(player);
 		
-		Ghost orange = new Orange(map);
+		orange = new Orange(map);
 		orange.load(board);
-		orange.start(player);
 		
-		Ghost pink = new Pink(map);
+		pink = new Pink(map);
 		pink.load(board);
-		pink.start(player);
 		
-		Ghost red = new Red(map);
+		red = new Red(map);
 		red.load(board);
-		red.start(player);
 		
 		if (Constants.DEBUG_ENABLED)
 		{
@@ -161,6 +160,16 @@ public class GameBoard
 		{
 			if (player != null && player.isAlive())
 			{
+				// Only start the "AI" if it's the first click.
+				if (isFirstClick)
+				{
+					isFirstClick = false;
+					cyan.start(player);
+					orange.start(player);
+					pink.start(player);
+					red.start(player);
+				}
+				
 				switch (event.getCode())
 				{
 					case LEFT ->
