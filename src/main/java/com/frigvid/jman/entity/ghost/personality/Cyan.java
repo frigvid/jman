@@ -19,7 +19,7 @@ public class Cyan
 		setGhostSprite("inky/inky.png");
 		
 		// Personality.
-		setActionDelay(12);
+		setActionDelay(14);
 		enableChaseMode();
 	}
 }

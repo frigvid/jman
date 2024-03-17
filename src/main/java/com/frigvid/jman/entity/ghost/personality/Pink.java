@@ -19,7 +19,7 @@ public class Pink
 		setGhostSprite("pinky/pinky.png");
 		
 		// Personality.
-		setActionDelay(12);
+		setActionDelay(13);
 		enableChaseMode();
 	}
 }

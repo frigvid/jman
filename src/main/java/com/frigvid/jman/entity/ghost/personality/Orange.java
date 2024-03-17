@@ -19,7 +19,7 @@ public class Orange
 		setGhostSprite("clyde/clyde.png");
 		
 		// Personality.
-		setActionDelay(12);
+		setActionDelay(16);
 		enableChaseMode();
 	}
 }
