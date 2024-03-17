@@ -264,13 +264,23 @@ public class Ghost
 				System.out.println("Ghost: Player at " + player.getCurrentRow() + ", " + player.getCurrentColumn());
 			}
 			
+			// FIXME: Collision detection is far from perfect. You'll have Ghost entities that are
+			//			 not killed when they intersect with a Player, for some reason. Presumably due
+			//			 to the Sprite not actually being where the Ghost currently is? Unsure. Needs
+			//			 investigation.
+			// FIXME: There's also an issue of "slow" collision detection. Occasionally, a Player and
+			//			 Ghost intersect, but it's noticeably slow, in that it takes half a second or a
+			//			 second Player move before it's "detected."
 			if
 			(
 				spawnRow == player.getCurrentRow()
 				&& spawnColumn == player.getCurrentColumn()
 			)
 			{
-				
+				// FIXME: This does not work perfectly. In some rare cases, the Player will be
+				//			 killed when its 1 tile next to a Ghost when the timer has run out.
+				//			 Presumably this is due to the Ghost moving before its Sprite is updated?
+				//			 Unsure. But something to investigate if I have time.
 				if (player.isInvincible())
 				{
 					if (Constants.DEBUG_ENABLED && Constants.DEBUG_AI)
