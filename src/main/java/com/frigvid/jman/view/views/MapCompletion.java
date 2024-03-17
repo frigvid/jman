@@ -1,6 +1,7 @@
 package com.frigvid.jman.view.views;
 
 import com.frigvid.jman.Constants;
+import com.frigvid.jman.entity.player.Player;
 import com.frigvid.jman.game.map.Map;
 import com.frigvid.jman.view.GameBoard;
 import com.frigvid.jman.view.MainMenu;
@@ -21,6 +22,7 @@ public class MapCompletion
 {
 	private static final String WINDOW_TITLE = GAME_TITLE + " Map Completion";
 	private GameBoard gameBoard;
+	private Player player;
 	private int mapScore;
 	private int totalScore;
 	private Map currentMap;
@@ -32,26 +34,53 @@ public class MapCompletion
 	{
 		BorderPane root = new BorderPane();
 		
-		Text congratulations = new Text("Congratulations!");
-		congratulations.setStyle(Constants.TEXT_BASE_STYLE
-			+ "-fx-font-size: " + 48 * SCALE_FACTOR + "px;"
-			+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, gold 0%, yellow 50%);"
-		);
+		Text title;
+		Text p1;
+		Text p3;
 		
-		Text p1 = new Text("You've completed the map \"" + currentMapName + "\"!");
-		p1.setStyle(Constants.TEXT_BASE_STYLE
-			+ "-fx-fill: white;"
-			+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
-		);
+		if (player.isAlive())
+		{
+			title = new Text("Congratulations!");
+			title.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-font-size: " + 48 * SCALE_FACTOR + "px;"
+				+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, gold 0%, yellow 50%);"
+			);
+			
+			p1 = new Text("You've completed the map \"" + currentMapName + "\"!");
+			p1.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-fill: white;"
+				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
+			);
+			
+			p3 = new Text("Would you like to exit to the menu or continue to the next map?");
+			p3.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-fill: white;"
+				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
+			);
+		}
+		else
+		{
+			title = new Text("YOU ARE DEAD!");
+			title.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-font-size: " + 48 * SCALE_FACTOR + "px;"
+				+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, darkred 0%, red 50%);"
+			);
+			
+			p1 = new Text("You've died on map \"" + currentMapName + "\"...");
+			p1.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-fill: white;"
+				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
+			);
+			
+			p3 = new Text("Would you like to exit to the menu or retry?");
+			p3.setStyle(Constants.TEXT_BASE_STYLE
+				+ "-fx-fill: white;"
+				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
+			);
+		}
 		
 		Text p2 = new Text("You scored " + mapScore + ", for a total of " + totalScore + "!");
 		p2.setStyle(Constants.TEXT_BASE_STYLE
-			+ "-fx-fill: white;"
-			+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
-		);
-		
-		Text p3 = new Text("Would you like to exit to the menu or continue to the next map?");
-		p3.setStyle(Constants.TEXT_BASE_STYLE
 			+ "-fx-fill: white;"
 			+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
 		);
@@ -87,25 +116,49 @@ public class MapCompletion
 			gameBoard.start(stage);
 		});
 		
-		VBox message = new VBox(20, p1, new Region(), p2, new Region(), p3);
+		VBox message;
+		message = new VBox(20, p1, new Region(), p2, new Region(), p3);
 		message.setAlignment(Pos.CENTER);
 		message.setMinHeight(40);
 		message.setPadding(
 			new Insets(50, 0, 50, 0)
 		);
 		
-		HBox buttons = new HBox(20, buttonQuit, buttonContinue);
+		HBox buttons;
+		
+		if (player.isAlive())
+		{
+			buttons = new HBox(20, buttonQuit, buttonContinue);
+		}
+		else
+		{
+			buttons = new HBox(20, buttonQuit, buttonRetry);
+		}
+		
 		buttons.setAlignment(Pos.CENTER);
 		buttons.setMinHeight(40);
 		
-		VBox main = new VBox(20, congratulations, message, buttons, buttonRetry);
-		main.setAlignment(Pos.CENTER);
+		VBox main;
 		
+		if (player.isAlive())
+		{
+			main = new VBox(20, title, message, buttons, buttonRetry);
+			main.setStyle("-fx-background-color: black;"
+				+ "-fx-border-color: yellow;"
+				+ "-fx-border-width: 2px;"
+			);
+		}
+		else
+		{
+			main = new VBox(20, title, message, buttons);
+			main.setStyle("-fx-background-color: black;"
+				+ "-fx-border-color: darkred;"
+				+ "-fx-border-width: 2px;"
+			);
+		}
+		
+		main.setAlignment(Pos.CENTER);
 		main.setPrefSize(500, 300);
-		main.setStyle("-fx-background-color: black;"
-			+ "-fx-border-color: yellow;"
-			+ "-fx-border-width: 2px;"
-		);
 		
 		root.setCenter(main);
 		
@@ -146,5 +199,10 @@ public class MapCompletion
 	{
 		this.mapScore = mapScore;
 		totalScore += mapScore;
+	}
+	
+	public void setPlayer(Player player)
+	{
+		this.player = player;
 	}
 }

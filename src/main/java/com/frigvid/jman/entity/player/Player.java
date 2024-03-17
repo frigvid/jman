@@ -130,6 +130,7 @@ public class Player
 					MapCompletion mapComplete = new MapCompletion();
 					mapComplete.setCurrentMap(map);
 					mapComplete.setMapScore(GameBoard.getHighScore());
+					mapComplete.setPlayer(this);
 					mapComplete.start(Main.disgustingHack);
 				}
 				else
@@ -228,7 +229,12 @@ public class Player
 	public void killPlayer()
 	{
 		isAlive = false;
-		//entitySprite = null;
+		
+		MapCompletion mapComplete = new MapCompletion();
+		mapComplete.setCurrentMap(map);
+		mapComplete.setMapScore(GameBoard.getHighScore());
+		mapComplete.setPlayer(this);
+		mapComplete.start(Main.disgustingHack);
 	}
 	
 	/**
