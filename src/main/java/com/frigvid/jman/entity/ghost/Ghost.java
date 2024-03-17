@@ -20,7 +20,7 @@ public class Ghost
 {
 	protected Player player;
 	protected boolean chaseMode = false;
-	protected boolean isAfraid;
+	protected boolean isAfraid = false;
 	private boolean isDead;
 	protected int actionDelay;
 	protected double randomness;
@@ -192,6 +192,16 @@ public class Ghost
 		this.randomness = randomness;
 	}
 	
+	public void setIsAfraid(boolean isAfraid)
+	{
+		if (Constants.DEBUG_ENABLED)
+		{
+			System.out.println("Ghost: Afraid state: " + isAfraid);
+		}
+		
+		this.isAfraid = isAfraid;
+	}
+	
 	protected void enableChaseMode()
 	{
 		this.chaseMode = true;
@@ -232,6 +242,7 @@ public class Ghost
 	 */
 	public void trackPlayer(Player player, Map map)
 	{
+		setIsAfraid(player.isInvincible());
 		List<Pair<Integer, Integer>> path = findPath(player, map);
 		
 		if (path.size() > 1)
@@ -295,7 +306,17 @@ public class Ghost
 	private List<Pair<Integer, Integer>> findPath(Player player, Map map)
 	{
 		Pair<Integer, Integer> start = new Pair<>(spawnRow, spawnColumn);
-		Pair<Integer, Integer> goal = new Pair<>(player.getCurrentRow(), player.getCurrentColumn());
+		Pair<Integer, Integer> goal;
+		
+		// If the ghost is afraid, set the goal to the furthest tile from the player
+		if (isAfraid)
+		{
+			goal = getFurthestTileFromPlayer(player, map);
+		}
+		else
+		{
+			goal = new Pair<>(player.getCurrentRow(), player.getCurrentColumn());
+		}
 		
 		PriorityQueue<Pair<Integer, Integer>> openList = new PriorityQueue<>(
 			Comparator.comparingDouble(n -> heuristic(n, goal))
@@ -418,6 +439,39 @@ public class Ghost
 			Collections.shuffle(neighbors, new Random((long) (randomness * Integer.MAX_VALUE)));
 			
 			return neighbors;
+	}
+	
+	/**
+	 * Gets the furthest tile from the player.
+	 *
+	 * @param player The Player Entity to get the furthest tile from.
+	 * @param map The Map object to get the furthest tile in.
+	 * @return The furthest tile from the player.
+	 */
+	private Pair<Integer, Integer> getFurthestTileFromPlayer(Player player, Map map)
+	{
+		Pair<Integer, Integer> furthestTile = null;
+		double maxDistance = Double.MIN_VALUE;
+		
+		for (int row = 0; row < map.getMapHeight(); row++)
+		{
+			for (int col = 0; col < map.getMapWidth(); col++)
+			{
+				if (map.getTileType(col, row) != TileType.WALL)
+				{
+					Pair<Integer, Integer> tile = new Pair<>(row, col);
+					double distance = heuristic(tile, new Pair<>(player.getCurrentRow(), player.getCurrentColumn()));
+					
+					if (distance > maxDistance)
+					{
+						maxDistance = distance;
+						furthestTile = tile;
+					}
+				}
+			}
+		}
+		
+		return furthestTile;
 	}
 	
 	/**
