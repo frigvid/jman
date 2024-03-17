@@ -68,7 +68,7 @@ public class MapCompletion
 				+ "-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, darkred 0%, red 50%);"
 			);
 			
-			p1 = new Text("You've died on map \"" + currentMapName + "\"...");
+			p1 = new Text("You've died on map \"" + currentMapName + "\" ...");
 			p1.setStyle(Constants.TEXT_BASE_STYLE
 				+ "-fx-fill: white;"
 				+ "-fx-font-size: " + 12 * SCALE_FACTOR + "px;"
